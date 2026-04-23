@@ -21,13 +21,13 @@
 			</a>
 		{:else}
 			<a
-				href="/login"
+				href="/dashboard"
 				class="block w-full py-3 px-4 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700"
 			>
-				登录
+				开始使用
 			</a>
 		{/if}
 
-		<p class="text-xs text-gray-400">仅限受邀用户</p>
+		<p class="text-xs text-gray-400">当前为开放测试，无需登录</p>
 	</div>
 </main>

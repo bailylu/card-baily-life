@@ -1,29 +1,15 @@
 import { eq, gt } from 'drizzle-orm';
 import { getDb } from '$lib/db/client';
 import { sessions, users } from '$lib/db/schema';
-
-const SESSION_COOKIE = 'session';
-const SESSION_TTL = 60 * 60 * 24 * 30; // 30 days
+import {
+	clearSessionCookie,
+	getSessionCookieName,
+	getSessionTtl,
+	setSessionCookie
+} from '$lib/auth/session-cookie';
 
 export function getSessionCookie(cookies: { get(name: string): string | undefined }) {
-	return cookies.get(SESSION_COOKIE);
-}
-
-export function setSessionCookie(
-	cookies: { set(name: string, value: string, opts: object): void },
-	sessionId: string
-) {
-	cookies.set(SESSION_COOKIE, sessionId, {
-		path: '/',
-		httpOnly: true,
-		secure: true,
-		sameSite: 'lax',
-		maxAge: SESSION_TTL
-	});
-}
-
-export function clearSessionCookie(cookies: { delete(name: string, opts: object): void }) {
-	cookies.delete(SESSION_COOKIE, { path: '/' });
+	return cookies.get(getSessionCookieName());
 }
 
 export async function createSession(db: D1Database, userId: string): Promise<string> {
@@ -33,7 +19,7 @@ export async function createSession(db: D1Database, userId: string): Promise<str
 	await drizzle.insert(sessions).values({
 		id,
 		user_id: userId,
-		expires_at: now + SESSION_TTL,
+		expires_at: now + getSessionTtl(),
 		created_at: now
 	});
 	return id;
@@ -64,3 +50,5 @@ export async function deleteSession(db: D1Database, sessionId: string) {
 	const drizzle = getDb(db);
 	await drizzle.delete(sessions).where(eq(sessions.id, sessionId));
 }
+
+export { clearSessionCookie, setSessionCookie };
