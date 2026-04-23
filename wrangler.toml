@@ -1,0 +1,12 @@
+name = "card-baily-life"
+compatibility_date = "2024-09-23"
+compatibility_flags = ["nodejs_compat"]
+pages_build_output_dir = ".svelte-kit/cloudflare"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "card-baily-life"
+database_id = "844facab-69a4-41fc-8141-c5ce662f6a72"
+
+[vars]
+APP_URL = "https://card.baily.life"
