@@ -6,6 +6,7 @@ import { createSession, setSessionCookie } from '$lib/auth/session';
 export const GET: RequestHandler = async ({ url, platform, cookies }) => {
 	const token = url.searchParams.get('token') ?? '';
 	const db = platform!.env.DB;
+	const secureCookie = url.protocol === 'https:';
 
 	const result = await verifyMagicToken(db, token);
 	if (!result) {
@@ -13,6 +14,6 @@ export const GET: RequestHandler = async ({ url, platform, cookies }) => {
 	}
 
 	const sessionId = await createSession(db, result.userId);
-	setSessionCookie(cookies, sessionId);
+	setSessionCookie(cookies, sessionId, secureCookie);
 	redirect(302, '/dashboard');
 };
