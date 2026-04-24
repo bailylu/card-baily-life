@@ -17,7 +17,7 @@
 
 ## 现在做到哪里了
 
-当前阶段是 `M1`。
+当前阶段是 `M2`。
 
 `M1` 包含：
 - 项目脚手架
@@ -33,6 +33,12 @@
 - D1 初始化 migration 已执行
 - 本地登录链路已验证通过
 - 当前为开放测试模式，无需登录即可进入
+- 卡片 CRUD 页面已完成
+- 添加 / 编辑页已支持可视化卡片种类选择
+- Dashboard 已展示卡片列表和未来 30 天提醒预览
+- 首批卡片库种子数据已写入 `migrations/0002_seed_card_catalog.sql`
+- 演示用户卡片数据已写入 `migrations/0003_seed_demo_user_cards.sql`
+- 无 D1 绑定或 D1 临时不可用时，Dashboard 会显示演示卡片
 
 和 `M1` 相关的最新修复已经在这个分支里：
 - 分支：`codex/m1-auth-cookie-fix`
@@ -124,13 +130,21 @@ npx wrangler pages dev .svelte-kit/cloudflare
 
 ## 下一阶段是什么
 
-下一阶段是 `M2`：
+当前 `M2` 已完成：
 
 - 卡片库录入
 - 添加卡片
 - 编辑卡片
 - 删除卡片
 - Dashboard 展示近 30 天提醒预览
+- Dashboard 演示卡片回退
+- 表单解析和提醒预览单元测试
+
+下一阶段是 `M3`：
+
+- CF Email Service 配置 & 域名验证
+- Cron Trigger + 调度逻辑
+- 发送测试
 
 ## 注意
 
