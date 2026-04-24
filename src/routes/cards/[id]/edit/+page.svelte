@@ -11,6 +11,7 @@
 	<div class="mx-auto max-w-2xl">
 		<a href="/dashboard" class="text-sm text-blue-600 hover:text-blue-700">← 返回我的卡片</a>
 		<h1 class="mt-4 text-2xl font-bold text-gray-900">编辑卡片</h1>
+		<p class="mt-1 text-sm text-gray-500">只修改备注、尾号和提醒日期；卡片种类不能在这里更换。</p>
 
 		{#if form?.error}
 			<div class="mt-4 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">
@@ -20,160 +21,137 @@
 
 		{#if data.card}
 			<form method="POST" action="?/save" class="mt-6 space-y-5 rounded-xl border border-gray-200 bg-white p-5">
-				<section>
-					<div class="flex items-center justify-between gap-3">
-						<span class="text-sm font-medium text-gray-700">卡片种类</span>
-						<span class="text-xs text-gray-400">切换后会保留日期设置</span>
-					</div>
-					<div class="mt-3 grid gap-3 sm:grid-cols-2">
-						<label class="cursor-pointer">
-							<input class="peer sr-only" type="radio" name="catalog_id" value="" checked={data.card.catalog_id === null} />
-							<div class="rounded-2xl border border-gray-200 bg-gray-50 p-4 transition peer-checked:border-blue-500 peer-checked:ring-2 peer-checked:ring-blue-100">
-								<div class="relative overflow-hidden rounded-xl bg-gradient-to-br from-slate-700 to-slate-950 p-4 text-white shadow-sm">
-									<div class="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-white/10"></div>
-									<div class="relative">
-										<div class="flex items-center justify-between text-xs opacity-80">
-											<span>card.baily.life</span>
-											<span>自定义</span>
-										</div>
-										<p class="mt-8 text-base font-semibold">自定义信用卡</p>
-										<p class="mt-3 font-mono text-xs tracking-[0.3em] opacity-80">•••• {data.card.last_four}</p>
-									</div>
-								</div>
-								<p class="mt-3 text-sm font-medium text-gray-900">自定义卡片</p>
-								<p class="mt-1 text-xs text-gray-500">适合没有在卡片库中的卡</p>
-							</div>
-						</label>
+				<input type="hidden" name="catalog_id" value={data.card.catalog_id ?? ''} />
 
-						{#each data.catalog as card}
-							<label class="cursor-pointer">
-								<input
-									class="peer sr-only"
-									type="radio"
-									name="catalog_id"
-									value={card.id}
-									checked={data.card.catalog_id === card.id}
-								/>
-								<div class="rounded-2xl border border-gray-200 bg-white p-4 transition peer-checked:border-blue-500 peer-checked:ring-2 peer-checked:ring-blue-100">
-									<div
-										class="relative overflow-hidden rounded-xl p-4 shadow-sm"
-										style={`background: ${card.cardStyle.gradient}; color: ${card.cardStyle.text};`}
-									>
-										<div
-											class="absolute -right-8 -top-8 h-24 w-24 rounded-full"
-											style={`background: ${card.cardStyle.accent};`}
-										></div>
-										<div class="relative">
-											<div class="flex items-center justify-between text-xs opacity-80">
-												<span>{card.bank_name}</span>
-												<span>{card.cardStyle.label}</span>
-											</div>
-											<p class="mt-8 text-base font-semibold">{card.card_name}</p>
-											<p class="mt-3 font-mono text-xs tracking-[0.3em] opacity-80">•••• {data.card.last_four}</p>
-										</div>
-									</div>
-									<p class="mt-3 text-sm font-medium text-gray-900">{card.bank_name} {card.card_name}</p>
-									<p class="mt-1 text-xs text-gray-500">{card.card_tier ?? '标准卡'} · 年费以实际账单为准</p>
-								</div>
-							</label>
-						{/each}
+				<section class="rounded-2xl bg-gray-50 p-4">
+					<div class="flex items-center justify-between gap-3">
+						<div>
+							<h2 class="text-sm font-semibold text-gray-900">当前卡片</h2>
+							<p class="mt-1 text-xs text-gray-500">如需更换卡种，请删除后重新添加。</p>
+						</div>
+						<span class="rounded-full bg-gray-200 px-3 py-1 text-xs font-medium text-gray-600">不可更换</span>
+					</div>
+					<div
+						class="relative mt-4 aspect-[1.586/1] overflow-hidden rounded-2xl p-5 shadow-sm"
+						style={`background: ${data.card.cardStyle.gradient}; color: ${data.card.cardStyle.text};`}
+					>
+						<div
+							class="absolute -right-10 -top-10 h-28 w-28 rounded-full"
+							style={`background: ${data.card.cardStyle.accent};`}
+						></div>
+						<div
+							class="absolute bottom-4 right-6 h-8 w-14 rounded-full blur-sm"
+							style={`background: ${data.card.cardStyle.accent};`}
+						></div>
+						<div class="relative flex h-full flex-col justify-between">
+							<div class="flex items-center justify-between text-sm opacity-80">
+								<span>{data.card.bank_name ?? 'card.baily.life'}</span>
+								<span>{data.card.cardStyle.label}</span>
+							</div>
+							<div>
+								<h3 class="text-2xl font-semibold">{data.card.displayName}</h3>
+								<p class="mt-4 font-mono text-sm tracking-[0.35em] opacity-80">•••• {data.card.last_four}</p>
+							</div>
+						</div>
 					</div>
 				</section>
 
-				<label class="block">
-					<span class="text-sm font-medium text-gray-700">自定义名称</span>
-					<input
-						name="custom_name"
-						value={data.card.custom_name ?? ''}
-						class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2"
-					/>
-				</label>
+				<section class="rounded-2xl bg-gray-50 p-4">
+					<h2 class="text-sm font-semibold text-gray-900">卡片信息</h2>
+					<p class="mt-1 text-xs text-gray-500">备注名称只在你的卡片列表里显示，方便自己识别。</p>
+					<div class="mt-4 grid gap-4 sm:grid-cols-2">
+						<label class="block sm:col-span-2">
+							<span class="text-sm font-medium text-gray-700">备注名称</span>
+							<input
+								name="custom_name"
+								value={data.card.custom_name ?? ''}
+								class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2"
+								placeholder="例如：日常用招商白金"
+							/>
+						</label>
+						<label class="block">
+							<span class="text-sm font-medium text-gray-700">卡片尾号</span>
+							<input
+								name="last_four"
+								inputmode="numeric"
+								maxlength="4"
+								required
+								value={data.card.last_four}
+								class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2"
+							/>
+						</label>
+						<label class="block">
+							<span class="text-sm font-medium text-gray-700">提前提醒天数</span>
+							<select name="lead_days" class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2" required>
+								<option value="0" selected={data.card.lead_days === 0}>当天提醒</option>
+								<option value="1" selected={data.card.lead_days === 1}>提前 1 天</option>
+								<option value="3" selected={data.card.lead_days === 3}>提前 3 天</option>
+								<option value="5" selected={data.card.lead_days === 5}>提前 5 天</option>
+								<option value="7" selected={data.card.lead_days === 7}>提前 7 天</option>
+								<option value="10" selected={data.card.lead_days === 10}>提前 10 天</option>
+								<option value="15" selected={data.card.lead_days === 15}>提前 15 天</option>
+							</select>
+						</label>
+					</div>
+				</section>
 
-				<div class="grid gap-4 sm:grid-cols-2">
-					<label class="block">
-						<span class="text-sm font-medium text-gray-700">卡片尾号</span>
-						<input
-							name="last_four"
-							inputmode="numeric"
-							maxlength="4"
-							required
-							value={data.card.last_four}
-							class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2"
-						/>
-					</label>
-					<label class="block">
-						<span class="text-sm font-medium text-gray-700">提前提醒天数</span>
-						<input
-							name="lead_days"
-							type="number"
-							min="0"
-							max="30"
-							required
-							value={data.card.lead_days}
-							class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2"
-						/>
-					</label>
-				</div>
+				<section class="rounded-2xl bg-blue-50/60 p-4">
+					<h2 class="text-sm font-semibold text-gray-900">循环提醒日期</h2>
+					<p class="mt-1 text-xs leading-5 text-gray-500">账单日和还款日按每个自然月循环，月末日期按当月日历处理。</p>
+					<div class="mt-4 grid gap-4 sm:grid-cols-2">
+						<label class="block">
+							<span class="text-sm font-medium text-gray-700">账单日（每月）</span>
+							<select name="statement_day" required class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2">
+								{#each Array.from({ length: 31 }, (_, index) => index + 1) as day}
+									<option value={day} selected={data.card.statement_day === day}>{day} 日</option>
+								{/each}
+							</select>
+						</label>
+						<label class="block">
+							<span class="text-sm font-medium text-gray-700">还款日（每月）</span>
+							<select name="due_day" required class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2">
+								{#each Array.from({ length: 31 }, (_, index) => index + 1) as day}
+									<option value={day} selected={data.card.due_day === day}>{day} 日</option>
+								{/each}
+							</select>
+						</label>
+					</div>
+				</section>
 
-				<div class="grid gap-4 sm:grid-cols-2">
-					<label class="block">
-						<span class="text-sm font-medium text-gray-700">账单日</span>
-						<input
-							name="statement_day"
-							type="number"
-							min="1"
-							max="31"
-							required
-							value={data.card.statement_day}
-							class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2"
-						/>
-					</label>
-					<label class="block">
-						<span class="text-sm font-medium text-gray-700">还款日</span>
-						<input
-							name="due_day"
-							type="number"
-							min="1"
-							max="31"
-							required
-							value={data.card.due_day}
-							class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2"
-						/>
-					</label>
-				</div>
-
-				<div class="grid gap-4 sm:grid-cols-2">
-					<label class="block">
-						<span class="text-sm font-medium text-gray-700">年费月份（可选）</span>
-						<input
-							name="annual_fee_month"
-							type="number"
-							min="1"
-							max="12"
-							value={data.card.annual_fee_month ?? ''}
-							class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2"
-						/>
-					</label>
-					<label class="block">
-						<span class="text-sm font-medium text-gray-700">年费日期（可选）</span>
-						<input
-							name="annual_fee_day"
-							type="number"
-							min="1"
-							max="31"
-							value={data.card.annual_fee_day ?? ''}
-							class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2"
-						/>
-					</label>
-				</div>
+				<section class="rounded-2xl bg-amber-50/70 p-4">
+					<h2 class="text-sm font-semibold text-gray-900">年费提醒（可选）</h2>
+					<p class="mt-1 text-xs text-gray-500">年费通常一年一次，填写月份和日期后，每年提醒一次；不需要就留空。</p>
+					<div class="mt-4 grid gap-4 sm:grid-cols-2">
+						<label class="block">
+							<span class="text-sm font-medium text-gray-700">年费月份</span>
+							<select name="annual_fee_month" class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2">
+								<option value="">不设置</option>
+								{#each Array.from({ length: 12 }, (_, index) => index + 1) as month}
+									<option value={month} selected={data.card.annual_fee_month === month}>{month} 月</option>
+								{/each}
+							</select>
+						</label>
+						<label class="block">
+							<span class="text-sm font-medium text-gray-700">年费日期</span>
+							<select name="annual_fee_day" class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2">
+								<option value="">不设置</option>
+								{#each Array.from({ length: 31 }, (_, index) => index + 1) as day}
+									<option value={day} selected={data.card.annual_fee_day === day}>{day} 日</option>
+								{/each}
+							</select>
+						</label>
+					</div>
+				</section>
 
 				<button class="w-full rounded-lg bg-blue-600 px-4 py-3 font-medium text-white hover:bg-blue-700">
 					保存修改
 				</button>
 			</form>
 
-			<form method="POST" action="?/delete" class="mt-4">
-				<button class="w-full rounded-lg border border-red-200 bg-white px-4 py-3 font-medium text-red-600 hover:bg-red-50">
+			<form method="POST" action="?/delete" class="mt-4 rounded-xl border border-red-100 bg-white p-5">
+				<p class="text-sm font-semibold text-gray-900">删除卡片</p>
+				<p class="mt-1 text-xs text-gray-500">删除后，这张卡片和它的提醒预览会从你的列表移除。</p>
+				<button class="mt-4 w-full rounded-lg border border-red-200 bg-red-50 px-4 py-3 font-medium text-red-600 hover:bg-red-100">
 					删除这张卡片
 				</button>
 			</form>

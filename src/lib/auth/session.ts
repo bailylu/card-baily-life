@@ -1,4 +1,4 @@
-import { eq, gt } from 'drizzle-orm';
+import { eq } from 'drizzle-orm';
 import { getDb } from '$lib/db/client';
 import { sessions, users } from '$lib/db/schema';
 import {

@@ -37,11 +37,11 @@ test('parseCardForm accepts a catalog card with annual fee date', () => {
 	});
 });
 
-test('parseCardForm accepts a custom card without annual fee date', () => {
+test('parseCardForm accepts a catalog card without annual fee date', () => {
 	const result = parseCardForm(
 		form({
-			catalog_id: '',
-			custom_name: '测试卡',
+			catalog_id: '18',
+			custom_name: '测试备注',
 			last_four: '8888',
 			statement_day: '12',
 			due_day: '30',
@@ -51,9 +51,25 @@ test('parseCardForm accepts a custom card without annual fee date', () => {
 		})
 	);
 
-	assert.equal(result.values?.customName, '测试卡');
+	assert.equal(result.values?.catalogId, 18);
+	assert.equal(result.values?.customName, '测试备注');
 	assert.equal(result.values?.annualFeeMonth, null);
 	assert.equal(result.values?.annualFeeDay, null);
+});
+
+test('parseCardForm rejects missing catalog card', () => {
+	const result = parseCardForm(
+		form({
+			catalog_id: '',
+			custom_name: '测试卡',
+			last_four: '8888',
+			statement_day: '12',
+			due_day: '30',
+			lead_days: '3'
+		})
+	);
+
+	assert.equal(result.error, '请选择一张卡片');
 });
 
 test('parseCardForm rejects invalid card tail number', () => {

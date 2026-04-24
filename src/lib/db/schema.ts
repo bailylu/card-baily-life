@@ -9,6 +9,7 @@ export const allowlist = sqliteTable('allowlist', {
 export const users = sqliteTable('users', {
 	id: text('id').primaryKey(),
 	email: text('email').unique().notNull(),
+	password_hash: text('password_hash'),
 	created_at: integer('created_at').notNull(),
 	last_login_at: integer('last_login_at')
 });
@@ -33,6 +34,8 @@ export const card_catalog = sqliteTable('card_catalog', {
 	bank_name: text('bank_name').notNull(),
 	card_name: text('card_name').notNull(),
 	card_tier: text('card_tier'),
+	network: text('network'),
+	tags: text('tags'),
 	image_url: text('image_url'),
 	annual_fee_cny: integer('annual_fee_cny'),
 	notes: text('notes')
@@ -49,6 +52,17 @@ export const user_cards = sqliteTable('user_cards', {
 	annual_fee_month: integer('annual_fee_month'),
 	annual_fee_day: integer('annual_fee_day'),
 	lead_days: integer('lead_days').notNull().default(3),
+	created_at: integer('created_at').notNull()
+});
+
+export const card_requests = sqliteTable('card_requests', {
+	id: text('id').primaryKey(),
+	user_id: text('user_id').notNull().references(() => users.id),
+	bank_name: text('bank_name').notNull(),
+	card_name: text('card_name').notNull(),
+	card_tier: text('card_tier'),
+	notes: text('notes'),
+	status: text('status').notNull().default('pending'),
 	created_at: integer('created_at').notNull()
 });
 

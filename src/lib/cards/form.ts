@@ -23,7 +23,7 @@ export function parseCardForm(formData: FormData): { values?: CardFormValues; er
 	const annualFeeMonth = annualFeeMonthValue ? Number(annualFeeMonthValue) : null;
 	const annualFeeDay = annualFeeDayValue ? Number(annualFeeDayValue) : null;
 
-	if (!catalogId && !customName) return { error: '请选择卡片库或填写自定义卡片名称' };
+	if (!catalogId) return { error: '请选择一张卡片' };
 	if (!/^\d{4}$/.test(lastFour)) return { error: '卡片尾号需要填写 4 位数字' };
 	if (!Number.isInteger(statementDay) || statementDay < 1 || statementDay > 31) {
 		return { error: '账单日需要是 1-31 的数字' };

@@ -110,6 +110,10 @@ export function getDisplayName(card: {
 	return card.custom_name || [card.bank_name, card.card_name].filter(Boolean).join(' ') || '自定义信用卡';
 }
 
+export function getCatalogName(card: { bank_name: string | null; card_name: string | null }) {
+	return [card.bank_name, card.card_name].filter(Boolean).join(' ') || null;
+}
+
 export function getCardStyle(bankName: string | null, cardTier: string | null): CardStyle {
 	if (cardTier?.includes('白金') && !bankName) {
 		return {
@@ -256,11 +260,33 @@ export function getDemoDashboardCards(): DashboardCard[] {
 
 export async function getUserCard(db: D1Database, userId: string, cardId: string) {
 	const rows = await getDb(db)
-		.select()
+		.select({
+			id: user_cards.id,
+			user_id: user_cards.user_id,
+			catalog_id: user_cards.catalog_id,
+			custom_name: user_cards.custom_name,
+			last_four: user_cards.last_four,
+			statement_day: user_cards.statement_day,
+			due_day: user_cards.due_day,
+			annual_fee_month: user_cards.annual_fee_month,
+			annual_fee_day: user_cards.annual_fee_day,
+			lead_days: user_cards.lead_days,
+			created_at: user_cards.created_at,
+			bank_name: card_catalog.bank_name,
+			card_name: card_catalog.card_name,
+			card_tier: card_catalog.card_tier
+		})
 		.from(user_cards)
+		.leftJoin(card_catalog, eq(user_cards.catalog_id, card_catalog.id))
 		.where(and(eq(user_cards.user_id, userId), eq(user_cards.id, cardId)))
 		.limit(1);
-	return rows[0] ?? null;
+	const card = rows[0];
+	if (!card) return null;
+	return {
+		...card,
+		displayName: getDisplayName(card),
+		cardStyle: getCardStyle(card.bank_name, card.card_tier)
+	};
 }
 
 export async function createUserCard(db: D1Database, userId: string, values: CardFormValues) {
@@ -310,10 +336,11 @@ export async function deleteUserCard(db: D1Database, userId: string, cardId: str
 export function buildReminderPreview(cards: DashboardCard[]) {
 	return getReminderPreview(
 		cards.map((card) => ({
-			id: card.id,
-			displayName: card.displayName,
-			last_four: card.last_four,
-			statement_day: card.statement_day,
+				id: card.id,
+				displayName: card.displayName,
+				catalogName: getCatalogName(card),
+				last_four: card.last_four,
+				statement_day: card.statement_day,
 			due_day: card.due_day,
 			annual_fee_month: card.annual_fee_month,
 			annual_fee_day: card.annual_fee_day,

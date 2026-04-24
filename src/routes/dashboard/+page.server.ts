@@ -1,10 +1,6 @@
+import { redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import {
-	buildReminderPreview,
-	ensureCurrentUserId,
-	getDemoDashboardCards,
-	listUserCards
-} from '$lib/cards/service';
+import { buildReminderPreview, listUserCards } from '$lib/cards/service';
 
 function timeout<T>(ms: number): Promise<T> {
 	return new Promise((_, reject) => {
@@ -12,20 +8,21 @@ function timeout<T>(ms: number): Promise<T> {
 	});
 }
 
-function demoDashboard(user: App.Locals['user']) {
-	const cards = getDemoDashboardCards();
-	return { user, cards, reminders: buildReminderPreview(cards), configMissing: true };
+function emptyDashboard(user: App.Locals['user']) {
+	return { user, cards: [], reminders: [], configMissing: true };
 }
 
 export const load: PageServerLoad = async ({ locals, platform }) => {
+	if (!locals.user) redirect(302, '/login');
+
 	if (!platform?.env.DB) {
-		return demoDashboard(locals.user);
+		return emptyDashboard(locals.user);
 	}
 
 	try {
+		const userId = locals.user.id;
 		const cards = await Promise.race([
 			(async () => {
-				const userId = await ensureCurrentUserId(platform.env.DB, locals.user?.id);
 				return listUserCards(platform.env.DB, userId);
 			})(),
 			timeout<Awaited<ReturnType<typeof listUserCards>>>(2500)
@@ -38,6 +35,6 @@ export const load: PageServerLoad = async ({ locals, platform }) => {
 			configMissing: false
 		};
 	} catch {
-		return demoDashboard(locals.user);
+		return emptyDashboard(locals.user);
 	}
 };

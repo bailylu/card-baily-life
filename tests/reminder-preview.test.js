@@ -46,3 +46,35 @@ test('getReminderPreview returns annual fee reminders inside the window', () => 
 	assert.ok(previews.some((preview) => preview.type === 'annual_fee'));
 	assert.ok(previews.some((preview) => preview.targetDate === '2027-03-18'));
 });
+
+test('getReminderPreview sorts by the nearest reminder date first', () => {
+	const previews = getReminderPreview(
+		[
+			{
+				id: 'card-late-target-early-remind',
+				displayName: '提前提醒卡',
+				last_four: '1111',
+				statement_day: 15,
+				due_day: 20,
+				annual_fee_month: null,
+				annual_fee_day: null,
+				lead_days: 10
+			},
+			{
+				id: 'card-early-target-late-remind',
+				displayName: '当天提醒卡',
+				last_four: '2222',
+				statement_day: 10,
+				due_day: 21,
+				annual_fee_month: null,
+				annual_fee_day: null,
+				lead_days: 0
+			}
+		],
+		new Date(2027, 2, 1),
+		30
+	);
+
+	assert.equal(previews[0].cardId, 'card-late-target-early-remind');
+	assert.equal(previews[0].remindDate, '2027-03-05');
+});

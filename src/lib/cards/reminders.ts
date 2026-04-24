@@ -3,6 +3,7 @@ export type ReminderType = 'statement' | 'due' | 'annual_fee';
 export type ReminderCard = {
 	id: string;
 	displayName: string;
+	catalogName: string | null;
 	last_four: string;
 	statement_day: number;
 	due_day: number;
@@ -14,12 +15,14 @@ export type ReminderCard = {
 export type ReminderPreview = {
 	cardId: string;
 	cardName: string;
+	catalogName: string | null;
 	lastFour: string;
 	type: ReminderType;
 	typeLabel: string;
 	targetDate: string;
 	remindDate: string;
 	daysUntilTarget: number;
+	daysUntilRemind: number;
 };
 
 const TYPE_LABELS: Record<ReminderType, string> = {
@@ -94,19 +97,27 @@ export function getReminderPreview(cards: ReminderCard[], today = new Date(), wi
 		for (const target of targets) {
 			const daysUntilTarget = diffDays(today, target.date);
 			if (daysUntilTarget < 0 || daysUntilTarget > windowDays) continue;
+			const remindDate = addDays(target.date, -card.lead_days);
 
-			previews.push({
-				cardId: card.id,
-				cardName: card.displayName,
-				lastFour: card.last_four,
-				type: target.type,
+				previews.push({
+					cardId: card.id,
+					cardName: card.displayName,
+					catalogName: card.catalogName,
+					lastFour: card.last_four,
+					type: target.type,
 				typeLabel: TYPE_LABELS[target.type],
 				targetDate: formatDate(target.date),
-				remindDate: formatDate(addDays(target.date, -card.lead_days)),
-				daysUntilTarget
+				remindDate: formatDate(remindDate),
+				daysUntilTarget,
+				daysUntilRemind: diffDays(today, remindDate)
 			});
 		}
 	}
 
-	return previews.sort((left, right) => left.daysUntilTarget - right.daysUntilTarget);
+	return previews.sort(
+		(left, right) =>
+			left.daysUntilRemind - right.daysUntilRemind ||
+			left.daysUntilTarget - right.daysUntilTarget ||
+			left.cardName.localeCompare(right.cardName, 'zh-CN')
+	);
 }
