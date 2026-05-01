@@ -8,19 +8,30 @@ import {
 	parseCardForm
 } from '$lib/cards/service';
 import { notifyAdminCardRequest } from '$lib/notifications/admin';
+import { getNotificationSettings } from '$lib/notifications/settings';
+
+function hasNotificationChannel(settings: Awaited<ReturnType<typeof getNotificationSettings>>) {
+	return Boolean(
+		settings.barkKey ||
+			settings.pushPlusToken ||
+			(settings.telegramBotToken && settings.telegramChatId)
+	);
+}
 
 export const load: PageServerLoad = async ({ locals, platform }) => {
 	if (!locals.user) redirect(302, '/login');
-	if (!platform?.env.DB) return { user: locals.user, catalog: [], configMissing: true };
+	if (!platform?.env.DB) return { user: locals.user, catalog: [], configMissing: true, hasNotificationChannel: false };
 
 	try {
+		const settings = await getNotificationSettings(platform.env.DB, locals.user.id);
 		return {
 			user: locals.user,
 			catalog: await listCatalog(platform.env.DB),
-			configMissing: false
+			configMissing: false,
+			hasNotificationChannel: hasNotificationChannel(settings)
 		};
 	} catch {
-		return { user: locals.user, catalog: [], configMissing: true };
+		return { user: locals.user, catalog: [], configMissing: true, hasNotificationChannel: false };
 	}
 };
 

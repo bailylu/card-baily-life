@@ -1,4 +1,5 @@
 <script lang="ts">
+	import CardFace from '$lib/components/CardFace.svelte';
 	import type { ActionData, PageData } from './$types';
 	let { data, form }: { data: PageData; form: ActionData } = $props();
 </script>
@@ -31,30 +32,15 @@
 						</div>
 						<span class="rounded-full bg-gray-200 px-3 py-1 text-xs font-medium text-gray-600">不可更换</span>
 					</div>
-					<div
-						class="relative mt-4 aspect-[1.586/1] overflow-hidden rounded-2xl p-5 shadow-sm"
-						style={`background: ${data.card.cardStyle.gradient}; color: ${data.card.cardStyle.text};`}
-					>
-						<div
-							class="absolute -right-10 -top-10 h-28 w-28 rounded-full"
-							style={`background: ${data.card.cardStyle.accent};`}
-						></div>
-						<div
-							class="absolute bottom-4 right-6 h-8 w-14 rounded-full blur-sm"
-							style={`background: ${data.card.cardStyle.accent};`}
-						></div>
-						<div class="relative flex h-full flex-col justify-between">
-							<div class="flex items-center justify-between text-sm opacity-80">
-								<span>{data.card.bank_name ?? 'card.baily.life'}</span>
-								<span>{data.card.cardStyle.label}</span>
-							</div>
-							<div>
-								<h3 class="text-2xl font-semibold">{data.card.displayName}</h3>
-								<p class="mt-4 font-mono text-sm tracking-[0.35em] opacity-80">•••• {data.card.last_four}</p>
-							</div>
-						</div>
-					</div>
-				</section>
+						<CardFace
+							imageUrl={data.card.image_url}
+							bankName={data.card.bank_name}
+							displayName={data.card.displayName}
+							lastFour={data.card.last_four}
+							cardStyle={data.card.cardStyle}
+							class="mt-4"
+						/>
+					</section>
 
 				<section class="rounded-2xl bg-gray-50 p-4">
 					<h2 class="text-sm font-semibold text-gray-900">卡片信息</h2>

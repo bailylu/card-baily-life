@@ -94,12 +94,13 @@ export type DashboardCard = {
 	annual_fee_month: number | null;
 	annual_fee_day: number | null;
 	lead_days: number;
-	bank_name: string | null;
-	card_name: string | null;
-	card_tier: string | null;
-	displayName: string;
-	cardStyle: CardStyle;
-	isDemo: boolean;
+		bank_name: string | null;
+		card_name: string | null;
+		card_tier: string | null;
+		image_url: string | null;
+		displayName: string;
+		cardStyle: CardStyle;
+		isDemo: boolean;
 };
 
 export function getDisplayName(card: {
@@ -171,9 +172,10 @@ export async function listUserCards(db: D1Database, userId: string) {
 			annual_fee_month: user_cards.annual_fee_month,
 			annual_fee_day: user_cards.annual_fee_day,
 			lead_days: user_cards.lead_days,
-			bank_name: card_catalog.bank_name,
-			card_name: card_catalog.card_name,
-			card_tier: card_catalog.card_tier
+				bank_name: card_catalog.bank_name,
+				card_name: card_catalog.card_name,
+				card_tier: card_catalog.card_tier,
+				image_url: card_catalog.image_url
 		})
 		.from(user_cards)
 		.leftJoin(card_catalog, eq(user_cards.catalog_id, card_catalog.id))
@@ -194,8 +196,9 @@ export function getDemoDashboardCards(): DashboardCard[] {
 			id: 'demo-cmb-platinum',
 			bank_name: '招商银行',
 			card_name: '经典白金信用卡',
-			card_tier: '白金',
-			last_four: '0318',
+				card_tier: '白金',
+				image_url: null,
+				last_four: '0318',
 			statement_day: 5,
 			due_day: 23,
 			annual_fee_month: 3,
@@ -206,8 +209,9 @@ export function getDemoDashboardCards(): DashboardCard[] {
 			id: 'demo-ccb-global',
 			bank_name: '建设银行',
 			card_name: '龙卡全球支付信用卡',
-			card_tier: '白金',
-			last_four: '9527',
+				card_tier: '白金',
+				image_url: null,
+				last_four: '9527',
 			statement_day: 12,
 			due_day: 30,
 			annual_fee_month: null,
@@ -218,8 +222,9 @@ export function getDemoDashboardCards(): DashboardCard[] {
 			id: 'demo-spdb-amex',
 			bank_name: '浦发银行',
 			card_name: '美国运通白金信用卡',
-			card_tier: '白金',
-			last_four: '8888',
+				card_tier: '白金',
+				image_url: null,
+				last_four: '8888',
 			statement_day: 20,
 			due_day: 8,
 			annual_fee_month: 8,
@@ -230,9 +235,10 @@ export function getDemoDashboardCards(): DashboardCard[] {
 			id: 'demo-custom-green',
 			bank_name: null,
 			card_name: null,
-			card_tier: '自定义',
-			custom_name: '测试绿色生活卡',
-			last_four: '6666',
+				card_tier: '自定义',
+				custom_name: '测试绿色生活卡',
+				image_url: null,
+				last_four: '6666',
 			statement_day: 28,
 			due_day: 15,
 			annual_fee_month: 12,
@@ -272,9 +278,10 @@ export async function getUserCard(db: D1Database, userId: string, cardId: string
 			annual_fee_day: user_cards.annual_fee_day,
 			lead_days: user_cards.lead_days,
 			created_at: user_cards.created_at,
-			bank_name: card_catalog.bank_name,
-			card_name: card_catalog.card_name,
-			card_tier: card_catalog.card_tier
+				bank_name: card_catalog.bank_name,
+				card_name: card_catalog.card_name,
+				card_tier: card_catalog.card_tier,
+				image_url: card_catalog.image_url
 		})
 		.from(user_cards)
 		.leftJoin(card_catalog, eq(user_cards.catalog_id, card_catalog.id))
