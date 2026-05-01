@@ -1,4 +1,5 @@
-const ITERATIONS = 120_000;
+// CF Workers CPU limit is ~50ms; 10k iterations stays well within budget
+const ITERATIONS = 10_000;
 const KEY_LENGTH_BITS = 256;
 
 function bytesToBase64(bytes: Uint8Array) {
