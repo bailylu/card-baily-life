@@ -37,6 +37,7 @@ export const card_catalog = sqliteTable('card_catalog', {
 	network: text('network'),
 	tags: text('tags'),
 	image_url: text('image_url'),
+	variants: text('variants'),
 	annual_fee_cny: integer('annual_fee_cny'),
 	notes: text('notes')
 });
@@ -52,6 +53,7 @@ export const user_cards = sqliteTable('user_cards', {
 	annual_fee_month: integer('annual_fee_month'),
 	annual_fee_day: integer('annual_fee_day'),
 	lead_days: integer('lead_days').notNull().default(3),
+	selected_image_url: text('selected_image_url'),
 	created_at: integer('created_at').notNull()
 });
 

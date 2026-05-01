@@ -94,12 +94,14 @@ export type DashboardCard = {
 	annual_fee_month: number | null;
 	annual_fee_day: number | null;
 	lead_days: number;
-	bank_name: string | null;
-	card_name: string | null;
-	card_tier: string | null;
-	displayName: string;
-	cardStyle: CardStyle;
-	isDemo: boolean;
+		bank_name: string | null;
+		card_name: string | null;
+		card_tier: string | null;
+		image_url: string | null;
+		selected_image_url: string | null;
+		displayName: string;
+		cardStyle: CardStyle;
+		isDemo: boolean;
 };
 
 export function getDisplayName(card: {
@@ -171,9 +173,11 @@ export async function listUserCards(db: D1Database, userId: string) {
 			annual_fee_month: user_cards.annual_fee_month,
 			annual_fee_day: user_cards.annual_fee_day,
 			lead_days: user_cards.lead_days,
-			bank_name: card_catalog.bank_name,
-			card_name: card_catalog.card_name,
-			card_tier: card_catalog.card_tier
+			selected_image_url: user_cards.selected_image_url,
+				bank_name: card_catalog.bank_name,
+				card_name: card_catalog.card_name,
+				card_tier: card_catalog.card_tier,
+				image_url: card_catalog.image_url
 		})
 		.from(user_cards)
 		.leftJoin(card_catalog, eq(user_cards.catalog_id, card_catalog.id))
@@ -182,6 +186,7 @@ export async function listUserCards(db: D1Database, userId: string) {
 
 	return rows.map((card) => ({
 		...card,
+		image_url: card.selected_image_url ?? card.image_url,
 		displayName: getDisplayName(card),
 		cardStyle: getCardStyle(card.bank_name, card.card_tier),
 		isDemo: false
@@ -194,8 +199,9 @@ export function getDemoDashboardCards(): DashboardCard[] {
 			id: 'demo-cmb-platinum',
 			bank_name: '招商银行',
 			card_name: '经典白金信用卡',
-			card_tier: '白金',
-			last_four: '0318',
+				card_tier: '白金',
+				image_url: null,
+				last_four: '0318',
 			statement_day: 5,
 			due_day: 23,
 			annual_fee_month: 3,
@@ -206,8 +212,9 @@ export function getDemoDashboardCards(): DashboardCard[] {
 			id: 'demo-ccb-global',
 			bank_name: '建设银行',
 			card_name: '龙卡全球支付信用卡',
-			card_tier: '白金',
-			last_four: '9527',
+				card_tier: '白金',
+				image_url: null,
+				last_four: '9527',
 			statement_day: 12,
 			due_day: 30,
 			annual_fee_month: null,
@@ -218,8 +225,9 @@ export function getDemoDashboardCards(): DashboardCard[] {
 			id: 'demo-spdb-amex',
 			bank_name: '浦发银行',
 			card_name: '美国运通白金信用卡',
-			card_tier: '白金',
-			last_four: '8888',
+				card_tier: '白金',
+				image_url: null,
+				last_four: '8888',
 			statement_day: 20,
 			due_day: 8,
 			annual_fee_month: 8,
@@ -230,9 +238,10 @@ export function getDemoDashboardCards(): DashboardCard[] {
 			id: 'demo-custom-green',
 			bank_name: null,
 			card_name: null,
-			card_tier: '自定义',
-			custom_name: '测试绿色生活卡',
-			last_four: '6666',
+				card_tier: '自定义',
+				custom_name: '测试绿色生活卡',
+				image_url: null,
+				last_four: '6666',
 			statement_day: 28,
 			due_day: 15,
 			annual_fee_month: 12,
@@ -244,6 +253,7 @@ export function getDemoDashboardCards(): DashboardCard[] {
 	return cards.map((card) => ({
 		...card,
 		catalog_id: null,
+		selected_image_url: null,
 		custom_name: 'custom_name' in card ? (card.custom_name ?? null) : null,
 		displayName: getDisplayName({
 			bank_name: card.bank_name,
@@ -272,9 +282,10 @@ export async function getUserCard(db: D1Database, userId: string, cardId: string
 			annual_fee_day: user_cards.annual_fee_day,
 			lead_days: user_cards.lead_days,
 			created_at: user_cards.created_at,
-			bank_name: card_catalog.bank_name,
-			card_name: card_catalog.card_name,
-			card_tier: card_catalog.card_tier
+				bank_name: card_catalog.bank_name,
+				card_name: card_catalog.card_name,
+				card_tier: card_catalog.card_tier,
+				image_url: card_catalog.image_url
 		})
 		.from(user_cards)
 		.leftJoin(card_catalog, eq(user_cards.catalog_id, card_catalog.id))
@@ -302,6 +313,7 @@ export async function createUserCard(db: D1Database, userId: string, values: Car
 		annual_fee_month: values.annualFeeMonth,
 		annual_fee_day: values.annualFeeDay,
 		lead_days: values.leadDays,
+		selected_image_url: values.selectedImageUrl ?? null,
 		created_at: now
 	});
 }
@@ -339,6 +351,7 @@ export function buildReminderPreview(cards: DashboardCard[]) {
 				id: card.id,
 				displayName: card.displayName,
 				catalogName: getCatalogName(card),
+				bank_name: card.bank_name,
 				last_four: card.last_four,
 				statement_day: card.statement_day,
 			due_day: card.due_day,

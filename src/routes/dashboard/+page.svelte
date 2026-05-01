@@ -1,4 +1,5 @@
 <script lang="ts">
+	import CardFace from '$lib/components/CardFace.svelte';
 	import type { PageData } from './$types';
 	let { data }: { data: PageData } = $props();
 
@@ -29,6 +30,9 @@
 					</summary>
 					<div class="absolute right-0 z-10 mt-2 w-36 overflow-hidden rounded-xl border border-gray-200 bg-white py-1 text-sm shadow-xl">
 						<a href="/me" class="block px-4 py-2 text-gray-700 hover:bg-gray-50">我的信息</a>
+						{#if data.isAdmin}
+							<a href="/admin/catalog" class="block px-4 py-2 text-gray-700 hover:bg-gray-50">卡库管理</a>
+						{/if}
 						<a href="/me/password" class="block px-4 py-2 text-gray-700 hover:bg-gray-50">修改密码</a>
 						<form method="POST" action="/logout">
 							<button class="block w-full px-4 py-2 text-left text-gray-500 hover:bg-gray-50 hover:text-gray-800">
@@ -81,29 +85,13 @@
 									href={card.isDemo ? '/dashboard' : `/cards/${card.id}/edit`}
 									class="block rounded-[1.4rem] border border-gray-200 bg-white p-3 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
 								>
-									<div
-										class="relative aspect-[1.586/1] overflow-hidden rounded-2xl p-4 shadow-sm"
-										style={`background: ${card.cardStyle.gradient}; color: ${card.cardStyle.text};`}
-									>
-										<div
-											class="absolute -right-10 -top-10 h-28 w-28 rounded-full"
-											style={`background: ${card.cardStyle.accent};`}
-										></div>
-										<div
-											class="absolute bottom-4 right-6 h-8 w-14 rounded-full blur-sm"
-											style={`background: ${card.cardStyle.accent};`}
-										></div>
-										<div class="relative flex h-full flex-col justify-between">
-											<div class="flex items-center justify-between text-xs opacity-80">
-												<span>{card.bank_name ?? 'card.baily.life'}</span>
-												<span>{card.cardStyle.label}</span>
-											</div>
-											<div>
-												<h3 class="text-lg font-semibold">{card.displayName}</h3>
-												<p class="mt-3 font-mono text-sm tracking-[0.35em] opacity-80">•••• {card.last_four}</p>
-											</div>
-										</div>
-									</div>
+									<CardFace
+										imageUrl={card.image_url}
+										bankName={card.bank_name}
+										displayName={card.displayName}
+										lastFour={card.last_four}
+										cardStyle={card.cardStyle}
+									/>
 
 									<div class="mt-3 flex items-start justify-between gap-3">
 										<div class="min-w-0">

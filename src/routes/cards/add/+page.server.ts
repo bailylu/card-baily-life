@@ -5,22 +5,39 @@ import { card_requests } from '$lib/db/schema';
 import {
 	createUserCard,
 	listCatalog,
+	listUserCards,
 	parseCardForm
 } from '$lib/cards/service';
 import { notifyAdminCardRequest } from '$lib/notifications/admin';
+import { getNotificationSettings } from '$lib/notifications/settings';
+
+function hasNotificationChannel(settings: Awaited<ReturnType<typeof getNotificationSettings>>) {
+	return Boolean(
+		settings.barkKey ||
+			settings.pushPlusToken ||
+			(settings.telegramBotToken && settings.telegramChatId)
+	);
+}
 
 export const load: PageServerLoad = async ({ locals, platform }) => {
 	if (!locals.user) redirect(302, '/login');
-	if (!platform?.env.DB) return { user: locals.user, catalog: [], configMissing: true };
+	if (!platform?.env.DB) return { user: locals.user, catalog: [], configMissing: true, hasNotificationChannel: false };
 
 	try {
+		const [catalog, userCards, settings] = await Promise.all([
+			listCatalog(platform.env.DB),
+			listUserCards(platform.env.DB, locals.user.id),
+			getNotificationSettings(platform.env.DB, locals.user.id)
+		]);
+		const ownedCatalogIds = new Set(userCards.map((c) => c.catalog_id).filter((id) => id != null));
 		return {
 			user: locals.user,
-			catalog: await listCatalog(platform.env.DB),
-			configMissing: false
+			catalog: catalog.filter((c) => !ownedCatalogIds.has(c.id)),
+			configMissing: false,
+			hasNotificationChannel: hasNotificationChannel(settings)
 		};
 	} catch {
-		return { user: locals.user, catalog: [], configMissing: true };
+		return { user: locals.user, catalog: [], configMissing: true, hasNotificationChannel: false };
 	}
 };
 

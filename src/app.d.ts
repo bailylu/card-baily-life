@@ -7,6 +7,7 @@ declare global {
 			env: {
 				DB: D1Database;
 				APP_URL: string;
+				ADMIN_EMAIL?: string;
 				ADMIN_TELEGRAM_BOT_TOKEN?: string;
 				ADMIN_TELEGRAM_CHAT_ID?: string;
 			};

@@ -4,6 +4,7 @@ export type ReminderCard = {
 	id: string;
 	displayName: string;
 	catalogName: string | null;
+	bank_name: string | null;
 	last_four: string;
 	statement_day: number;
 	due_day: number;
@@ -11,6 +12,16 @@ export type ReminderCard = {
 	annual_fee_day: number | null;
 	lead_days: number;
 };
+
+// 这些银行所有卡共用同一账单日/还款日，同日期只发一条通知
+const UNIFIED_BILLING_BANKS = [
+	'建设银行', '交通银行', '广发银行', '中信银行', '光大银行', '渣打银行', '花旗银行'
+];
+
+function isUnifiedBillingBank(bankName: string | null): boolean {
+	if (!bankName) return false;
+	return UNIFIED_BILLING_BANKS.some((key) => bankName.includes(key));
+}
 
 export type ReminderPreview = {
 	cardId: string;
@@ -114,7 +125,28 @@ export function getReminderPreview(cards: ReminderCard[], today = new Date(), wi
 		}
 	}
 
-	return previews.sort(
+	// 合并统一账单银行：同银行、同类型、同目标日期 → 只保留一条，卡名改为「XX银行（N张合并）」
+	const merged: ReminderPreview[] = [];
+	const seen = new Map<string, { index: number; count: number }>();
+	for (const preview of previews) {
+		const bankName = cards.find((c) => c.id === preview.cardId)?.bank_name ?? null;
+		if (isUnifiedBillingBank(bankName) && (preview.type === 'statement' || preview.type === 'due')) {
+			const key = `${bankName}|${preview.type}|${preview.targetDate}`;
+			const existing = seen.get(key);
+			if (existing) {
+				existing.count += 1;
+				merged[existing.index].cardName = `${bankName}（${existing.count} 张合并）`;
+				merged[existing.index].lastFour = '';
+			} else {
+				seen.set(key, { index: merged.length, count: 1 });
+				merged.push({ ...preview });
+			}
+		} else {
+			merged.push(preview);
+		}
+	}
+
+	return merged.sort(
 		(left, right) =>
 			left.daysUntilRemind - right.daysUntilRemind ||
 			left.daysUntilTarget - right.daysUntilTarget ||

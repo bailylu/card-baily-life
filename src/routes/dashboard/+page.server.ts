@@ -1,6 +1,7 @@
 import { redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import { buildReminderPreview, listUserCards } from '$lib/cards/service';
+import { isAdmin } from '$lib/admin/access';
 
 function timeout<T>(ms: number): Promise<T> {
 	return new Promise((_, reject) => {
@@ -8,15 +9,17 @@ function timeout<T>(ms: number): Promise<T> {
 	});
 }
 
-function emptyDashboard(user: App.Locals['user']) {
-	return { user, cards: [], reminders: [], configMissing: true };
+function emptyDashboard(user: App.Locals['user'], admin: boolean) {
+	return { user, cards: [], reminders: [], configMissing: true, isAdmin: admin };
 }
 
 export const load: PageServerLoad = async ({ locals, platform }) => {
 	if (!locals.user) redirect(302, '/login');
 
+	const admin = isAdmin(locals.user, platform?.env);
+
 	if (!platform?.env.DB) {
-		return emptyDashboard(locals.user);
+		return emptyDashboard(locals.user, admin);
 	}
 
 	try {
@@ -32,9 +35,10 @@ export const load: PageServerLoad = async ({ locals, platform }) => {
 			user: locals.user,
 			cards,
 			reminders: buildReminderPreview(cards),
-			configMissing: false
+			configMissing: false,
+			isAdmin: admin
 		};
 	} catch {
-		return emptyDashboard(locals.user);
+		return emptyDashboard(locals.user, admin);
 	}
 };

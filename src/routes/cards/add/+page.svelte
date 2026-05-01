@@ -1,4 +1,5 @@
 <script lang="ts">
+	import CardFace from '$lib/components/CardFace.svelte';
 	import type { ActionData, PageData } from './$types';
 	let { data, form }: { data: PageData; form: ActionData } = $props();
 
@@ -25,6 +26,7 @@
 	let search = $state('');
 	let selectedBank = $state('全部银行');
 	let currentPage = $state(1);
+	let showNotificationWarning = $state(false);
 	const cardsPerPage = 10;
 	let banks = $derived([
 		'全部银行',
@@ -69,6 +71,49 @@
 			(('requestError' in form && !!form.requestError) ||
 				('requestSuccess' in form && !!form.requestSuccess))
 	);
+
+	type CatalogVariant = { label: string; imageUrl: string | null };
+
+	function parseVariants(json: string | null | undefined): CatalogVariant[] {
+		if (!json) return [];
+		try {
+			const arr = JSON.parse(json);
+			return Array.isArray(arr) ? arr : [];
+		} catch { return []; }
+	}
+
+	function getCardImages(card: PageData['catalog'][number]): string[] {
+		const imgs: string[] = [];
+		if (card.image_url) imgs.push(card.image_url);
+		for (const v of parseVariants((card as { variants?: string | null }).variants ?? null)) {
+			if (v.imageUrl) imgs.push(v.imageUrl);
+		}
+		return imgs;
+	}
+
+	let selectedCardId = $state<number | null>(null);
+	let variantIndexes = $state<Record<number, number>>({});
+
+	function stepVariant(cardId: number, delta: number, total: number, event: MouseEvent) {
+		event.preventDefault();
+		event.stopPropagation();
+		const cur = variantIndexes[cardId] ?? 0;
+		variantIndexes = { ...variantIndexes, [cardId]: (cur + delta + total) % total };
+	}
+
+	let selectedImageUrl = $derived(() => {
+		if (!selectedCardId) return '';
+		const card = data.catalog.find((c) => c.id === selectedCardId);
+		if (!card) return '';
+		const imgs = getCardImages(card);
+		return imgs[variantIndexes[selectedCardId] ?? 0] ?? '';
+	});
+
+	function handleAddCardSubmit(event: SubmitEvent) {
+		if (data.hasNotificationChannel) return;
+		event.preventDefault();
+		showNotificationWarning = true;
+	}
 </script>
 
 <svelte:head>
@@ -93,7 +138,7 @@
 			</div>
 		{/if}
 
-		<form method="POST" action="?/addCard" class="mt-6 space-y-5 rounded-xl border border-gray-200 bg-white p-5">
+		<form method="POST" action="?/addCard" class="mt-6 space-y-5 rounded-xl border border-gray-200 bg-white p-5" onsubmit={handleAddCardSubmit}>
 			<section>
 				<div class="flex items-center justify-between gap-3">
 					<span class="text-sm font-medium text-gray-700">选择卡片种类</span>
@@ -132,28 +177,39 @@
 				</div>
 				<div class="mt-3 grid gap-3 sm:grid-cols-2">
 					{#each visibleCatalog as card}
+						{@const imgs = getCardImages(card)}
+						{@const varIdx = variantIndexes[card.id] ?? 0}
+						{@const currentImg = imgs[varIdx] ?? null}
 						<label class="cursor-pointer">
-							<input class="peer sr-only" type="radio" name="catalog_id" value={card.id} />
-							<div class="rounded-2xl border border-gray-200 bg-white p-4 transition peer-checked:border-blue-500 peer-checked:ring-2 peer-checked:ring-blue-100">
-								<div
-									class="relative overflow-hidden rounded-xl p-4 shadow-sm"
-									style={`background: ${card.cardStyle.gradient}; color: ${card.cardStyle.text};`}
-								>
-									<div
-										class="absolute -right-8 -top-8 h-24 w-24 rounded-full"
-										style={`background: ${card.cardStyle.accent};`}
-									></div>
+							<input class="peer sr-only" type="radio" name="catalog_id" value={card.id} bind:group={selectedCardId} />
+								<div class="rounded-2xl border border-gray-200 bg-white p-4 transition peer-checked:border-blue-500 peer-checked:ring-2 peer-checked:ring-blue-100">
 									<div class="relative">
-										<div class="flex items-center justify-between text-xs opacity-80">
-											<span>{card.bank_name}</span>
-											<span>{card.cardStyle.label}</span>
-										</div>
-										<p class="mt-8 text-base font-semibold">{card.card_name}</p>
-										<p class="mt-3 font-mono text-xs tracking-[0.3em] opacity-80">•••• 1234</p>
+										<CardFace
+											imageUrl={currentImg}
+											bankName={card.bank_name}
+											displayName={card.card_name}
+											cardStyle={card.cardStyle}
+											class="rounded-xl"
+										/>
+										{#if imgs.length > 1}
+											<div class="absolute inset-0 flex items-center justify-between px-1 pointer-events-none">
+												<button type="button" class="pointer-events-auto rounded-full bg-black/40 p-1 text-white hover:bg-black/60" onclick={(e) => stepVariant(card.id, -1, imgs.length, e)}>‹</button>
+												<button type="button" class="pointer-events-auto rounded-full bg-black/40 p-1 text-white hover:bg-black/60" onclick={(e) => stepVariant(card.id, 1, imgs.length, e)}>›</button>
+											</div>
+											<div class="absolute bottom-1.5 left-0 right-0 flex justify-center gap-1">
+												{#each imgs as _, i}
+													<span class="h-1 w-1 rounded-full {i === varIdx ? 'bg-white' : 'bg-white/40'}"></span>
+												{/each}
+											</div>
+										{/if}
+									</div>
+									<div class="mt-3 space-y-1">
+										<span class="inline-flex rounded-full bg-gray-100 px-2 py-0.5 text-[11px] font-semibold text-gray-500">
+											{card.bank_name}
+										</span>
+										<p class="text-base font-semibold leading-snug text-gray-950">{card.card_name}</p>
 									</div>
 								</div>
-								<p class="mt-3 text-sm font-medium text-gray-900">{card.bank_name} {card.card_name}</p>
-							</div>
 						</label>
 					{/each}
 				</div>
@@ -201,6 +257,7 @@
 							placeholder="例如：日常用招商白金"
 						/>
 					</label>
+					<input type="hidden" name="selected_image_url" value={selectedImageUrl()} />
 					<label class="block">
 						<span class="text-sm font-medium text-gray-700">卡片尾号</span>
 						<input
@@ -296,9 +353,37 @@
 			</section>
 
 			<button class="w-full rounded-lg bg-blue-600 px-4 py-3 font-medium text-white hover:bg-blue-700">
-				保存卡片
+				保存提醒
 			</button>
 		</form>
+
+		{#if showNotificationWarning}
+			<div class="fixed inset-0 z-50 flex items-center justify-center bg-gray-950/50 px-4">
+				<div class="w-full max-w-md rounded-3xl bg-white p-6 shadow-2xl">
+					<div class="flex items-start gap-3">
+						<div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-amber-100 text-xl">!</div>
+						<div>
+							<h2 class="text-lg font-semibold text-gray-950">还没有设置通知渠道</h2>
+							<p class="mt-2 text-sm leading-6 text-gray-600">
+								你还没有填写 Bark、PushPlus 或 Telegram。保存后系统可以记录这张卡，但到期时无法给你发送提醒。请先到“我的”页面配置至少一种通知方式。
+							</p>
+						</div>
+					</div>
+					<div class="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-end">
+						<button
+							type="button"
+							class="rounded-xl border border-gray-200 px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50"
+							onclick={() => (showNotificationWarning = false)}
+						>
+							先不保存
+						</button>
+						<a href="/me" class="rounded-xl bg-blue-600 px-4 py-2 text-center text-sm font-medium text-white hover:bg-blue-700">
+							去设置通知
+						</a>
+					</div>
+				</div>
+			</div>
+		{/if}
 
 			<details class="group mt-6 rounded-xl border border-gray-200 bg-white p-5" open={shouldOpenRequest}>
 				<summary class="cursor-pointer list-none">

@@ -7,11 +7,13 @@ export type CardFormValues = {
 	annualFeeMonth: number | null;
 	annualFeeDay: number | null;
 	leadDays: number;
+	selectedImageUrl: string | null;
 };
 
 export function parseCardForm(formData: FormData): { values?: CardFormValues; error?: string } {
 	const catalogValue = `${formData.get('catalog_id') ?? ''}`;
 	const customName = `${formData.get('custom_name') ?? ''}`.trim();
+	const selectedImageUrl = `${formData.get('selected_image_url') ?? ''}`.trim() || null;
 	const lastFour = `${formData.get('last_four') ?? ''}`.trim();
 	const statementDay = Number(formData.get('statement_day'));
 	const dueDay = Number(formData.get('due_day'));
@@ -59,7 +61,8 @@ export function parseCardForm(formData: FormData): { values?: CardFormValues; er
 			dueDay,
 			annualFeeMonth,
 			annualFeeDay,
-			leadDays
+			leadDays,
+			selectedImageUrl
 		}
 	};
 }
