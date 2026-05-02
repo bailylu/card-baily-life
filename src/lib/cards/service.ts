@@ -97,14 +97,14 @@ export type DashboardCard = {
 	remind_statement: number;
 	remind_due: number;
 	remind_annual_fee: number;
-		bank_name: string | null;
-		card_name: string | null;
-		card_tier: string | null;
-		image_url: string | null;
-		selected_image_url: string | null;
-		displayName: string;
-		cardStyle: CardStyle;
-		isDemo: boolean;
+	bank_name: string | null;
+	card_name: string | null;
+	card_tier: string | null;
+	image_url: string | null;
+	selected_image_url: string | null;
+	displayName: string;
+	cardStyle: CardStyle;
+	isDemo: boolean;
 };
 
 export function getDisplayName(card: {
@@ -180,10 +180,10 @@ export async function listUserCards(db: D1Database, userId: string) {
 			remind_due: user_cards.remind_due,
 			remind_annual_fee: user_cards.remind_annual_fee,
 			selected_image_url: user_cards.selected_image_url,
-				bank_name: card_catalog.bank_name,
-				card_name: card_catalog.card_name,
-				card_tier: card_catalog.card_tier,
-				image_url: card_catalog.image_url
+			bank_name: card_catalog.bank_name,
+			card_name: card_catalog.card_name,
+			card_tier: card_catalog.card_tier,
+			image_url: card_catalog.image_url
 		})
 		.from(user_cards)
 		.leftJoin(card_catalog, eq(user_cards.catalog_id, card_catalog.id))

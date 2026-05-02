@@ -1,3 +1,4 @@
+// CF Workers CPU limit is ~50ms; 10k iterations stays well within budget
 const ITERATIONS = 10_000;
 const KEY_LENGTH_BITS = 256;
 
