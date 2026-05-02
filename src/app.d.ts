@@ -10,6 +10,8 @@ declare global {
 				ADMIN_EMAIL?: string;
 				ADMIN_TELEGRAM_BOT_TOKEN?: string;
 				ADMIN_TELEGRAM_CHAT_ID?: string;
+				CRM_API_BASE?: string;
+				CRM_API_KEY?: string;
 			};
 		}
 		interface Locals {

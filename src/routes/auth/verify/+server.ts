@@ -2,6 +2,7 @@ import { redirect } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import { verifyMagicToken } from '$lib/auth/magic-link';
 import { createSession, setSessionCookie } from '$lib/auth/session';
+import { syncCardUserToCrm } from '$lib/crm-sync';
 
 export const GET: RequestHandler = async ({ url, platform, cookies }) => {
 	const token = url.searchParams.get('token') ?? '';
@@ -14,6 +15,7 @@ export const GET: RequestHandler = async ({ url, platform, cookies }) => {
 	}
 
 	const sessionId = await createSession(db, result.userId);
+	await syncCardUserToCrm(platform!.env, result.userId, 'magic_login');
 	setSessionCookie(cookies, sessionId, secureCookie);
 	redirect(302, '/dashboard');
 };

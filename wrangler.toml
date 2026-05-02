@@ -10,3 +10,4 @@ database_id = "844facab-69a4-41fc-8141-c5ce662f6a72"
 
 [vars]
 APP_URL = "https://card.baily.life"
+CRM_API_BASE = "https://crm.baily.life"

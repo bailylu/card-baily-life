@@ -2,6 +2,7 @@ import { fail, redirect } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from './$types';
 import { loginWithPassword, registerWithPassword } from '$lib/auth/account';
 import { createSession, setSessionCookie } from '$lib/auth/session';
+import { syncCardUserToCrm } from '$lib/crm-sync';
 
 function normalizeMode(value: string | null) {
 	return value === 'login' ? 'login' : 'register';
@@ -30,6 +31,7 @@ export const actions: Actions = {
 		}
 
 		const sessionId = await createSession(platform.env.DB, result.userId);
+		await syncCardUserToCrm(platform.env, result.userId, result.created ? 'register' : 'login');
 		setSessionCookie(cookies, sessionId, url.protocol === 'https:');
 		redirect(303, '/dashboard');
 	}

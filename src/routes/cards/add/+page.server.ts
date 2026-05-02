@@ -10,6 +10,7 @@ import {
 } from '$lib/cards/service';
 import { notifyAdminCardRequest } from '$lib/notifications/admin';
 import { getNotificationSettings } from '$lib/notifications/settings';
+import { syncCardUserToCrm } from '$lib/crm-sync';
 
 function hasNotificationChannel(settings: Awaited<ReturnType<typeof getNotificationSettings>>) {
 	return Boolean(
@@ -52,6 +53,7 @@ export const actions: Actions = {
 
 			const userId = locals.user.id;
 			await createUserCard(platform.env.DB, userId, result.values);
+			await syncCardUserToCrm(platform.env, userId, 'card_saved');
 		} catch {
 			return fail(500, { error: 'D1 数据库暂不可用，请检查 Cloudflare Pages Dev 或部署配置' });
 		}

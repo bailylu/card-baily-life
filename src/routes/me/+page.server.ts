@@ -1,5 +1,6 @@
 import { fail, redirect } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from './$types';
+import { syncCardUserToCrm } from '$lib/crm-sync';
 import {
 	emptyNotificationSettings,
 	getNotificationSettings,
@@ -123,6 +124,7 @@ export const actions: Actions = {
 		if (validationError) return fail(400, { error: validationError, settings });
 
 		await saveNotificationSettings(platform.env.DB, locals.user.id, settings);
+		await syncCardUserToCrm(platform.env, locals.user.id, 'settings_saved');
 		return { success: true, settings };
 	},
 	testNotification: async ({ request, locals }) => {
