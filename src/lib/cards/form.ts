@@ -23,9 +23,12 @@ export function parseCardForm(formData: FormData): { values?: CardFormValues; er
 	const annualFeeMonthValue = `${formData.get('annual_fee_month') ?? ''}`;
 	const annualFeeDayValue = `${formData.get('annual_fee_day') ?? ''}`;
 	const leadDays = Number(formData.get('lead_days') ?? 3);
-	const remindStatement = formData.get('remind_statement') === '1';
-	const remindDue = formData.get('remind_due') === '1';
-	const remindAnnualFee = formData.get('remind_annual_fee') === '1';
+	const remindStatementValue = formData.get('remind_statement');
+	const remindDueValue = formData.get('remind_due');
+	const remindAnnualFeeValue = formData.get('remind_annual_fee');
+	const remindStatement = remindStatementValue === null ? true : remindStatementValue === '1';
+	const remindDue = remindDueValue === null ? true : remindDueValue === '1';
+	const remindAnnualFee = remindAnnualFeeValue === null ? true : remindAnnualFeeValue === '1';
 
 	const catalogId = catalogValue ? Number(catalogValue) : null;
 	const annualFeeMonth = annualFeeMonthValue ? Number(annualFeeMonthValue) : null;
