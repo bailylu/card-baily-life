@@ -67,7 +67,7 @@
 							/>
 						</label>
 						<label class="block">
-							<span class="text-sm font-medium text-gray-700">提前提醒天数</span>
+							<span class="text-sm font-medium text-gray-700">还款 / 年费提前提醒</span>
 							<select name="lead_days" class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2" required>
 								<option value="0" selected={data.card.lead_days === 0}>当天提醒</option>
 								<option value="1" selected={data.card.lead_days === 1}>提前 1 天</option>
@@ -77,13 +77,14 @@
 								<option value="10" selected={data.card.lead_days === 10}>提前 10 天</option>
 								<option value="15" selected={data.card.lead_days === 15}>提前 15 天</option>
 							</select>
+							<p class="mt-1 text-xs text-gray-500">账单日默认当天提醒，不使用提前天数。</p>
 						</label>
 					</div>
 				</section>
 
 				<section class="rounded-2xl bg-blue-50/60 p-4">
 					<h2 class="text-sm font-semibold text-gray-900">循环提醒日期</h2>
-					<p class="mt-1 text-xs leading-5 text-gray-500">账单日和还款日按每个自然月循环，月末日期按当月日历处理。</p>
+					<p class="mt-1 text-xs leading-5 text-gray-500">账单日和还款日按每个自然月循环；账单日当天提醒，还款日按上面的提前天数提醒。月末日期按当月日历处理。</p>
 					<div class="mt-4 grid gap-4 sm:grid-cols-2">
 						<div class="block">
 							<div class="flex items-center justify-between">

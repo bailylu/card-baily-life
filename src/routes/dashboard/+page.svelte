@@ -117,7 +117,7 @@
 												<p class="mt-0.5 font-semibold text-gray-900 sm:mt-1">{card.due_day}日</p>
 											</div>
 											<div class="rounded-lg bg-gray-50 px-1.5 py-1.5 sm:rounded-xl sm:px-2 sm:py-2">
-												<p class="text-gray-400">提前</p>
+												<p class="text-gray-400">还款提前</p>
 												<p class="mt-0.5 font-semibold text-gray-900 sm:mt-1">{card.lead_days}天</p>
 											</div>
 										</div>

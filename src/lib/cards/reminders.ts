@@ -110,16 +110,17 @@ export function getReminderPreview(cards: ReminderCard[], today = new Date(), wi
 
 		for (const target of targets) {
 			const daysUntilTarget = diffDays(today, target.date);
-			const remindDate = addDays(target.date, -card.lead_days);
+			const leadDays = target.type === 'statement' ? 0 : card.lead_days;
+			const remindDate = addDays(target.date, -leadDays);
 			const daysUntilRemind = diffDays(today, remindDate);
 			if (daysUntilTarget < 0 || daysUntilRemind < 0 || daysUntilRemind > windowDays) continue;
 
-				previews.push({
-					cardId: card.id,
-					cardName: card.displayName,
-					catalogName: card.catalogName,
-					lastFour: card.last_four,
-					type: target.type,
+			previews.push({
+				cardId: card.id,
+				cardName: card.displayName,
+				catalogName: card.catalogName,
+				lastFour: card.last_four,
+				type: target.type,
 				typeLabel: TYPE_LABELS[target.type],
 				targetDate: formatDate(target.date),
 				remindDate: formatDate(remindDate),
