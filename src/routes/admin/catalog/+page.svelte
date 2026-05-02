@@ -93,7 +93,7 @@
 				try {
 					const normalizedDegrees = ((degrees % 360) + 360) % 360;
 					const isSideways = normalizedDegrees === 90 || normalizedDegrees === 270;
-					const maxSide = 1200;
+					const maxSide = 640;
 					const scale = Math.min(1, maxSide / Math.max(image.naturalWidth, image.naturalHeight));
 					const drawWidth = Math.round(image.naturalWidth * scale);
 					const drawHeight = Math.round(image.naturalHeight * scale);
@@ -107,7 +107,7 @@
 					context.translate(canvas.width / 2, canvas.height / 2);
 					context.rotate((normalizedDegrees * Math.PI) / 180);
 					context.drawImage(image, -drawWidth / 2, -drawHeight / 2, drawWidth, drawHeight);
-					resolve(canvas.toDataURL('image/jpeg', 0.86));
+					resolve(canvas.toDataURL('image/jpeg', 0.75));
 				} catch (error) {
 					reject(error);
 				} finally {
@@ -303,7 +303,7 @@
 							onchange={onFileChange}
 						/>
 						<input type="hidden" name="image_data_url" value={imageDataUrl ?? ''} />
-						<span class="mt-2 block text-xs text-gray-400">当前最简版图片存入 D1，建议先压缩到 350KB 内；显示时会自动适配信用卡比例。</span>
+						<span class="mt-2 block text-xs text-gray-400">上传后自动压缩至 640px / JPEG 75%，通常 20–40KB；显示时自动适配信用卡比例。</span>
 					</label>
 
 					<label class="block">

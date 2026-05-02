@@ -17,9 +17,6 @@
 				<a href="/dashboard" class="text-sm text-gray-400 hover:text-gray-700">← 返回我的卡片</a>
 				<h1 class="mt-2 text-2xl font-bold text-gray-900">我的信息</h1>
 			</div>
-			<form method="POST" action="/logout">
-				<button class="text-sm text-gray-400 hover:text-gray-700">退出</button>
-			</form>
 		</div>
 	</header>
 

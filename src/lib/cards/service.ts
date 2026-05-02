@@ -94,6 +94,9 @@ export type DashboardCard = {
 	annual_fee_month: number | null;
 	annual_fee_day: number | null;
 	lead_days: number;
+	remind_statement: number;
+	remind_due: number;
+	remind_annual_fee: number;
 		bank_name: string | null;
 		card_name: string | null;
 		card_tier: string | null;
@@ -173,6 +176,9 @@ export async function listUserCards(db: D1Database, userId: string) {
 			annual_fee_month: user_cards.annual_fee_month,
 			annual_fee_day: user_cards.annual_fee_day,
 			lead_days: user_cards.lead_days,
+			remind_statement: user_cards.remind_statement,
+			remind_due: user_cards.remind_due,
+			remind_annual_fee: user_cards.remind_annual_fee,
 			selected_image_url: user_cards.selected_image_url,
 				bank_name: card_catalog.bank_name,
 				card_name: card_catalog.card_name,
@@ -254,6 +260,9 @@ export function getDemoDashboardCards(): DashboardCard[] {
 		...card,
 		catalog_id: null,
 		selected_image_url: null,
+		remind_statement: 1,
+		remind_due: 1,
+		remind_annual_fee: 1,
 		custom_name: 'custom_name' in card ? (card.custom_name ?? null) : null,
 		displayName: getDisplayName({
 			bank_name: card.bank_name,
@@ -281,6 +290,9 @@ export async function getUserCard(db: D1Database, userId: string, cardId: string
 			annual_fee_month: user_cards.annual_fee_month,
 			annual_fee_day: user_cards.annual_fee_day,
 			lead_days: user_cards.lead_days,
+			remind_statement: user_cards.remind_statement,
+			remind_due: user_cards.remind_due,
+			remind_annual_fee: user_cards.remind_annual_fee,
 			created_at: user_cards.created_at,
 				bank_name: card_catalog.bank_name,
 				card_name: card_catalog.card_name,
@@ -313,6 +325,9 @@ export async function createUserCard(db: D1Database, userId: string, values: Car
 		annual_fee_month: values.annualFeeMonth,
 		annual_fee_day: values.annualFeeDay,
 		lead_days: values.leadDays,
+		remind_statement: values.remindStatement ? 1 : 0,
+		remind_due: values.remindDue ? 1 : 0,
+		remind_annual_fee: values.remindAnnualFee ? 1 : 0,
 		selected_image_url: values.selectedImageUrl ?? null,
 		created_at: now
 	});
@@ -334,7 +349,10 @@ export async function updateUserCard(
 			due_day: values.dueDay,
 			annual_fee_month: values.annualFeeMonth,
 			annual_fee_day: values.annualFeeDay,
-			lead_days: values.leadDays
+			lead_days: values.leadDays,
+			remind_statement: values.remindStatement ? 1 : 0,
+			remind_due: values.remindDue ? 1 : 0,
+			remind_annual_fee: values.remindAnnualFee ? 1 : 0
 		})
 		.where(and(eq(user_cards.user_id, userId), eq(user_cards.id, cardId)));
 }
@@ -357,7 +375,10 @@ export function buildReminderPreview(cards: DashboardCard[]) {
 			due_day: card.due_day,
 			annual_fee_month: card.annual_fee_month,
 			annual_fee_day: card.annual_fee_day,
-			lead_days: card.lead_days
+			lead_days: card.lead_days,
+			remind_statement: card.remind_statement !== 0,
+			remind_due: card.remind_due !== 0,
+			remind_annual_fee: card.remind_annual_fee !== 0
 		}))
 	);
 }

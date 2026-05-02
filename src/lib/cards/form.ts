@@ -7,6 +7,9 @@ export type CardFormValues = {
 	annualFeeMonth: number | null;
 	annualFeeDay: number | null;
 	leadDays: number;
+	remindStatement: boolean;
+	remindDue: boolean;
+	remindAnnualFee: boolean;
 	selectedImageUrl: string | null;
 };
 
@@ -20,6 +23,9 @@ export function parseCardForm(formData: FormData): { values?: CardFormValues; er
 	const annualFeeMonthValue = `${formData.get('annual_fee_month') ?? ''}`;
 	const annualFeeDayValue = `${formData.get('annual_fee_day') ?? ''}`;
 	const leadDays = Number(formData.get('lead_days') ?? 3);
+	const remindStatement = formData.get('remind_statement') === '1';
+	const remindDue = formData.get('remind_due') === '1';
+	const remindAnnualFee = formData.get('remind_annual_fee') === '1';
 
 	const catalogId = catalogValue ? Number(catalogValue) : null;
 	const annualFeeMonth = annualFeeMonthValue ? Number(annualFeeMonthValue) : null;
@@ -62,6 +68,9 @@ export function parseCardForm(formData: FormData): { values?: CardFormValues; er
 			annualFeeMonth,
 			annualFeeDay,
 			leadDays,
+			remindStatement,
+			remindDue,
+			remindAnnualFee,
 			selectedImageUrl
 		}
 	};

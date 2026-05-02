@@ -53,6 +53,9 @@ export const user_cards = sqliteTable('user_cards', {
 	annual_fee_month: integer('annual_fee_month'),
 	annual_fee_day: integer('annual_fee_day'),
 	lead_days: integer('lead_days').notNull().default(3),
+	remind_statement: integer('remind_statement').notNull().default(1),
+	remind_due: integer('remind_due').notNull().default(1),
+	remind_annual_fee: integer('remind_annual_fee').notNull().default(1),
 	selected_image_url: text('selected_image_url'),
 	created_at: integer('created_at').notNull()
 });

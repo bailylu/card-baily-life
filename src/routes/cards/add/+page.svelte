@@ -142,7 +142,7 @@
 			<section>
 				<div class="flex items-center justify-between gap-3">
 					<span class="text-sm font-medium text-gray-700">选择卡片种类</span>
-					<span class="text-xs text-gray-400">找不到也可以提交给我补充</span>
+					<a href="#request-card" class="text-xs font-medium text-blue-600 hover:text-blue-700">找不到也可以提交给我补充</a>
 				</div>
 				<div class="mt-4 grid gap-3 sm:grid-cols-[1fr_auto]">
 					<input
@@ -212,6 +212,20 @@
 								</div>
 						</label>
 					{/each}
+					{#if filteredCatalog.length > 0 && currentPage === totalPages}
+						<a
+							href="#request-card"
+							class="flex min-h-48 flex-col justify-center rounded-2xl border border-dashed border-blue-200 bg-blue-50/50 p-5 text-sm transition hover:border-blue-300 hover:bg-blue-50"
+						>
+							<p class="font-semibold text-gray-900">没有更多卡片了？</p>
+							<p class="mt-2 leading-6 text-gray-500">
+								如果没有找到心仪的卡片，可以在下方提交银行和卡名，我会尽快补进卡片库。
+							</p>
+							<span class="mt-4 inline-flex w-fit rounded-full bg-white px-3 py-1 text-xs font-medium text-blue-700 ring-1 ring-blue-100">
+								去填写需要的卡
+							</span>
+						</a>
+					{/if}
 				</div>
 				{#if filteredCatalog.length === 0}
 					<div class="mt-4 rounded-2xl border border-dashed border-gray-300 bg-gray-50 p-5 text-sm text-gray-500">
@@ -296,8 +310,15 @@
 					</p>
 				</div>
 				<div class="mt-4 grid gap-4 sm:grid-cols-2">
-					<label class="block">
-						<span class="text-sm font-medium text-gray-700">账单日（每月）</span>
+					<div class="block">
+						<div class="flex items-center justify-between">
+							<span class="text-sm font-medium text-gray-700">账单日（每月）</span>
+							<label class="flex cursor-pointer items-center gap-1.5 text-xs text-gray-500">
+								<input type="hidden" name="remind_statement" value="0" />
+								<input type="checkbox" name="remind_statement" value="1" checked class="h-4 w-4 rounded accent-blue-600" />
+								开启提醒
+							</label>
+						</div>
 						<select
 							name="statement_day"
 							required
@@ -308,9 +329,16 @@
 								<option value={day}>{day} 日</option>
 							{/each}
 						</select>
-					</label>
-					<label class="block">
-						<span class="text-sm font-medium text-gray-700">还款日（每月）</span>
+					</div>
+					<div class="block">
+						<div class="flex items-center justify-between">
+							<span class="text-sm font-medium text-gray-700">还款日（每月）</span>
+							<label class="flex cursor-pointer items-center gap-1.5 text-xs text-gray-500">
+								<input type="hidden" name="remind_due" value="0" />
+								<input type="checkbox" name="remind_due" value="1" checked class="h-4 w-4 rounded accent-blue-600" />
+								开启提醒
+							</label>
+						</div>
 						<select
 							name="due_day"
 							required
@@ -321,14 +349,21 @@
 								<option value={day}>{day} 日</option>
 							{/each}
 						</select>
-					</label>
+					</div>
 				</div>
 			</section>
 
 			<section class="rounded-2xl bg-amber-50/70 p-4">
-				<div>
-					<h2 class="text-sm font-semibold text-gray-900">年费提醒（可选）</h2>
-					<p class="mt-1 text-xs text-gray-500">年费通常一年一次，填写月份和日期后，每年提醒一次；不需要就留空。</p>
+				<div class="flex items-center justify-between">
+					<div>
+						<h2 class="text-sm font-semibold text-gray-900">年费提醒（可选）</h2>
+						<p class="mt-1 text-xs text-gray-500">年费通常一年一次，填写月份和日期后，每年提醒一次；不需要就留空。</p>
+					</div>
+					<label class="flex cursor-pointer items-center gap-1.5 text-xs text-gray-500">
+						<input type="hidden" name="remind_annual_fee" value="0" />
+						<input type="checkbox" name="remind_annual_fee" value="1" checked class="h-4 w-4 rounded accent-amber-500" />
+						开启提醒
+					</label>
 				</div>
 				<div class="mt-4 grid gap-4 sm:grid-cols-2">
 					<label class="block">
@@ -385,7 +420,7 @@
 			</div>
 		{/if}
 
-			<details class="group mt-6 rounded-xl border border-gray-200 bg-white p-5" open={shouldOpenRequest}>
+			<details id="request-card" class="group mt-6 rounded-xl border border-gray-200 bg-white p-5" open={shouldOpenRequest}>
 				<summary class="cursor-pointer list-none">
 					<div class="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
 						<div>

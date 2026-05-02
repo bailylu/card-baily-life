@@ -3,8 +3,14 @@
 	import type { PageData } from './$types';
 	let { data }: { data: PageData } = $props();
 
+	const cardsPerPage = 6;
 	const remindersPerPage = 10;
+	let cardPage = $state(1);
 	let reminderPage = $state(1);
+	let totalCardPages = $derived(Math.max(1, Math.ceil(data.cards.length / cardsPerPage)));
+	let pagedCards = $derived(data.cards.slice((cardPage - 1) * cardsPerPage, cardPage * cardsPerPage));
+	let cardStart = $derived(data.cards.length === 0 ? 0 : (cardPage - 1) * cardsPerPage + 1);
+	let cardEnd = $derived(Math.min(cardPage * cardsPerPage, data.cards.length));
 	let totalReminderPages = $derived(Math.max(1, Math.ceil(data.reminders.length / remindersPerPage)));
 	let pagedReminders = $derived(
 		data.reminders.slice((reminderPage - 1) * remindersPerPage, reminderPage * remindersPerPage)
@@ -79,11 +85,11 @@
 				</div>
 				{:else}
 					<div class="grid gap-4 sm:grid-cols-2">
-						{#each data.cards as card}
+						{#each pagedCards as card}
 							<article>
 								<a
 									href={card.isDemo ? '/dashboard' : `/cards/${card.id}/edit`}
-									class="block rounded-[1.4rem] border border-gray-200 bg-white p-3 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+									class="flex gap-3 rounded-2xl border border-gray-200 bg-white p-2.5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md sm:block sm:rounded-[1.4rem] sm:p-3"
 								>
 									<CardFace
 										imageUrl={card.image_url}
@@ -91,32 +97,59 @@
 										displayName={card.displayName}
 										lastFour={card.last_four}
 										cardStyle={card.cardStyle}
+										class="w-32 shrink-0 rounded-xl sm:w-full sm:rounded-2xl"
 									/>
 
-									<div class="mt-3 flex items-start justify-between gap-3">
-										<div class="min-w-0">
-											<h3 class="line-clamp-1 font-medium text-gray-900">{card.displayName}</h3>
-											<p class="mt-1 text-xs text-gray-400">{card.card_tier ?? '标准卡'} · 尾号 {card.last_four}</p>
+									<div class="flex min-w-0 flex-1 flex-col justify-between sm:mt-3">
+										<div class="flex items-start justify-between gap-3">
+											<div class="min-w-0">
+												<h3 class="line-clamp-2 text-sm font-semibold leading-snug text-gray-900 sm:line-clamp-1 sm:text-base sm:font-medium">{card.displayName}</h3>
+												<p class="mt-1 text-xs text-gray-400">{card.card_tier ?? '标准卡'} · 尾号 {card.last_four}</p>
+											</div>
 										</div>
-									</div>
-									<div class="mt-3 grid grid-cols-3 gap-2 text-center text-xs">
-										<div class="rounded-xl bg-gray-50 px-2 py-2">
-											<p class="text-gray-400">账单</p>
-											<p class="mt-1 font-semibold text-gray-900">{card.statement_day} 日</p>
-										</div>
-										<div class="rounded-xl bg-gray-50 px-2 py-2">
-											<p class="text-gray-400">还款</p>
-											<p class="mt-1 font-semibold text-gray-900">{card.due_day} 日</p>
-										</div>
-										<div class="rounded-xl bg-gray-50 px-2 py-2">
-											<p class="text-gray-400">提前</p>
-											<p class="mt-1 font-semibold text-gray-900">{card.lead_days} 天</p>
+										<div class="mt-2 grid grid-cols-3 gap-1.5 text-center text-[11px] sm:mt-3 sm:gap-2 sm:text-xs">
+											<div class="rounded-lg bg-gray-50 px-1.5 py-1.5 sm:rounded-xl sm:px-2 sm:py-2">
+												<p class="text-gray-400">账单</p>
+												<p class="mt-0.5 font-semibold text-gray-900 sm:mt-1">{card.statement_day}日</p>
+											</div>
+											<div class="rounded-lg bg-gray-50 px-1.5 py-1.5 sm:rounded-xl sm:px-2 sm:py-2">
+												<p class="text-gray-400">还款</p>
+												<p class="mt-0.5 font-semibold text-gray-900 sm:mt-1">{card.due_day}日</p>
+											</div>
+											<div class="rounded-lg bg-gray-50 px-1.5 py-1.5 sm:rounded-xl sm:px-2 sm:py-2">
+												<p class="text-gray-400">提前</p>
+												<p class="mt-0.5 font-semibold text-gray-900 sm:mt-1">{card.lead_days}天</p>
+											</div>
 										</div>
 									</div>
 								</a>
 							</article>
 						{/each}
 					</div>
+					{#if data.cards.length > cardsPerPage}
+						<div class="mt-4 flex flex-col gap-3 text-xs text-gray-400 sm:flex-row sm:items-center sm:justify-between">
+							<p>显示 {cardStart}-{cardEnd} 张，共 {data.cards.length} 张</p>
+							<div class="flex items-center gap-2">
+								<button
+									type="button"
+									disabled={cardPage === 1}
+									onclick={() => (cardPage = Math.max(1, cardPage - 1))}
+									class="rounded-full border border-gray-200 bg-white px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-40"
+								>
+									上一页
+								</button>
+								<span class="px-2 text-gray-500">{cardPage} / {totalCardPages}</span>
+								<button
+									type="button"
+									disabled={cardPage === totalCardPages}
+									onclick={() => (cardPage = Math.min(totalCardPages, cardPage + 1))}
+									class="rounded-full border border-gray-200 bg-white px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-40"
+								>
+									下一页
+								</button>
+							</div>
+						</div>
+					{/if}
 				{/if}
 			</section>
 

@@ -11,6 +11,9 @@ export type ReminderCard = {
 	annual_fee_month: number | null;
 	annual_fee_day: number | null;
 	lead_days: number;
+	remind_statement: boolean;
+	remind_due: boolean;
+	remind_annual_fee: boolean;
 };
 
 // 这些银行所有卡共用同一账单日/还款日，同日期只发一条通知
@@ -93,10 +96,10 @@ export function getReminderPreview(cards: ReminderCard[], today = new Date(), wi
 
 	for (const card of cards) {
 		const targets: Array<{ type: ReminderType; date: Date }> = [];
-		pushMonthlyTargets(targets, 'statement', card.statement_day, today);
-		pushMonthlyTargets(targets, 'due', card.due_day, today);
+		if (card.remind_statement) pushMonthlyTargets(targets, 'statement', card.statement_day, today);
+		if (card.remind_due) pushMonthlyTargets(targets, 'due', card.due_day, today);
 
-		if (card.annual_fee_month && card.annual_fee_day) {
+		if (card.remind_annual_fee && card.annual_fee_month && card.annual_fee_day) {
 			for (let offset = 0; offset < 2; offset += 1) {
 				targets.push({
 					type: 'annual_fee',
@@ -107,8 +110,9 @@ export function getReminderPreview(cards: ReminderCard[], today = new Date(), wi
 
 		for (const target of targets) {
 			const daysUntilTarget = diffDays(today, target.date);
-			if (daysUntilTarget < 0 || daysUntilTarget > windowDays) continue;
 			const remindDate = addDays(target.date, -card.lead_days);
+			const daysUntilRemind = diffDays(today, remindDate);
+			if (daysUntilTarget < 0 || daysUntilRemind < 0 || daysUntilRemind > windowDays) continue;
 
 				previews.push({
 					cardId: card.id,
@@ -120,7 +124,7 @@ export function getReminderPreview(cards: ReminderCard[], today = new Date(), wi
 				targetDate: formatDate(target.date),
 				remindDate: formatDate(remindDate),
 				daysUntilTarget,
-				daysUntilRemind: diffDays(today, remindDate)
+				daysUntilRemind
 			});
 		}
 	}
@@ -134,9 +138,12 @@ export function getReminderPreview(cards: ReminderCard[], today = new Date(), wi
 			const key = `${bankName}|${preview.type}|${preview.targetDate}`;
 			const existing = seen.get(key);
 			if (existing) {
+				if (existing.count === 1) {
+					merged[existing.index].cardName = `${bankName}合并账单`;
+					merged[existing.index].catalogName = null;
+					merged[existing.index].lastFour = '';
+				}
 				existing.count += 1;
-				merged[existing.index].cardName = `${bankName}（${existing.count} 张合并）`;
-				merged[existing.index].lastFour = '';
 			} else {
 				seen.set(key, { index: merged.length, count: 1 });
 				merged.push({ ...preview });

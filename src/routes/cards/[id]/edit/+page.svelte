@@ -85,28 +85,51 @@
 					<h2 class="text-sm font-semibold text-gray-900">循环提醒日期</h2>
 					<p class="mt-1 text-xs leading-5 text-gray-500">账单日和还款日按每个自然月循环，月末日期按当月日历处理。</p>
 					<div class="mt-4 grid gap-4 sm:grid-cols-2">
-						<label class="block">
-							<span class="text-sm font-medium text-gray-700">账单日（每月）</span>
+						<div class="block">
+							<div class="flex items-center justify-between">
+								<span class="text-sm font-medium text-gray-700">账单日（每月）</span>
+								<label class="flex cursor-pointer items-center gap-1.5 text-xs text-gray-500">
+									<input type="hidden" name="remind_statement" value="0" />
+									<input type="checkbox" name="remind_statement" value="1" checked={data.card.remind_statement !== 0} class="h-4 w-4 rounded accent-blue-600" />
+									开启提醒
+								</label>
+							</div>
 							<select name="statement_day" required class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2">
 								{#each Array.from({ length: 31 }, (_, index) => index + 1) as day}
 									<option value={day} selected={data.card.statement_day === day}>{day} 日</option>
 								{/each}
 							</select>
-						</label>
-						<label class="block">
-							<span class="text-sm font-medium text-gray-700">还款日（每月）</span>
+						</div>
+						<div class="block">
+							<div class="flex items-center justify-between">
+								<span class="text-sm font-medium text-gray-700">还款日（每月）</span>
+								<label class="flex cursor-pointer items-center gap-1.5 text-xs text-gray-500">
+									<input type="hidden" name="remind_due" value="0" />
+									<input type="checkbox" name="remind_due" value="1" checked={data.card.remind_due !== 0} class="h-4 w-4 rounded accent-blue-600" />
+									开启提醒
+								</label>
+							</div>
 							<select name="due_day" required class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2">
 								{#each Array.from({ length: 31 }, (_, index) => index + 1) as day}
 									<option value={day} selected={data.card.due_day === day}>{day} 日</option>
 								{/each}
 							</select>
-						</label>
+						</div>
 					</div>
 				</section>
 
 				<section class="rounded-2xl bg-amber-50/70 p-4">
-					<h2 class="text-sm font-semibold text-gray-900">年费提醒（可选）</h2>
-					<p class="mt-1 text-xs text-gray-500">年费通常一年一次，填写月份和日期后，每年提醒一次；不需要就留空。</p>
+					<div class="flex items-center justify-between">
+						<div>
+							<h2 class="text-sm font-semibold text-gray-900">年费提醒（可选）</h2>
+							<p class="mt-1 text-xs text-gray-500">年费通常一年一次，填写月份和日期后，每年提醒一次；不需要就留空。</p>
+						</div>
+						<label class="flex cursor-pointer items-center gap-1.5 text-xs text-gray-500">
+							<input type="hidden" name="remind_annual_fee" value="0" />
+							<input type="checkbox" name="remind_annual_fee" value="1" checked={data.card.remind_annual_fee !== 0} class="h-4 w-4 rounded accent-amber-500" />
+							开启提醒
+						</label>
+					</div>
 					<div class="mt-4 grid gap-4 sm:grid-cols-2">
 						<label class="block">
 							<span class="text-sm font-medium text-gray-700">年费月份</span>

@@ -5,7 +5,7 @@ import { isAdmin } from '$lib/admin/access';
 import { getDb } from '$lib/db/client';
 import { card_catalog } from '$lib/db/schema';
 
-const MAX_IMAGE_BYTES = 350 * 1024;
+const MAX_IMAGE_BYTES = 100 * 1024;
 const ACCEPTED_IMAGE_TYPES = new Set(['image/jpeg', 'image/png', 'image/webp', 'image/svg+xml']);
 const ACCEPTED_DATA_URL_PREFIX = /^data:image\/(jpeg|png|webp);base64,/;
 
