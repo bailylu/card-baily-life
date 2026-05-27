@@ -27,7 +27,7 @@
 	let selectedBank = $state('全部银行');
 	let currentPage = $state(1);
 	let showNotificationWarning = $state(false);
-	const cardsPerPage = 10;
+	const cardsPerPage = 8;
 	let banks = $derived([
 		'全部银行',
 		...Array.from(new Set(data.catalog.map((card) => card.bank_name))).sort()
@@ -148,23 +148,23 @@
 					<input
 						bind:value={search}
 						type="search"
-						placeholder="搜索银行或卡名，例如 招商、白金、Safari"
+						placeholder="搜索银行或卡名"
 						class="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
 					/>
 					<select
 						bind:value={selectedBank}
-						class="rounded-xl border border-gray-200 px-4 py-3 text-sm outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
+						class="hidden rounded-xl border border-gray-200 px-4 py-3 text-sm outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-100 sm:block"
 					>
 						{#each banks as bank}
 							<option value={bank}>{bank}</option>
 						{/each}
 					</select>
 				</div>
-				<div class="mt-3 flex flex-wrap gap-2">
+				<div class="-mx-1 mt-3 flex gap-2 overflow-x-auto px-1 pb-1 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 sm:pb-0">
 					{#each banks as bank}
 						<button
 							type="button"
-							class={`rounded-full px-3 py-1 text-xs font-medium ring-1 ${
+							class={`shrink-0 rounded-full px-3 py-1.5 text-xs font-medium ring-1 sm:py-1 ${
 								selectedBank === bank
 									? 'bg-blue-600 text-white ring-blue-600'
 									: 'bg-white text-gray-500 ring-gray-200 hover:text-gray-900'
@@ -175,14 +175,14 @@
 						</button>
 					{/each}
 				</div>
-				<div class="mt-3 grid gap-3 sm:grid-cols-2">
+				<div class="mt-3 grid grid-cols-2 gap-2.5 sm:gap-3">
 					{#each visibleCatalog as card}
 						{@const imgs = getCardImages(card)}
 						{@const varIdx = variantIndexes[card.id] ?? 0}
 						{@const currentImg = imgs[varIdx] ?? null}
 						<label class="cursor-pointer">
 							<input class="peer sr-only" type="radio" name="catalog_id" value={card.id} bind:group={selectedCardId} />
-								<div class="rounded-2xl border border-gray-200 bg-white p-4 transition peer-checked:border-blue-500 peer-checked:ring-2 peer-checked:ring-blue-100">
+								<div class="rounded-2xl border border-gray-200 bg-white p-2 transition peer-checked:border-blue-600 peer-checked:bg-blue-50 peer-checked:ring-4 peer-checked:ring-blue-500/30 sm:p-4 sm:peer-checked:border-blue-500 sm:peer-checked:bg-white sm:peer-checked:ring-2 sm:peer-checked:ring-blue-100">
 									<div class="relative">
 										<CardFace
 											imageUrl={currentImg}
@@ -203,11 +203,11 @@
 											</div>
 										{/if}
 									</div>
-									<div class="mt-3 space-y-1">
-										<span class="inline-flex rounded-full bg-gray-100 px-2 py-0.5 text-[11px] font-semibold text-gray-500">
+									<div class="mt-2 space-y-1 sm:mt-3">
+										<span class="inline-flex rounded-full bg-gray-100 px-2 py-0.5 text-[10px] font-semibold text-gray-500 sm:text-[11px]">
 											{card.bank_name}
 										</span>
-										<p class="text-base font-semibold leading-snug text-gray-950">{card.card_name}</p>
+										<p class="line-clamp-2 text-xs font-semibold leading-snug text-gray-950 sm:text-base">{card.card_name}</p>
 									</div>
 								</div>
 						</label>
@@ -232,27 +232,24 @@
 						没有找到匹配的卡。可以先选“自定义卡片”保存，也可以在页面底部提交给我补充卡片库。
 					</div>
 				{:else}
-					<div class="mt-4 flex flex-col gap-3 rounded-2xl bg-gray-50 p-3 text-sm text-gray-500 sm:flex-row sm:items-center sm:justify-between">
-						<p>显示 {pageStart}-{pageEnd} / 共 {filteredCatalog.length} 张卡</p>
-						<div class="flex items-center gap-2">
-							<button
-								type="button"
-								class="rounded-lg border border-gray-200 bg-white px-3 py-2 disabled:cursor-not-allowed disabled:opacity-40"
-								disabled={currentPage === 1}
-								onclick={() => (currentPage -= 1)}
-							>
-								上一页
-							</button>
-							<span class="px-2 text-gray-400">{currentPage} / {totalPages}</span>
-							<button
-								type="button"
-								class="rounded-lg border border-gray-200 bg-white px-3 py-2 disabled:cursor-not-allowed disabled:opacity-40"
-								disabled={currentPage === totalPages}
-								onclick={() => (currentPage += 1)}
-							>
-								下一页
-							</button>
-						</div>
+					<div class="mt-4 flex items-center justify-between gap-2 rounded-2xl bg-gray-50 px-3 py-2 text-xs text-gray-500 sm:text-sm">
+						<button
+							type="button"
+							class="rounded-lg border border-gray-200 bg-white px-3 py-1.5 disabled:cursor-not-allowed disabled:opacity-40 sm:py-2"
+							disabled={currentPage === 1}
+							onclick={() => (currentPage -= 1)}
+						>
+							上一页
+						</button>
+						<span class="text-gray-400">{pageStart}-{pageEnd} / {filteredCatalog.length}</span>
+						<button
+							type="button"
+							class="rounded-lg border border-gray-200 bg-white px-3 py-1.5 disabled:cursor-not-allowed disabled:opacity-40 sm:py-2"
+							disabled={currentPage === totalPages}
+							onclick={() => (currentPage += 1)}
+						>
+							下一页
+						</button>
 					</div>
 				{/if}
 			</section>
@@ -262,8 +259,8 @@
 					<h2 class="text-sm font-semibold text-gray-900">卡片信息</h2>
 					<p class="mt-1 text-xs text-gray-500">备注名称只在你的卡片列表里显示，方便自己识别。</p>
 				</div>
-				<div class="mt-4 grid gap-4 sm:grid-cols-2">
-					<label class="block sm:col-span-2">
+				<div class="mt-4 grid grid-cols-2 gap-3 sm:gap-4">
+					<label class="col-span-2 block">
 						<span class="text-sm font-medium text-gray-700">备注名称</span>
 						<input
 							name="custom_name"
@@ -310,7 +307,7 @@
 						账单日和还款日按每个自然月循环；账单日当天提醒，还款日按上面的提前天数提醒。月末日期按当月日历处理。
 					</p>
 				</div>
-				<div class="mt-4 grid gap-4 sm:grid-cols-2">
+				<div class="mt-4 grid grid-cols-2 gap-3 sm:gap-4">
 					<div class="block">
 						<div class="flex items-center justify-between">
 							<span class="text-sm font-medium text-gray-700">账单日（每月）</span>
@@ -366,7 +363,7 @@
 						开启提醒
 					</label>
 				</div>
-				<div class="mt-4 grid gap-4 sm:grid-cols-2">
+				<div class="mt-4 grid grid-cols-2 gap-3 sm:gap-4">
 					<label class="block">
 						<span class="text-sm font-medium text-gray-700">年费月份</span>
 						<select name="annual_fee_month" class="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2">
