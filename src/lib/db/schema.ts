@@ -80,6 +80,15 @@ export const notification_channels = sqliteTable('notification_channels', {
 	created_at: integer('created_at').notNull()
 });
 
+export const notification_preferences = sqliteTable('notification_preferences', {
+	user_id: text('user_id').primaryKey().references(() => users.id),
+	statement_enabled: integer('statement_enabled').notNull().default(1),
+	due_enabled: integer('due_enabled').notNull().default(1),
+	annual_fee_enabled: integer('annual_fee_enabled').notNull().default(1),
+	offer_enabled: integer('offer_enabled').notNull().default(0),
+	updated_at: integer('updated_at').notNull()
+});
+
 export const reminder_sent = sqliteTable('reminder_sent', {
 	id: integer('id').primaryKey({ autoIncrement: true }),
 	user_card_id: text('user_card_id').notNull(),
@@ -87,4 +96,25 @@ export const reminder_sent = sqliteTable('reminder_sent', {
 	target_date: text('target_date').notNull(),
 	channel: text('channel').notNull(),
 	sent_at: integer('sent_at').notNull()
+});
+
+export const featured_promotions = sqliteTable('featured_promotions', {
+	id: text('id').primaryKey(),
+	bank: text('bank').notNull(),
+	partner: text('partner').notNull(),
+	name: text('name').notNull(),
+	description: text('description').notNull(),
+	image_url: text('image_url').notNull(),
+	alt: text('alt').notNull(),
+	href: text('href').notNull(),
+	metric_1_label: text('metric_1_label').notNull(),
+	metric_1_value: text('metric_1_value').notNull(),
+	metric_2_label: text('metric_2_label').notNull(),
+	metric_2_value: text('metric_2_value').notNull(),
+	metric_3_label: text('metric_3_label').notNull(),
+	metric_3_value: text('metric_3_value').notNull(),
+	sort_order: integer('sort_order').notNull().default(100),
+	enabled: integer('enabled').notNull().default(1),
+	created_at: integer('created_at').notNull(),
+	updated_at: integer('updated_at').notNull()
 });

@@ -1,9 +1,35 @@
 <script lang="ts">
 	import type { ActionData, PageData } from './$types';
-	import { shortUid } from '$lib/auth/uid';
 
 	let { data, form }: { data: PageData; form: ActionData } = $props();
 	let settings = $derived(form && 'settings' in form && form.settings ? form.settings : data.settings);
+
+	const categories = [
+		{
+			name: 'statementEnabled',
+			title: '账单日提醒',
+			description: '每月账单日相关提醒。',
+			enabled: () => settings.statementEnabled
+		},
+		{
+			name: 'dueEnabled',
+			title: '还款日提醒',
+			description: '避免错过信用卡还款。',
+			enabled: () => settings.dueEnabled
+		},
+		{
+			name: 'annualFeeEnabled',
+			title: '年费提醒',
+			description: '年费日或免年费复核提醒。',
+			enabled: () => settings.annualFeeEnabled
+		},
+		{
+			name: 'offerEnabled',
+			title: '权益活动通知',
+			description: '好卡推荐、开卡活动和权益变化。',
+			enabled: () => settings.offerEnabled
+		}
+	] as const;
 </script>
 
 <svelte:head>
@@ -17,20 +43,19 @@
 				<a href="/dashboard" class="text-sm text-gray-400 hover:text-gray-700">← 返回我的卡片</a>
 				<h1 class="mt-2 text-2xl font-bold text-gray-900">我的信息</h1>
 			</div>
+			<form method="POST" action="/logout">
+				<button class="text-sm text-gray-400 hover:text-gray-700">退出</button>
+			</form>
 		</div>
 	</header>
 
 	<div class="mx-auto max-w-3xl space-y-6 px-4 py-8">
 		<section class="rounded-2xl border border-gray-200 bg-white p-5">
 			<p class="text-sm font-semibold text-gray-900">账号</p>
-			<div class="mt-4 grid gap-3 text-sm text-gray-500 sm:grid-cols-2">
+			<div class="mt-4 text-sm text-gray-500">
 				<div class="rounded-xl bg-gray-50 p-4">
 					<p class="text-xs text-gray-400">登录邮箱</p>
 					<p class="mt-1 break-all font-medium text-gray-900">{data.user.email}</p>
-				</div>
-				<div class="rounded-xl bg-gray-50 p-4">
-					<p class="text-xs text-gray-400">UID</p>
-					<p class="mt-1 font-medium text-gray-900">{shortUid(data.user.id)}</p>
 				</div>
 			</div>
 		</section>
@@ -58,6 +83,38 @@
 				{/if}
 
 				<form method="POST" class="mt-6 space-y-4">
+					<div class="rounded-2xl border border-blue-100 bg-blue-50/45 p-4">
+						<div class="flex items-start justify-between gap-4">
+							<div>
+								<p class="font-semibold text-gray-900">通知分类</p>
+								<p class="mt-1 text-sm leading-6 text-gray-500">
+									选择你愿意接收哪些内容。账单、还款、年费是卡片提醒；权益活动用于之后的好卡推荐和活动通知。
+								</p>
+							</div>
+							<span class="shrink-0 rounded-full border border-blue-100 bg-white px-3 py-1 text-xs font-medium text-gray-500">
+								可随时关闭
+							</span>
+						</div>
+						<div class="mt-4 grid gap-3 sm:grid-cols-2">
+							{#each categories as category}
+								<label class="flex cursor-pointer items-center justify-between gap-4 rounded-2xl border border-blue-100 bg-white p-4">
+									<span>
+										<span class="block font-semibold text-gray-900">{category.title}</span>
+										<span class="mt-1 block text-sm text-gray-500">{category.description}</span>
+									</span>
+									<input type="hidden" name={category.name} value="0" />
+									<input
+										type="checkbox"
+										name={category.name}
+										value="1"
+										checked={category.enabled()}
+										class="h-5 w-5 shrink-0 rounded border-gray-300 accent-blue-600"
+									/>
+								</label>
+							{/each}
+						</div>
+					</div>
+
 					<div class="grid gap-4 sm:grid-cols-2">
 						<div class="rounded-2xl border border-emerald-100 bg-emerald-50/50 p-4">
 							<div class="flex items-start justify-between gap-3">

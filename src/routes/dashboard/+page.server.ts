@@ -2,6 +2,7 @@ import { redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import { buildReminderPreview, listUserCards } from '$lib/cards/service';
 import { isAdmin } from '$lib/admin/access';
+import { defaultFeaturedPromotions, listFeaturedPromotions } from '$lib/featured/promotions';
 
 function timeout<T>(ms: number): Promise<T> {
 	return new Promise((_, reject) => {
@@ -10,7 +11,14 @@ function timeout<T>(ms: number): Promise<T> {
 }
 
 function emptyDashboard(user: App.Locals['user'], admin: boolean) {
-	return { user, cards: [], reminders: [], configMissing: true, isAdmin: admin };
+	return {
+		user,
+		cards: [],
+		reminders: [],
+		featuredCards: defaultFeaturedPromotions,
+		configMissing: true,
+		isAdmin: admin
+	};
 }
 
 export const load: PageServerLoad = async ({ locals, platform }) => {
@@ -30,11 +38,16 @@ export const load: PageServerLoad = async ({ locals, platform }) => {
 			})(),
 			timeout<Awaited<ReturnType<typeof listUserCards>>>(2500)
 		]);
+		const featuredCards = await Promise.race([
+			listFeaturedPromotions(platform.env.DB),
+			timeout<Awaited<ReturnType<typeof listFeaturedPromotions>>>(2500)
+		]).catch(() => defaultFeaturedPromotions);
 
 		return {
 			user: locals.user,
 			cards,
 			reminders: buildReminderPreview(cards),
+			featuredCards,
 			configMissing: false,
 			isAdmin: admin
 		};

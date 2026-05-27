@@ -1,10 +1,19 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	let { data }: { data: PageData } = $props();
+
+	// 3 rows of background cards, looped for seamless scroll
+	const row1 = Array.from({ length: 14 }, (_, i) => String(i + 1).padStart(3, '0')); // 001-014
+	const row2 = Array.from({ length: 14 }, (_, i) => String(i + 15).padStart(3, '0')); // 015-028
+	const row3 = Array.from({ length: 14 }, (_, i) => String(i + 29).padStart(3, '0')); // 029-042
+
+	function loop(arr: string[]) {
+		return [...arr, ...arr, ...arr];
+	}
 </script>
 
 <svelte:head>
-	<title>card.baily.life — 信用卡提醒</title>
+	<title>贝利卡管家</title>
 </svelte:head>
 
 <main class="relative min-h-screen overflow-hidden bg-slate-950 px-4 text-white">
@@ -13,107 +22,122 @@
 	<div class="absolute -bottom-16 right-0 h-96 w-96 rounded-full bg-cyan-500/10 blur-3xl"></div>
 
 	<div class="relative mx-auto flex min-h-screen max-w-6xl flex-col justify-center py-12">
-		<nav class="absolute left-0 right-0 top-6 flex items-center justify-between">
-			<div class="flex items-center gap-3 text-sm font-semibold">
-				<span class="grid h-10 w-10 place-items-center rounded-2xl bg-white text-xl shadow-lg shadow-blue-950/30">💳</span>
-				<div>
-					<p>贝利卡管家</p>
-					<p class="text-xs font-normal text-slate-400">你的信用卡专属小管家</p>
+		<!-- Background floating credit cards -->
+		<div class="pointer-events-none absolute inset-x-[-12rem] bottom-16 top-36 z-0 overflow-hidden opacity-35 blur-[0.2px] [mask-image:radial-gradient(ellipse_at_center,black_42%,transparent_78%)]">
+			<div class="flex h-full flex-col justify-center gap-8">
+				<div class="background-card-row float-row-slow" style="--row-delay: 0s">
+					{#each loop(row1) as id, i}
+						<figure class="background-card" style="--item-delay: {(i % 14) * 0.16}s">
+							<img src="/images/kamian/card-{id}.webp" alt="" class="h-full w-full object-contain p-1" />
+						</figure>
+					{/each}
+				</div>
+				<div class="background-card-row float-row-medium reverse" style="--row-delay: 0.8s">
+					{#each loop(row2) as id, i}
+						<figure class="background-card" style="--item-delay: {(i % 14) * 0.16}s">
+							<img src="/images/kamian/card-{id}.webp" alt="" class="h-full w-full object-contain p-1" />
+						</figure>
+					{/each}
+				</div>
+				<div class="background-card-row float-row-fast" style="--row-delay: 1.6s">
+					{#each loop(row3) as id, i}
+						<figure class="background-card" style="--item-delay: {(i % 14) * 0.16}s">
+							<img src="/images/kamian/card-{id}.webp" alt="" class="h-full w-full object-contain p-1" />
+						</figure>
+					{/each}
+				</div>
+			</div>
+		</div>
+
+		<nav class="absolute left-0 right-0 top-4 z-20 flex items-center justify-between gap-2 sm:top-6">
+			<div class="flex min-w-0 items-center gap-2 text-sm font-semibold sm:gap-3 sm:text-base">
+				<span class="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-white text-xl shadow-lg shadow-blue-950/30 sm:h-11 sm:w-11 sm:rounded-2xl sm:text-2xl">💳</span>
+				<div class="min-w-0">
+					<p class="truncate">贝利卡管家</p>
+					<p class="hidden text-sm font-normal text-slate-400 sm:block">你的信用卡专属小管家</p>
 				</div>
 			</div>
 			{#if data.user}
 				<a
 					href="/dashboard"
-					class="rounded-full bg-white/10 px-4 py-2 text-sm text-white/85 ring-1 ring-white/15 hover:bg-white/15"
+					class="shrink-0 rounded-full bg-white/10 px-3 py-1.5 text-xs text-white/85 ring-1 ring-white/15 hover:bg-white/15 sm:px-4 sm:py-2 sm:text-sm"
 				>
 					进入我的卡片
 				</a>
-			{:else}
-				<div class="flex items-center gap-2">
-					<a href="/login?mode=login" class="rounded-full px-4 py-2 text-sm text-white/75 hover:text-white">
-						登录
-					</a>
-					<a
-						href="/login?mode=register"
-						class="rounded-full bg-white/10 px-4 py-2 text-sm text-white/85 ring-1 ring-white/15 hover:bg-white/15"
-					>
-						注册
-					</a>
-				</div>
 			{/if}
 		</nav>
 
-		<div class="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">
-			<section class="pt-20">
-				<p class="inline-flex rounded-full bg-white/10 px-3 py-1 text-sm text-blue-100 ring-1 ring-white/15">
-					给信用卡做一个简单、干净的提醒台
-				</p>
-				<h1 class="mt-6 max-w-3xl text-5xl font-black tracking-tight text-white sm:text-6xl">
-					别再错过账单日、还款日和年费日
-				</h1>
-				<p class="mt-6 max-w-2xl text-lg leading-8 text-slate-300">
-					把每张信用卡的关键日期放在一个地方。先记录，后续通过邮箱等方式提醒你，避免忘还款、漏年费，也不用在备忘录里翻来翻去。
-				</p>
-				<div class="mt-8 flex">
-					<a
-						href={data.user ? '/dashboard' : '/login?mode=register'}
-						class="inline-flex items-center justify-center rounded-2xl bg-blue-500 px-6 py-4 font-semibold text-white shadow-2xl shadow-blue-500/25 hover:bg-blue-400"
-					>
-						{data.user ? '进入我的卡片' : '开始使用'}
-					</a>
-				</div>
-				<div class="mt-8 grid max-w-xl gap-3 text-sm text-slate-300 sm:grid-cols-3">
-					<div class="rounded-2xl bg-white/8 p-4 ring-1 ring-white/10">
-						<p class="text-xl font-bold text-white">先录入</p>
-						<p class="mt-1">账单日、还款日、年费日</p>
+		<div class="relative z-10 mt-12 grid items-center gap-4 sm:mt-0 sm:gap-10 lg:grid-cols-[1.05fr_0.95fr]">
+			<section class="relative overflow-hidden rounded-[1.5rem] bg-slate-950/55 p-5 pt-8 shadow-2xl shadow-slate-950/25 ring-1 ring-white/15 backdrop-blur-sm sm:rounded-[2rem] sm:p-8 sm:pt-10 lg:pt-8">
+				<div class="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/10 via-slate-950/35 to-slate-950/65"></div>
+				<div class="relative">
+					<p class="inline-flex rounded-full bg-white/10 px-2.5 py-1 text-xs text-blue-100 ring-1 ring-white/15 sm:px-3 sm:text-sm">
+						信用卡提醒，简单一点
+					</p>
+					<h1 class="mt-4 max-w-3xl text-3xl font-extrabold leading-[1.15] text-white sm:mt-6 sm:text-5xl sm:leading-[1.08] lg:text-[3.5rem]">
+						别再错过账单日<br />还款日和年费日
+					</h1>
+					<p class="mt-3 max-w-xl text-sm leading-6 text-slate-300 sm:mt-6 sm:text-lg sm:leading-9">
+						把账单、还款、年费这些容易忘的日子统一记好。提前看见，按时处理，不用再靠备忘录和临时想起。
+					</p>
+					<div class="mt-5 flex sm:mt-8">
+						<a
+							href={data.user ? '/dashboard' : '/login?intent=sign-in'}
+							class="inline-flex items-center justify-center rounded-xl bg-blue-500 px-5 py-3 text-sm font-semibold text-white shadow-2xl shadow-blue-500/25 hover:bg-blue-400 sm:rounded-2xl sm:px-6 sm:py-4 sm:text-base"
+						>
+							{data.user ? '进入我的卡片' : '开始使用'}
+						</a>
 					</div>
-					<div class="rounded-2xl bg-white/8 p-4 ring-1 ring-white/10">
-						<p class="text-xl font-bold text-white">再预览</p>
-						<p class="mt-1">未来 30 天提醒清单</p>
-					</div>
+					<div class="mt-8 hidden max-w-xl gap-3 text-sm text-slate-300 sm:grid sm:grid-cols-3">
 						<div class="rounded-2xl bg-white/8 p-4 ring-1 ring-white/10">
-							<p class="text-xl font-bold text-white">后通知</p>
-							<p class="mt-1">Bark / PushPlus / Telegram</p>
+							<p class="text-xl font-bold text-white">免费使用</p>
+							<p class="mt-1">基础提醒不收费，不绑套餐</p>
 						</div>
+						<div class="rounded-2xl bg-white/8 p-4 ring-1 ring-white/10">
+							<p class="text-xl font-bold text-white">开源透明</p>
+							<p class="mt-1">逻辑看得见，数据不藏着</p>
+						</div>
+						<div class="rounded-2xl bg-white/8 p-4 ring-1 ring-white/10">
+							<p class="text-xl font-bold text-white">隐私可控</p>
+							<p class="mt-1">只记提醒信息，不碰卡密</p>
+						</div>
+					</div>
 				</div>
 			</section>
 
-			<section class="relative lg:translate-y-8">
+			<section class="relative">
 				<div class="absolute -inset-4 rounded-[2rem] bg-gradient-to-br from-blue-500/25 to-cyan-500/10 blur-2xl"></div>
-				<div class="relative overflow-hidden rounded-[2rem] border border-white/15 bg-white/10 p-5 shadow-2xl backdrop-blur">
-					<div class="absolute right-6 top-6 rounded-full bg-emerald-400/10 px-3 py-1 text-xs text-emerald-200 ring-1 ring-emerald-300/20">
-						演示卡片
-					</div>
+				<div class="relative mx-auto overflow-hidden rounded-2xl border border-white/15 bg-white/10 p-3 shadow-2xl backdrop-blur sm:rounded-[2rem] sm:p-5">
 					<img
 						src="/images/apple-card.png"
 						alt="Apple Card 示例卡面"
-						class="block w-full rounded-3xl shadow-xl ring-1 ring-white/20"
+						class="block w-full rounded-2xl shadow-xl ring-1 ring-white/20 sm:rounded-3xl"
 					/>
-					<div class="mt-4 grid grid-cols-3 gap-3 text-center">
-						<div class="rounded-2xl bg-white/10 p-4 ring-1 ring-white/10">
-							<p class="text-xs text-slate-300">账单日</p>
-							<p class="mt-1 text-lg font-bold">每月 12 日</p>
+					<div class="mt-2.5 grid grid-cols-3 gap-2 text-center sm:mt-4 sm:gap-3">
+						<div class="rounded-xl bg-white/10 px-2 py-1.5 ring-1 ring-white/10 sm:rounded-2xl sm:p-4">
+							<p class="text-[10px] text-slate-300 sm:text-xs">账单日</p>
+							<p class="mt-0.5 text-[11px] font-bold sm:mt-1 sm:text-lg">每月 12 日</p>
 						</div>
-						<div class="rounded-2xl bg-white/10 p-4 ring-1 ring-white/10">
-							<p class="text-xs text-slate-300">还款日</p>
-							<p class="mt-1 text-lg font-bold">每月 30 日</p>
+						<div class="rounded-xl bg-white/10 px-2 py-1.5 ring-1 ring-white/10 sm:rounded-2xl sm:p-4">
+							<p class="text-[10px] text-slate-300 sm:text-xs">还款日</p>
+							<p class="mt-0.5 text-[11px] font-bold sm:mt-1 sm:text-lg">每月 30 日</p>
 						</div>
-						<div class="rounded-2xl bg-white/10 p-4 ring-1 ring-white/10">
-							<p class="text-xs text-slate-300">提前提醒</p>
-							<p class="mt-1 text-lg font-bold">5 天</p>
+						<div class="rounded-xl bg-white/10 px-2 py-1.5 ring-1 ring-white/10 sm:rounded-2xl sm:p-4">
+							<p class="text-[10px] text-slate-300 sm:text-xs">提前提醒</p>
+							<p class="mt-0.5 text-[11px] font-bold sm:mt-1 sm:text-lg">5 天</p>
 						</div>
 					</div>
-					<div class="mt-4 rounded-2xl bg-slate-950/60 p-4 ring-1 ring-white/10">
-							<div class="flex items-center justify-between">
-								<p class="font-semibold">未来 30 天</p>
-								<span class="rounded-full bg-emerald-400/10 px-2 py-1 text-xs text-emerald-200">即时通知</span>
-							</div>
-						<div class="mt-3 space-y-2 text-sm text-slate-300">
-							<div class="flex justify-between rounded-xl bg-white/5 px-3 py-2">
+					<div class="mt-2.5 rounded-xl bg-slate-950/60 p-2.5 ring-1 ring-white/10 sm:mt-4 sm:rounded-2xl sm:p-4">
+						<div class="flex items-center justify-between">
+							<p class="text-[11px] font-semibold sm:text-base">未来 30 天</p>
+							<span class="rounded-full bg-emerald-400/10 px-2 py-0.5 text-[10px] text-emerald-200 sm:py-1 sm:text-xs">即时通知</span>
+						</div>
+						<div class="mt-1.5 space-y-1 text-[11px] text-slate-300 sm:mt-3 sm:space-y-2 sm:text-sm">
+							<div class="flex justify-between rounded-lg bg-white/5 px-2.5 py-1 sm:rounded-xl sm:px-3 sm:py-2">
 								<span>还款提醒</span>
 								<span class="text-white">5 天后</span>
 							</div>
-							<div class="flex justify-between rounded-xl bg-white/5 px-3 py-2">
+							<div class="flex justify-between rounded-lg bg-white/5 px-2.5 py-1 sm:rounded-xl sm:px-3 sm:py-2">
 								<span>账单提醒</span>
 								<span class="text-white">17 天后</span>
 							</div>
@@ -124,3 +148,61 @@
 		</div>
 	</div>
 </main>
+
+<style>
+	.background-card-row {
+		display: flex;
+		gap: 1.5rem;
+		width: max-content;
+		animation: background-card-scroll 56s linear infinite;
+	}
+	.background-card-row.reverse {
+		animation-direction: reverse;
+	}
+	.float-row-slow {
+		margin-left: -6rem;
+		animation-duration: 68s;
+	}
+	.float-row-medium {
+		margin-left: -14rem;
+		animation-duration: 58s;
+	}
+	.float-row-fast {
+		margin-left: -2rem;
+		animation-duration: 48s;
+	}
+	.background-card {
+		aspect-ratio: 1.586;
+		width: clamp(170px, 14vw, 230px);
+		background: rgba(255, 255, 255, 0.14);
+		border-radius: 1.25rem;
+		outline: 1px solid rgba(255, 255, 255, 0.26);
+		overflow: hidden;
+		box-shadow: 0 24px 64px rgba(2, 6, 23, 0.42);
+		animation: background-card-float 6s ease-in-out infinite;
+		animation-delay: calc(var(--row-delay) + var(--item-delay));
+	}
+	@keyframes background-card-scroll {
+		0% {
+			transform: translateX(0);
+		}
+		100% {
+			transform: translateX(-33.333%);
+		}
+	}
+	@keyframes background-card-float {
+		0%,
+		100% {
+			transform: translateY(0) rotate(-1deg);
+		}
+		50% {
+			transform: translateY(-16px) rotate(1deg);
+		}
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.background-card-row,
+		.background-card {
+			animation: none;
+		}
+	}
+</style>
