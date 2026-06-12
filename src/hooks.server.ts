@@ -1,12 +1,39 @@
 import type { Handle } from '@sveltejs/kit';
+import { createClerkClient } from '@clerk/backend';
+import { withClerkHandler } from 'svelte-clerk/server';
+import { resolveLocalUserFromClerkUser } from '$lib/auth/local-user-d1';
 import { getSessionCookie, getUserFromSession } from '$lib/auth/session';
 
-export const handle: Handle = async ({ event, resolve }) => {
+const loadLocalUser: Handle = async ({ event, resolve }) => {
 	const sessionId = getSessionCookie(event.cookies);
-	if (sessionId && event.platform?.env.DB) {
+	const auth = event.locals.auth?.();
+	const clerkUserId = auth && 'userId' in auth ? auth.userId : null;
+
+	if (clerkUserId && event.platform?.env.DB) {
+		const clerkClient = createClerkClient({
+			secretKey: event.platform.env.CLERK_SECRET_KEY,
+			publishableKey: event.platform.env.PUBLIC_CLERK_PUBLISHABLE_KEY
+		});
+		const clerkUser = await clerkClient.users.getUser(clerkUserId);
+		event.locals.user = await resolveLocalUserFromClerkUser(event.platform.env.DB, clerkUser);
+	} else if (sessionId && event.platform?.env.DB) {
 		event.locals.user = await getUserFromSession(event.platform.env.DB, sessionId);
 	} else {
 		event.locals.user = null;
 	}
 	return resolve(event);
+};
+
+export const handle: Handle = async ({ event, resolve }) => {
+	const clerkHandle = withClerkHandler({
+		publishableKey: event.platform?.env.PUBLIC_CLERK_PUBLISHABLE_KEY,
+		secretKey: event.platform?.env.CLERK_SECRET_KEY,
+		signInUrl: '/sign-in',
+		signUpUrl: '/sign-up'
+	});
+
+	return clerkHandle({
+		event,
+		resolve: (clerkEvent) => loadLocalUser({ event: clerkEvent, resolve })
+	});
 };

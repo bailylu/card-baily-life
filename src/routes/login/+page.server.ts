@@ -10,6 +10,9 @@ function normalizeMode(value: string | null) {
 
 export const load: PageServerLoad = async ({ locals, url }) => {
 	if (locals.user) redirect(302, '/dashboard');
+	const signInUrl = new URL('/sign-in', url.origin);
+	signInUrl.searchParams.set('redirect_url', url.searchParams.get('redirect_url') ?? new URL('/dashboard', url.origin).toString());
+	redirect(302, signInUrl.toString());
 	return { mode: normalizeMode(url.searchParams.get('mode')) };
 };
 
