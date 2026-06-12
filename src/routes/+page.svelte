@@ -82,7 +82,7 @@
 					</p>
 					<div class="mt-5 flex sm:mt-8">
 						<a
-							href={data.user ? '/dashboard' : '/login?intent=sign-in'}
+							href={data.user ? '/dashboard' : data.clerkSignInUrl}
 							class="inline-flex items-center justify-center rounded-xl bg-blue-500 px-5 py-3 text-sm font-semibold text-white shadow-2xl shadow-blue-500/25 hover:bg-blue-400 sm:rounded-2xl sm:px-6 sm:py-4 sm:text-base"
 						>
 							{data.user ? '进入我的卡片' : '开始使用'}

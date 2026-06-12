@@ -12,6 +12,8 @@ declare global {
 				ADMIN_TELEGRAM_CHAT_ID?: string;
 				CRM_API_BASE?: string;
 				CRM_API_KEY?: string;
+				PUBLIC_CLERK_ACCOUNT_PORTAL_URL?: string;
+				PUBLIC_CLERK_SIGN_IN_URL?: string;
 			};
 		}
 		interface Locals {

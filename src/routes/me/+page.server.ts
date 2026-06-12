@@ -1,5 +1,6 @@
 import { fail, redirect } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from './$types';
+import { buildClerkSignInUrl } from '$lib/auth/clerk-sign-in';
 import { syncCardUserToCrm } from '$lib/crm-sync';
 import {
 	emptyNotificationSettings,
@@ -98,8 +99,8 @@ async function sendTestNotification(settings: NotificationSettings) {
 	return { sent, errors };
 }
 
-export const load: PageServerLoad = async ({ locals, platform }) => {
-	if (!locals.user) redirect(302, '/login');
+export const load: PageServerLoad = async ({ locals, platform, url }) => {
+	if (!locals.user) redirect(302, buildClerkSignInUrl(url, platform?.env, '/me'));
 	if (!platform?.env.DB) {
 		return {
 			user: locals.user,
@@ -115,8 +116,8 @@ export const load: PageServerLoad = async ({ locals, platform }) => {
 };
 
 export const actions: Actions = {
-	saveSettings: async ({ request, locals, platform }) => {
-		if (!locals.user) redirect(302, '/login');
+	saveSettings: async ({ request, locals, platform, url }) => {
+		if (!locals.user) redirect(302, buildClerkSignInUrl(url, platform?.env, '/me'));
 		if (!platform?.env.DB) return fail(503, { error: '数据连接暂时不可用' });
 
 		const settings = settingsFromForm(await request.formData());
@@ -127,8 +128,8 @@ export const actions: Actions = {
 		await syncCardUserToCrm(platform.env, locals.user.id, 'settings_saved');
 		return { success: true, settings };
 	},
-	testNotification: async ({ request, locals }) => {
-		if (!locals.user) redirect(302, '/login');
+	testNotification: async ({ request, locals, platform, url }) => {
+		if (!locals.user) redirect(302, buildClerkSignInUrl(url, platform?.env, '/me'));
 
 		const settings = settingsFromForm(await request.formData());
 		const validationError = validateNotificationSettings(settings);

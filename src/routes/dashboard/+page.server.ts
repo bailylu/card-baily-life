@@ -3,6 +3,7 @@ import type { PageServerLoad } from './$types';
 import { buildReminderPreview, listUserCards } from '$lib/cards/service';
 import { isAdmin } from '$lib/admin/access';
 import { defaultFeaturedPromotions, listFeaturedPromotions } from '$lib/featured/promotions';
+import { buildClerkSignInUrl } from '$lib/auth/clerk-sign-in';
 
 function timeout<T>(ms: number): Promise<T> {
 	return new Promise((_, reject) => {
@@ -21,8 +22,8 @@ function emptyDashboard(user: App.Locals['user'], admin: boolean) {
 	};
 }
 
-export const load: PageServerLoad = async ({ locals, platform }) => {
-	if (!locals.user) redirect(302, '/login');
+export const load: PageServerLoad = async ({ locals, platform, url }) => {
+	if (!locals.user) redirect(302, buildClerkSignInUrl(url, platform?.env, '/dashboard'));
 
 	const admin = isAdmin(locals.user, platform?.env);
 
