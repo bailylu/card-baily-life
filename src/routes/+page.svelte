@@ -3,6 +3,8 @@
 	import type { PageData } from './$types';
 	let { data }: { data: PageData } = $props();
 	let showSignIn = $state(false);
+	let isSignInPending = $state(false);
+	let signInPendingTimer: ReturnType<typeof setTimeout> | null = null;
 
 	// 3 rows of background cards, looped for seamless scroll
 	const row1 = Array.from({ length: 14 }, (_, i) => String(i + 1).padStart(3, '0')); // 001-014
@@ -11,6 +13,40 @@
 
 	function loop(arr: string[]) {
 		return [...arr, ...arr, ...arr];
+	}
+
+	function openSignIn() {
+		isSignInPending = false;
+		showSignIn = true;
+	}
+
+	function closeSignIn() {
+		if (signInPendingTimer) clearTimeout(signInPendingTimer);
+		isSignInPending = false;
+		showSignIn = false;
+	}
+
+	function markSignInPending() {
+		isSignInPending = true;
+		if (signInPendingTimer) clearTimeout(signInPendingTimer);
+		signInPendingTimer = setTimeout(() => {
+			isSignInPending = false;
+		}, 15000);
+	}
+
+	function handleSignInInteraction(event: MouseEvent | KeyboardEvent) {
+		const target = event.target;
+		if (!(target instanceof HTMLElement)) return;
+
+		if (event instanceof KeyboardEvent) {
+			if (event.key !== 'Enter') return;
+			markSignInPending();
+			return;
+		}
+
+		const button = target.closest('button');
+		const label = button?.textContent?.trim().toLowerCase() ?? '';
+		if (label.includes('continue')) markSignInPending();
 	}
 </script>
 
@@ -93,7 +129,7 @@
 						{:else}
 							<button
 								type="button"
-								onclick={() => (showSignIn = true)}
+								onclick={openSignIn}
 								class="inline-flex items-center justify-center rounded-xl bg-blue-500 px-5 py-3 text-sm font-semibold text-white shadow-2xl shadow-blue-500/25 hover:bg-blue-400 sm:rounded-2xl sm:px-6 sm:py-4 sm:text-base"
 							>
 								开始使用
@@ -166,25 +202,39 @@
 				type="button"
 				class="absolute inset-0 cursor-default"
 				aria-label="关闭登录弹窗"
-				onclick={() => (showSignIn = false)}
+				onclick={closeSignIn}
 			></button>
-			<section class="relative w-full max-w-md rounded-[2rem] border border-white/15 bg-white p-5 text-slate-950 shadow-2xl shadow-slate-950/35">
+			<div
+				role="dialog"
+				aria-modal="true"
+				aria-labelledby="homepage-sign-in-title"
+				tabindex="-1"
+				class="relative w-full max-w-md rounded-[2rem] border border-white/15 bg-white p-5 text-slate-950 shadow-2xl shadow-slate-950/35"
+				onclick={handleSignInInteraction}
+				onkeydown={handleSignInInteraction}
+			>
 				<div class="mb-4 flex items-start justify-between gap-4">
 					<div>
 						<p class="text-sm font-semibold text-blue-600">贝利卡管家</p>
-						<h2 class="mt-1 text-2xl font-black">登录后继续使用</h2>
+						<h2 id="homepage-sign-in-title" class="mt-1 text-2xl font-black">登录后继续使用</h2>
+						{#if isSignInPending}
+							<div class="mt-4 flex items-center gap-3 rounded-2xl bg-blue-50 px-4 py-3 text-sm font-semibold text-blue-700 ring-1 ring-blue-100">
+								<span class="h-4 w-4 animate-spin rounded-full border-2 border-blue-200 border-t-blue-600"></span>
+								<span>正在登录，请稍候...</span>
+							</div>
+						{/if}
 					</div>
 					<button
 						type="button"
 						class="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-slate-100 text-xl leading-none text-slate-500 hover:bg-slate-200"
 						aria-label="关闭登录弹窗"
-						onclick={() => (showSignIn = false)}
+						onclick={closeSignIn}
 					>
 						×
 					</button>
 				</div>
 				<SignIn signUpUrl="/sign-up" fallbackRedirectUrl="/dashboard" />
-			</section>
+			</div>
 		</div>
 	{/if}
 </main>
