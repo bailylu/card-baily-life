@@ -48,6 +48,26 @@
 		const label = button?.textContent?.trim().toLowerCase() ?? '';
 		if (label.includes('continue')) markSignInPending();
 	}
+
+	function handleSignInInput(event: Event) {
+		const target = event.target;
+		if (!(target instanceof HTMLElement)) return;
+
+		const dialog = target.closest('[role="dialog"]');
+		if (!(dialog instanceof HTMLElement)) return;
+
+		const dialogText = dialog.textContent?.toLowerCase() ?? '';
+		const isVerificationStep =
+			dialogText.includes('verification') ||
+			dialogText.includes('code') ||
+			dialogText.includes('验证码');
+		if (!isVerificationStep) return;
+
+		const inputText = Array.from(dialog.querySelectorAll('input'))
+			.map((input) => input.value)
+			.join('');
+		if (inputText.replace(/\D/g, '').length >= 6 || inputText.length >= 6) markSignInPending();
+	}
 </script>
 
 <svelte:head>
@@ -212,6 +232,7 @@
 				class="relative w-full max-w-md rounded-[2rem] border border-white/15 bg-white p-5 text-slate-950 shadow-2xl shadow-slate-950/35"
 				onclick={handleSignInInteraction}
 				onkeydown={handleSignInInteraction}
+				oninput={handleSignInInput}
 			>
 				<div class="mb-4 flex items-start justify-between gap-4">
 					<div>
