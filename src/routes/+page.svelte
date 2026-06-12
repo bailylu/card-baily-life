@@ -1,7 +1,8 @@
 <script lang="ts">
-	import { SignInButton } from 'svelte-clerk';
+	import { SignIn } from 'svelte-clerk';
 	import type { PageData } from './$types';
 	let { data }: { data: PageData } = $props();
+	let showSignIn = $state(false);
 
 	// 3 rows of background cards, looped for seamless scroll
 	const row1 = Array.from({ length: 14 }, (_, i) => String(i + 1).padStart(3, '0')); // 001-014
@@ -90,16 +91,13 @@
 								进入我的卡片
 							</a>
 						{:else}
-							<SignInButton
-								mode="modal"
-								fallbackRedirectUrl="/dashboard"
-								signUpFallbackRedirectUrl="/dashboard"
+							<button
+								type="button"
+								onclick={() => (showSignIn = true)}
 								class="inline-flex items-center justify-center rounded-xl bg-blue-500 px-5 py-3 text-sm font-semibold text-white shadow-2xl shadow-blue-500/25 hover:bg-blue-400 sm:rounded-2xl sm:px-6 sm:py-4 sm:text-base"
 							>
-								{#snippet children()}
-									开始使用
-								{/snippet}
-							</SignInButton>
+								开始使用
+							</button>
 						{/if}
 					</div>
 					<div class="mt-8 hidden max-w-xl gap-3 text-sm text-slate-300 sm:grid sm:grid-cols-3">
@@ -161,6 +159,34 @@
 			</section>
 		</div>
 	</div>
+
+	{#if showSignIn}
+		<div class="fixed inset-0 z-50 grid place-items-center bg-slate-950/70 px-4 py-8 backdrop-blur-sm" role="dialog" aria-modal="true">
+			<button
+				type="button"
+				class="absolute inset-0 cursor-default"
+				aria-label="关闭登录弹窗"
+				onclick={() => (showSignIn = false)}
+			></button>
+			<section class="relative w-full max-w-md rounded-[2rem] border border-white/15 bg-white p-5 text-slate-950 shadow-2xl shadow-slate-950/35">
+				<div class="mb-4 flex items-start justify-between gap-4">
+					<div>
+						<p class="text-sm font-semibold text-blue-600">贝利卡管家</p>
+						<h2 class="mt-1 text-2xl font-black">登录后继续使用</h2>
+					</div>
+					<button
+						type="button"
+						class="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-slate-100 text-xl leading-none text-slate-500 hover:bg-slate-200"
+						aria-label="关闭登录弹窗"
+						onclick={() => (showSignIn = false)}
+					>
+						×
+					</button>
+				</div>
+				<SignIn signUpUrl="/sign-up" fallbackRedirectUrl="/dashboard" />
+			</section>
+		</div>
+	{/if}
 </main>
 
 <style>
