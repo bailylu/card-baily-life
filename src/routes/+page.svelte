@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { SignInButton } from 'svelte-clerk';
 	import type { PageData } from './$types';
 	let { data }: { data: PageData } = $props();
 
@@ -81,12 +82,25 @@
 						把账单、还款、年费这些容易忘的日子统一记好。提前看见，按时处理，不用再靠备忘录和临时想起。
 					</p>
 					<div class="mt-5 flex sm:mt-8">
-						<a
-							href={data.user ? '/dashboard' : data.clerkSignInUrl}
-							class="inline-flex items-center justify-center rounded-xl bg-blue-500 px-5 py-3 text-sm font-semibold text-white shadow-2xl shadow-blue-500/25 hover:bg-blue-400 sm:rounded-2xl sm:px-6 sm:py-4 sm:text-base"
-						>
-							{data.user ? '进入我的卡片' : '开始使用'}
-						</a>
+						{#if data.user}
+							<a
+								href="/dashboard"
+								class="inline-flex items-center justify-center rounded-xl bg-blue-500 px-5 py-3 text-sm font-semibold text-white shadow-2xl shadow-blue-500/25 hover:bg-blue-400 sm:rounded-2xl sm:px-6 sm:py-4 sm:text-base"
+							>
+								进入我的卡片
+							</a>
+						{:else}
+							<SignInButton
+								mode="modal"
+								fallbackRedirectUrl="/dashboard"
+								signUpFallbackRedirectUrl="/dashboard"
+								class="inline-flex items-center justify-center rounded-xl bg-blue-500 px-5 py-3 text-sm font-semibold text-white shadow-2xl shadow-blue-500/25 hover:bg-blue-400 sm:rounded-2xl sm:px-6 sm:py-4 sm:text-base"
+							>
+								{#snippet children()}
+									开始使用
+								{/snippet}
+							</SignInButton>
+						{/if}
 					</div>
 					<div class="mt-8 hidden max-w-xl gap-3 text-sm text-slate-300 sm:grid sm:grid-cols-3">
 						<div class="rounded-2xl bg-white/8 p-4 ring-1 ring-white/10">
