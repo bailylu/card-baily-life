@@ -33,6 +33,7 @@
 		partner: formPartner || '办卡活动',
 		name: formName || '卡片 / 活动名称',
 		description: formDescription || '这里会实时预览首页轮播里显示的活动简介。左侧修改任意字段，右侧会同步变化。',
+		expectedYield: formMetric1Value || '1500+',
 		image: uploadPreviewUrl || formImage || '/images/cards/citic-airlines-combo.webp',
 		alt: formAlt || formName || '首页推荐活动图片',
 		href: formHref || defaultHref,
@@ -192,10 +193,23 @@
 						<textarea name="description" required rows="3" bind:value={formDescription} class="mt-2 w-full rounded-xl border border-gray-200 px-3 py-3 text-sm outline-none focus:border-blue-500" placeholder="例如：新户 60 天内消费达标，可拿 30,000 点万豪积分。"></textarea>
 					</label>
 
+					<label class="block rounded-2xl bg-amber-50/70 p-4 ring-1 ring-amber-100">
+						<span class="text-sm font-medium text-gray-700">预计收益</span>
+						<input
+							name="metric_1_value"
+							required
+							bind:value={formMetric1Value}
+							class="mt-2 w-full rounded-xl border border-amber-100 bg-white px-3 py-3 text-sm outline-none focus:border-amber-500"
+							placeholder="例如：1500+"
+						/>
+						<span class="mt-2 block text-xs leading-5 text-amber-700">
+							会直接显示在首页推荐卡片上，例如“预计收益 1500+”。
+						</span>
+					</label>
+
 					<input type="hidden" name="bank" value={formBank || '首页推荐'} />
 					<input type="hidden" name="partner" value={formPartner || '办卡活动'} />
-					<input type="hidden" name="metric_1_label" value={formMetric1Label || '活动'} />
-					<input type="hidden" name="metric_1_value" value={formMetric1Value || '查看详情'} />
+					<input type="hidden" name="metric_1_label" value="预计收益" />
 					<input type="hidden" name="metric_2_label" value={formMetric2Label || '入口'} />
 					<input type="hidden" name="metric_2_value" value={formMetric2Value || '立即办卡'} />
 					<input type="hidden" name="metric_3_label" value={formMetric3Label || '状态'} />
@@ -304,6 +318,9 @@
 								<p class="mt-5 max-w-xl text-base leading-8 text-slate-600">
 									{preview.description}
 								</p>
+								<p class="mt-5 text-2xl font-black text-amber-600">
+									预计收益 {preview.expectedYield}
+								</p>
 								<div class="mt-7">
 									<a href={preview.href} class="inline-flex rounded-2xl bg-blue-600 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-blue-600/20 hover:bg-blue-700">
 										立即办卡
@@ -341,6 +358,7 @@
 										</span>
 									</div>
 									<h3 class="mt-3 text-xl font-black text-gray-950">{promotion.name}</h3>
+									<p class="mt-2 text-sm font-black text-amber-600">预计收益 {metric(promotion, 0).value || '未填写'}</p>
 									<p class="mt-2 line-clamp-2 text-sm leading-6 text-gray-500">{promotion.description}</p>
 									<div class="mt-4 flex gap-2">
 										<button type="button" class="rounded-full bg-white px-3 py-1.5 text-xs font-medium text-blue-600 ring-1 ring-blue-100 hover:bg-blue-50" onclick={() => startEdit(promotion)}>

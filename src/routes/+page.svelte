@@ -74,8 +74,8 @@
 	<title>贝利卡管家</title>
 </svelte:head>
 
-<main class="relative min-h-screen overflow-hidden bg-slate-950 px-4 text-white">
-	<div class="absolute inset-0 bg-[radial-gradient(circle_at_10%_10%,_rgba(59,130,246,0.38),_transparent_30%),radial-gradient(circle_at_90%_20%,_rgba(14,165,233,0.18),_transparent_28%),linear-gradient(135deg,_#020617_0%,_#0f172a_52%,_#111827_100%)]"></div>
+<main class="bls-page px-4 text-white">
+	<div class="absolute inset-0 bg-[radial-gradient(circle_at_10%_10%,_rgba(91,157,255,0.26),_transparent_30%),radial-gradient(circle_at_90%_20%,_rgba(47,230,212,0.13),_transparent_28%),linear-gradient(135deg,_#06090f_0%,_#0a0e18_52%,_#0b1826_100%)]"></div>
 	<div class="absolute left-1/2 top-16 h-72 w-72 -translate-x-1/2 rounded-full bg-blue-500/15 blur-3xl"></div>
 	<div class="absolute -bottom-16 right-0 h-96 w-96 rounded-full bg-cyan-500/10 blur-3xl"></div>
 
@@ -109,7 +109,7 @@
 
 		<nav class="absolute left-0 right-0 top-4 z-20 flex items-center justify-between gap-2 sm:top-6">
 			<div class="flex min-w-0 items-center gap-2 text-sm font-semibold sm:gap-3 sm:text-base">
-				<span class="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-white text-xl shadow-lg shadow-blue-950/30 sm:h-11 sm:w-11 sm:rounded-2xl sm:text-2xl">💳</span>
+				<img src="/images/brand/logo-mark.svg" alt="" class="h-9 w-9 shrink-0 sm:h-11 sm:w-11" />
 				<div class="min-w-0">
 					<p class="truncate">贝利卡管家</p>
 					<p class="hidden text-sm font-normal text-slate-400 sm:block">你的信用卡专属小管家</p>
@@ -118,7 +118,7 @@
 			{#if data.user}
 				<a
 					href="/dashboard"
-					class="shrink-0 rounded-full bg-white/10 px-3 py-1.5 text-xs text-white/85 ring-1 ring-white/15 hover:bg-white/15 sm:px-4 sm:py-2 sm:text-sm"
+					class="bls-btn-ghost shrink-0 px-3 py-1.5 text-xs sm:px-4 sm:py-2 sm:text-sm"
 				>
 					进入我的卡片
 				</a>
@@ -126,10 +126,10 @@
 		</nav>
 
 		<div class="relative z-10 mt-12 grid items-center gap-4 sm:mt-0 sm:gap-10 lg:grid-cols-[1.05fr_0.95fr]">
-			<section class="relative overflow-hidden rounded-[1.5rem] bg-slate-950/55 p-5 pt-8 shadow-2xl shadow-slate-950/25 ring-1 ring-white/15 backdrop-blur-sm sm:rounded-[2rem] sm:p-8 sm:pt-10 lg:pt-8">
+			<section class="bls-panel relative overflow-hidden p-5 pt-8 backdrop-blur-sm sm:p-8 sm:pt-10 lg:pt-8">
 				<div class="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/10 via-slate-950/35 to-slate-950/65"></div>
 				<div class="relative">
-					<p class="inline-flex rounded-full bg-white/10 px-2.5 py-1 text-xs text-blue-100 ring-1 ring-white/15 sm:px-3 sm:text-sm">
+					<p class="bls-chip inline-flex px-2.5 py-1 text-xs sm:px-3 sm:text-sm">
 						信用卡提醒，简单一点
 					</p>
 					<h1 class="mt-4 max-w-3xl text-3xl font-extrabold leading-[1.15] text-white sm:mt-6 sm:text-5xl sm:leading-[1.08] lg:text-[3.5rem]">
@@ -142,7 +142,7 @@
 						{#if data.user}
 							<a
 								href="/dashboard"
-								class="inline-flex items-center justify-center rounded-xl bg-blue-500 px-5 py-3 text-sm font-semibold text-white shadow-2xl shadow-blue-500/25 hover:bg-blue-400 sm:rounded-2xl sm:px-6 sm:py-4 sm:text-base"
+								class="bls-btn inline-flex items-center justify-center px-5 py-3 text-sm sm:px-6 sm:py-4 sm:text-base"
 							>
 								进入我的卡片
 							</a>
@@ -150,22 +150,22 @@
 							<button
 								type="button"
 								onclick={openSignIn}
-								class="inline-flex items-center justify-center rounded-xl bg-blue-500 px-5 py-3 text-sm font-semibold text-white shadow-2xl shadow-blue-500/25 hover:bg-blue-400 sm:rounded-2xl sm:px-6 sm:py-4 sm:text-base"
+								class="bls-btn inline-flex items-center justify-center px-5 py-3 text-sm sm:px-6 sm:py-4 sm:text-base"
 							>
 								开始使用
 							</button>
 						{/if}
 					</div>
 					<div class="mt-8 hidden max-w-xl gap-3 text-sm text-slate-300 sm:grid sm:grid-cols-3">
-						<div class="rounded-2xl bg-white/8 p-4 ring-1 ring-white/10">
+						<div class="border-2 border-white/10 bg-white/8 p-4">
 							<p class="text-xl font-bold text-white">免费使用</p>
 							<p class="mt-1">基础提醒不收费，不绑套餐</p>
 						</div>
-						<div class="rounded-2xl bg-white/8 p-4 ring-1 ring-white/10">
+						<div class="border-2 border-white/10 bg-white/8 p-4">
 							<p class="text-xl font-bold text-white">开源透明</p>
 							<p class="mt-1">逻辑看得见，数据不藏着</p>
 						</div>
-						<div class="rounded-2xl bg-white/8 p-4 ring-1 ring-white/10">
+						<div class="border-2 border-white/10 bg-white/8 p-4">
 							<p class="text-xl font-bold text-white">隐私可控</p>
 							<p class="mt-1">只记提醒信息，不碰卡密</p>
 						</div>
@@ -175,7 +175,7 @@
 
 			<section class="relative">
 				<div class="absolute -inset-4 rounded-[2rem] bg-gradient-to-br from-blue-500/25 to-cyan-500/10 blur-2xl"></div>
-				<div class="relative mx-auto overflow-hidden rounded-2xl border border-white/15 bg-white/10 p-3 shadow-2xl backdrop-blur sm:rounded-[2rem] sm:p-5">
+				<div class="relative mx-auto overflow-hidden border-2 border-white/15 bg-white/10 p-3 shadow-2xl backdrop-blur sm:p-5">
 					<img
 						src="/images/apple-card.png"
 						alt="Apple Card 示例卡面"

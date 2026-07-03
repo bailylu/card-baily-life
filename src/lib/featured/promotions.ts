@@ -28,7 +28,7 @@ export const defaultFeaturedPromotions: FeaturedPromotion[] = [
 		alt: '中信银行万豪联名信用卡',
 		href: '/refer/citic-marriott',
 		metrics: [
-			{ label: '限时奖励', value: '最高 33,000 点' },
+			{ label: '奖励收益', value: '1500 元' },
 			{ label: '渠道福利', value: '200 元京东 E 卡' },
 			{ label: '持有权益', value: '房券 / 金卡 / 10 晚' }
 		],
@@ -46,7 +46,7 @@ export const defaultFeaturedPromotions: FeaturedPromotion[] = [
 		alt: '中信银行 Safari 信用卡',
 		href: '/refer/citic-safari',
 		metrics: [
-			{ label: '推荐场景', value: '旅行 / 餐饮' },
+			{ label: '年费优惠', value: '免 2000 元年费' },
 			{ label: '活动状态', value: '模拟展示' },
 			{ label: '后续接入', value: '后台发布' }
 		],
@@ -63,7 +63,7 @@ export const defaultFeaturedPromotions: FeaturedPromotion[] = [
 		alt: '中信银行5大航司联名信用卡',
 		href: '/refer/citic-airlines',
 		metrics: [
-			{ label: '覆盖航司', value: '东航 / 厦航 / 川航' },
+			{ label: '预计受益', value: '2000 元' },
 			{ label: '更多选择', value: '南航 / 海航 / 深航' },
 			{ label: '推荐逻辑', value: '按航线和里程选' }
 		],

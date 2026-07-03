@@ -1,1 +1,278 @@
 @import "tailwindcss";
+
+:root {
+	--bls-bg-void: #06090f;
+	--bls-bg: #0a0e18;
+	--bls-panel: #121829;
+	--bls-panel-2: #19223a;
+	--bls-inset: #0c111e;
+	--bls-line: rgba(150, 170, 210, 0.22);
+	--bls-line-strong: rgba(150, 170, 210, 0.42);
+	--bls-ink: #ecf1fb;
+	--bls-body: #c2cce0;
+	--bls-muted: #828fab;
+	--bls-dim: #565f78;
+	--bls-gold: #e8b53d;
+	--bls-gold-bright: #ffda7b;
+	--bls-cyan: #2fe6d4;
+	--bls-blue: #5b9dff;
+	--bls-green: #4df08a;
+	--bls-red: #ff5a5a;
+	--bls-shadow-card: 0 0 0 1px rgba(150, 170, 210, 0.08), 4px 4px 0 rgba(0, 0, 0, 0.5);
+	--bls-shadow-active: 0 0 0 1px rgba(150, 170, 210, 0.22), 6px 6px 0 rgba(0, 0, 0, 0.56);
+	--bls-ring-gold: 0 0 0 1px var(--bls-gold), 0 0 14px rgba(232, 181, 61, 0.42);
+	--bls-ring-cyan: 0 0 0 1px var(--bls-cyan), 0 0 14px rgba(47, 230, 212, 0.38);
+}
+
+html {
+	background: var(--bls-bg);
+}
+
+body {
+	min-height: 100vh;
+	background: var(--bls-bg);
+	font-family:
+		"Noto Sans SC",
+		-apple-system,
+		BlinkMacSystemFont,
+		"PingFang SC",
+		"Microsoft YaHei",
+		sans-serif;
+	font-feature-settings:
+		"tnum" 1,
+		"pnum" 0;
+}
+
+button,
+input,
+select,
+textarea {
+	font: inherit;
+}
+
+.bls-page {
+	position: relative;
+	min-height: 100vh;
+	overflow-x: hidden;
+	color-scheme: dark;
+	background:
+		radial-gradient(circle at 8% 0%, rgba(91, 157, 255, 0.2), transparent 30rem),
+		radial-gradient(circle at 92% 18%, rgba(47, 230, 212, 0.09), transparent 28rem),
+		linear-gradient(135deg, var(--bls-bg-void), var(--bls-bg) 46%, #0b1826);
+	color: var(--bls-ink);
+}
+
+.bls-page::before {
+	content: "";
+	position: fixed;
+	inset: 0;
+	pointer-events: none;
+	background-image:
+		linear-gradient(rgba(150, 170, 210, 0.055) 1px, transparent 1px),
+		linear-gradient(90deg, rgba(150, 170, 210, 0.055) 1px, transparent 1px);
+	background-size: 32px 32px;
+	mask-image: radial-gradient(ellipse at center, black 0%, rgba(0, 0, 0, 0.8) 45%, transparent 82%);
+}
+
+.bls-nav {
+	border-bottom: 2px solid rgba(232, 181, 61, 0.32);
+	background: rgba(10, 14, 24, 0.9);
+	backdrop-filter: blur(16px);
+}
+
+.bls-logo-tile {
+	display: grid;
+	place-items: center;
+	width: 2.5rem;
+	height: 2.5rem;
+	border: 2px solid var(--bls-gold-bright);
+	border-radius: 3px;
+	background: var(--bls-gold);
+	box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.45);
+	color: var(--bls-bg);
+	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+	font-size: 0.78rem;
+	font-weight: 900;
+	letter-spacing: 0.06em;
+}
+
+.bls-panel {
+	border: 2px solid var(--bls-line);
+	border-radius: 6px;
+	background: rgba(18, 24, 41, 0.94);
+	box-shadow: var(--bls-shadow-card);
+}
+
+.bls-panel-light {
+	border: 2px solid rgba(150, 170, 210, 0.26);
+	border-radius: 6px;
+	background: rgba(236, 241, 251, 0.97);
+	box-shadow: 4px 4px 0 rgba(6, 9, 15, 0.16);
+	color: #111827;
+}
+
+.bls-card {
+	border: 2px solid var(--bls-line);
+	border-radius: 6px;
+	background: var(--bls-panel);
+	box-shadow: var(--bls-shadow-card);
+	transition:
+		border-color 160ms cubic-bezier(0.2, 0, 0, 1),
+		box-shadow 160ms cubic-bezier(0.2, 0, 0, 1),
+		background 160ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+.bls-card:hover {
+	border-color: rgba(47, 230, 212, 0.55);
+	box-shadow: var(--bls-shadow-active), 0 0 18px rgba(47, 230, 212, 0.1);
+}
+
+.bls-feature-card {
+	border: 2px solid transparent;
+	border-radius: 6px;
+	background:
+		linear-gradient(var(--bls-panel), var(--bls-panel)) padding-box,
+		linear-gradient(135deg, var(--bls-gold), var(--bls-cyan), rgba(91, 157, 255, 0.82)) border-box;
+	box-shadow: var(--bls-shadow-card);
+}
+
+.bls-label {
+	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+	font-size: 0.68rem;
+	font-weight: 900;
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+}
+
+.bls-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	border: 2px solid var(--bls-gold-bright);
+	border-radius: 3px;
+	background: var(--bls-gold);
+	box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.5);
+	color: var(--bls-bg);
+	font-weight: 900;
+	transition:
+		transform 100ms cubic-bezier(0.2, 0, 0, 1),
+		box-shadow 100ms cubic-bezier(0.2, 0, 0, 1),
+		filter 100ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+.bls-btn:hover {
+	filter: brightness(1.08);
+}
+
+.bls-btn:active {
+	transform: translate(3px, 3px);
+	box-shadow: 0 0 0 rgba(0, 0, 0, 0.5);
+}
+
+.bls-btn-cyan {
+	border-color: var(--bls-cyan);
+	background: var(--bls-cyan);
+}
+
+.bls-btn-ghost {
+	border: 2px solid var(--bls-line-strong);
+	border-radius: 3px;
+	background: rgba(255, 255, 255, 0.03);
+	color: var(--bls-ink);
+}
+
+.bls-input {
+	border: 2px solid rgba(150, 170, 210, 0.24);
+	border-radius: 4px;
+	background: rgba(12, 17, 30, 0.86);
+	color: var(--bls-ink);
+	outline: none;
+}
+
+.bls-input::placeholder {
+	color: var(--bls-dim);
+}
+
+.bls-input:focus {
+	border-color: var(--bls-cyan);
+	box-shadow: var(--bls-ring-cyan);
+}
+
+.bls-chip {
+	border: 2px solid rgba(150, 170, 210, 0.22);
+	border-radius: 3px;
+	background: rgba(255, 255, 255, 0.04);
+	color: var(--bls-body);
+}
+
+.bls-chip-active {
+	border-color: var(--bls-cyan);
+	background: rgba(47, 230, 212, 0.13);
+	color: var(--bls-cyan);
+}
+
+.bls-rec-badge {
+	position: absolute;
+	left: -2.65rem;
+	top: 0.72rem;
+	z-index: 2;
+	width: 8.4rem;
+	transform: rotate(-38deg);
+	border-block: 1px solid rgba(255, 237, 180, 0.8);
+	background: linear-gradient(90deg, rgba(6, 9, 15, 0.9), rgba(255, 177, 64, 0.96), rgba(255, 218, 123, 0.98));
+	box-shadow: 0 2px 0 rgba(0, 0, 0, 0.48), 0 0 14px rgba(255, 176, 64, 0.34);
+	color: #0a0e18;
+	font-size: 0.68rem;
+	font-weight: 900;
+	letter-spacing: 0.18em;
+	line-height: 1.35;
+	padding: 0.12rem 0;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+.dashboard-reminders-panel {
+	max-height: calc(100vh - 7rem);
+}
+
+.dashboard-reminders-aside {
+	align-self: start;
+}
+
+.dashboard-reminders-list {
+	max-height: calc(100vh - 18rem);
+}
+
+@media (min-width: 1280px) {
+	.dashboard-reminders-aside {
+		min-height: calc(100vh - 7rem);
+	}
+
+	.dashboard-reminders-panel {
+		position: fixed;
+		right: max(1.5rem, calc((100vw - 80rem) / 2 + 1.5rem));
+		top: 5.5rem;
+		width: 360px;
+	}
+
+	.add-card-panel-aside {
+		min-height: calc(100vh - 7rem);
+	}
+
+	.add-card-floating-panel {
+		position: fixed;
+		right: max(1.75rem, calc((100vw - 80rem) / 2 + 1.75rem));
+		top: 7rem;
+		width: 400px;
+		max-height: calc(100vh - 8.5rem);
+		overflow-y: auto;
+		padding-right: 0.25rem;
+	}
+}
+
+@media (max-width: 640px) {
+	.bls-logo-tile {
+		width: 2.25rem;
+		height: 2.25rem;
+	}
+}

@@ -100,6 +100,9 @@ export type DashboardCard = {
 	bank_name: string | null;
 	card_name: string | null;
 	card_tier: string | null;
+	country: string | null;
+	network: string | null;
+	tags: string | null;
 	image_url: string | null;
 	selected_image_url: string | null;
 	displayName: string;
@@ -154,8 +157,7 @@ export async function listCatalog(db: D1Database) {
 	const rows = await getDb(db)
 		.select()
 		.from(card_catalog)
-		.where(eq(card_catalog.country, 'CN'))
-		.orderBy(asc(card_catalog.bank_name), asc(card_catalog.card_name));
+		.orderBy(asc(card_catalog.country), asc(card_catalog.bank_name), asc(card_catalog.card_name));
 
 	return rows.map((card) => ({
 		...card,
@@ -183,6 +185,9 @@ export async function listUserCards(db: D1Database, userId: string) {
 			bank_name: card_catalog.bank_name,
 			card_name: card_catalog.card_name,
 			card_tier: card_catalog.card_tier,
+			country: card_catalog.country,
+			network: card_catalog.network,
+			tags: card_catalog.tags,
 			image_url: card_catalog.image_url
 		})
 		.from(user_cards)
@@ -206,6 +211,9 @@ export function getDemoDashboardCards(): DashboardCard[] {
 			bank_name: '招商银行',
 			card_name: '经典白金信用卡',
 				card_tier: '白金',
+				country: 'CN',
+				network: 'UnionPay',
+				tags: null,
 				image_url: null,
 				last_four: '0318',
 			statement_day: 5,
@@ -219,6 +227,9 @@ export function getDemoDashboardCards(): DashboardCard[] {
 			bank_name: '建设银行',
 			card_name: '龙卡全球支付信用卡',
 				card_tier: '白金',
+				country: 'CN',
+				network: 'UnionPay',
+				tags: null,
 				image_url: null,
 				last_four: '9527',
 			statement_day: 12,
@@ -232,6 +243,9 @@ export function getDemoDashboardCards(): DashboardCard[] {
 			bank_name: '浦发银行',
 			card_name: '美国运通白金信用卡',
 				card_tier: '白金',
+				country: 'CN',
+				network: 'American Express',
+				tags: null,
 				image_url: null,
 				last_four: '8888',
 			statement_day: 20,
@@ -245,6 +259,9 @@ export function getDemoDashboardCards(): DashboardCard[] {
 			bank_name: null,
 			card_name: null,
 				card_tier: '自定义',
+				country: null,
+				network: null,
+				tags: null,
 				custom_name: '测试绿色生活卡',
 				image_url: null,
 				last_four: '6666',

@@ -1,6 +1,10 @@
 import { fail, redirect } from '@sveltejs/kit';
+import { eq } from 'drizzle-orm';
 import type { Actions, PageServerLoad } from './$types';
+import { getDb } from '$lib/db/client';
+import { users } from '$lib/db/schema';
 import { buildClerkSignInUrl } from '$lib/auth/clerk-sign-in';
+import { hashPassword, verifyPassword } from '$lib/auth/password';
 import { syncCardUserToCrm } from '$lib/crm-sync';
 import {
 	emptyNotificationSettings,
@@ -145,5 +149,36 @@ export const actions: Actions = {
 			testWarning: result.errors.join('；'),
 			settings
 		};
+	},
+	changePassword: async ({ request, locals, platform, url }) => {
+		if (!locals.user) redirect(302, buildClerkSignInUrl(url, platform?.env, '/me'));
+		if (!platform?.env.DB) return fail(503, { passwordError: '数据连接暂时不可用' });
+
+		const formData = await request.formData();
+		const currentPassword = String(formData.get('currentPassword') ?? '');
+		const newPassword = String(formData.get('newPassword') ?? '');
+		const confirmPassword = String(formData.get('confirmPassword') ?? '');
+
+		if (newPassword.length < 6) return fail(400, { passwordError: '新密码至少需要 6 位' });
+		if (newPassword !== confirmPassword) return fail(400, { passwordError: '两次输入的新密码不一致' });
+
+		const drizzle = getDb(platform.env.DB);
+		const rows = await drizzle.select().from(users).where(eq(users.id, locals.user.id)).limit(1);
+		const user = rows[0];
+
+		if (!user?.password_hash) {
+			return fail(400, { passwordError: '当前账号使用 Clerk 登录，暂未设置本地密码。' });
+		}
+
+		if (!(await verifyPassword(currentPassword, user.password_hash))) {
+			return fail(400, { passwordError: '当前密码不正确' });
+		}
+
+		await drizzle
+			.update(users)
+			.set({ password_hash: await hashPassword(newPassword) })
+			.where(eq(users.id, locals.user.id));
+
+		return { passwordSuccess: true };
 	}
 };
