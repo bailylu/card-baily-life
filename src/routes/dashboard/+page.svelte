@@ -26,21 +26,29 @@
 		'全部地区',
 		...countryOrder
 	]);
+	let countryFilteredCards = $derived(
+		data.cards.filter((card) => selectedCountry === '全部地区' || displayCountry(card.country) === selectedCountry)
+	);
 	let cardBanks = $derived([
 		'全部银行',
-		...Array.from(new Set(data.cards.map((card) => card.bank_name).filter(Boolean))).sort()
+		...Array.from(new Set(countryFilteredCards.map((card) => card.bank_name).filter(Boolean))).sort()
 	]);
+	$effect(() => {
+		selectedCountry;
+		if (!cardBanks.includes(selectedBank)) {
+			selectedBank = '全部银行';
+		}
+	});
 	let visibleCards = $derived(
-		data.cards.filter((card) => {
+		countryFilteredCards.filter((card) => {
 			const keyword = cardSearch.trim().toLowerCase();
-			const matchesCountry = selectedCountry === '全部地区' || displayCountry(card.country) === selectedCountry;
 			const matchesBank = selectedBank === '全部银行' || card.bank_name === selectedBank;
 			const matchesSearch =
 				!keyword ||
 				`${displayCountry(card.country)} ${card.bank_name ?? ''} ${card.card_name ?? ''} ${card.card_tier ?? ''} ${card.network ?? ''} ${card.tags ?? ''} ${card.last_four}`
 					.toLowerCase()
 					.includes(keyword);
-			return matchesCountry && matchesBank && matchesSearch;
+			return matchesBank && matchesSearch;
 		})
 	);
 

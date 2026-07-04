@@ -262,9 +262,9 @@ textarea {
 	.add-card-floating-panel {
 		position: fixed;
 		right: max(1.75rem, calc((100vw - 80rem) / 2 + 1.75rem));
-		top: 7rem;
+		top: 9.75rem;
 		width: 400px;
-		max-height: calc(100vh - 8.5rem);
+		max-height: calc(100vh - 11.25rem);
 		overflow-y: auto;
 		padding-right: 0.25rem;
 	}
