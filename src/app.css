@@ -109,8 +109,8 @@ textarea {
 	order: 3;
 }
 
-.dashboard-header-add {
-	display: inline-flex;
+.dashboard-menu-mobile-link {
+	display: none;
 }
 
 .bls-logo-tile {
@@ -712,12 +712,12 @@ textarea {
 		line-height: 1;
 	}
 
-	.dashboard-actions {
-		order: 2;
+	.dashboard-menu-mobile-link {
+		display: block;
 	}
 
-	.dashboard-header-add {
-		display: none;
+	.dashboard-actions {
+		order: 2;
 	}
 
 	.bls-nav .bls-btn,
