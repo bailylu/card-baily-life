@@ -125,7 +125,7 @@
 						贝利主页
 					</a>
 					<a
-						href="https://www.baily.life/projects/knowledge-planet/"
+						href="https://wx.zsxq.com/group/15555858118552"
 						target="_blank"
 						rel="noreferrer"
 						class="bls-nav-link"
@@ -361,7 +361,7 @@
 
 					<div class="dashboard-ad-stack grid gap-3">
 						<a
-							href="https://www.baily.life/projects/knowledge-planet/"
+							href="https://wx.zsxq.com/group/15555858118552"
 							target="_blank"
 							rel="noreferrer"
 							class="dashboard-ad-card dashboard-ad-card-planet"
