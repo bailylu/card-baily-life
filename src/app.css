@@ -80,6 +80,25 @@ textarea {
 	backdrop-filter: blur(16px);
 }
 
+.bls-nav-link {
+	border: 2px solid transparent;
+	border-radius: 3px;
+	color: var(--bls-body);
+	font-size: 0.875rem;
+	font-weight: 700;
+	padding: 0.5rem 0.65rem;
+	transition:
+		border-color 120ms cubic-bezier(0.2, 0, 0, 1),
+		background 120ms cubic-bezier(0.2, 0, 0, 1),
+		color 120ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+.bls-nav-link:hover {
+	border-color: rgba(47, 230, 212, 0.5);
+	background: rgba(255, 255, 255, 0.04);
+	color: var(--bls-cyan);
+}
+
 .bls-logo-tile {
 	display: grid;
 	place-items: center;
@@ -454,16 +473,64 @@ textarea {
 	text-transform: uppercase;
 }
 
-.dashboard-reminders-panel {
-	max-height: calc(100vh - 7rem);
-}
-
 .dashboard-reminders-aside {
 	align-self: start;
 }
 
 .dashboard-reminders-list {
-	max-height: calc(100vh - 18rem);
+	max-height: 24rem;
+}
+
+.dashboard-right-rail {
+	width: 100%;
+}
+
+.dashboard-reminders-panel {
+	max-height: none;
+}
+
+.dashboard-ad-card {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	border: 2px solid rgba(150, 170, 210, 0.24);
+	border-radius: 6px;
+	background:
+		linear-gradient(135deg, rgba(18, 24, 41, 0.96), rgba(12, 17, 30, 0.88)),
+		var(--bls-panel);
+	box-shadow: var(--bls-shadow-card);
+	padding: 1rem;
+	transition:
+		border-color 140ms cubic-bezier(0.2, 0, 0, 1),
+		box-shadow 140ms cubic-bezier(0.2, 0, 0, 1),
+		transform 140ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+.dashboard-ad-card:hover {
+	border-color: rgba(47, 230, 212, 0.6);
+	box-shadow: var(--bls-shadow-active), 0 0 18px rgba(47, 230, 212, 0.12);
+}
+
+.dashboard-ad-card-planet {
+	justify-content: space-between;
+	background:
+		linear-gradient(135deg, rgba(232, 181, 61, 0.13), rgba(18, 24, 41, 0.96) 46%),
+		var(--bls-panel);
+}
+
+.dashboard-ad-cta {
+	display: inline-flex;
+	flex-shrink: 0;
+	align-items: center;
+	justify-content: center;
+	border: 2px solid var(--bls-gold-bright);
+	border-radius: 3px;
+	background: var(--bls-gold);
+	box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.45);
+	color: var(--bls-bg);
+	font-size: 0.75rem;
+	font-weight: 900;
+	padding: 0.5rem 0.7rem;
 }
 
 .refer-dark {
@@ -575,11 +642,19 @@ textarea {
 		min-height: calc(100vh - 7rem);
 	}
 
-	.dashboard-reminders-panel {
+	.dashboard-right-rail {
 		position: fixed;
 		right: max(1.5rem, calc((100vw - 80rem) / 2 + 1.5rem));
-		top: 5.5rem;
+		top: 8.75rem;
 		width: 360px;
+		max-height: calc(100vh - 10rem);
+		overflow-y: auto;
+		padding-bottom: 0.25rem;
+		scrollbar-width: thin;
+	}
+
+	.dashboard-reminders-list {
+		max-height: 22rem;
 	}
 
 	.add-card-panel-aside {

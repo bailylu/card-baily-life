@@ -49,8 +49,35 @@
 					.toLowerCase()
 					.includes(keyword);
 			return matchesBank && matchesSearch;
-		})
+			})
 	);
+	type DashboardGridItem =
+		| { kind: 'featured'; key: string; card: PageData['featuredCards'][number] }
+		| { kind: 'saved'; key: string; card: PageData['cards'][number] };
+	let mixedCards = $derived.by(() => {
+		const savedItems: DashboardGridItem[] = visibleCards.map((card) => ({
+			kind: 'saved',
+			key: `saved-${card.id}`,
+			card
+		}));
+		const featuredItems: DashboardGridItem[] = featuredCards.map((card) => ({
+			kind: 'featured',
+			key: `featured-${card.id}`,
+			card
+		}));
+
+		if (savedItems.length === 0) return featuredItems;
+		if (featuredItems.length === 0) return savedItems;
+
+		const result = [...savedItems];
+		const baseLength = savedItems.length;
+		featuredItems.forEach((item, index) => {
+			const rawSlot = Math.round(((index + 1) * baseLength) / (featuredItems.length + 1));
+			const slot = Math.min(result.length, Math.max(1, rawSlot + index));
+			result.splice(slot, 0, item);
+		});
+		return result;
+	});
 
 	const remindersPerPage = 8;
 	let reminderPage = $state(1);
@@ -88,6 +115,24 @@
 				</div>
 			</a>
 			<div class="flex shrink-0 items-center gap-2 sm:gap-3">
+				<div class="hidden items-center gap-2 md:flex">
+					<a
+						href="https://baily.life/"
+						target="_blank"
+						rel="noreferrer"
+						class="bls-nav-link"
+					>
+						贝利主页
+					</a>
+					<a
+						href="https://www.baily.life/projects/knowledge-planet/"
+						target="_blank"
+						rel="noreferrer"
+						class="bls-nav-link"
+					>
+						知识星球
+					</a>
+				</div>
 				<a href="/cards/add" class="bls-btn px-3 py-2 text-sm sm:px-4">
 					添加信用卡
 				</a>
@@ -162,86 +207,86 @@
 						</div>
 					{/if}
 
-					<div class="grid gap-3 sm:gap-5 sm:grid-cols-2 lg:grid-cols-3">
-						{#each featuredCards as card}
-							<a
-								href={card.href}
-								class="group bls-feature-card relative p-2 sm:p-3"
-							>
-								<div class="relative">
-									<div class="relative overflow-hidden rounded-[4px] border-2 border-white/10 bg-[var(--bls-inset)]">
-										<img
-										src={card.image}
-										alt={card.alt}
-										class="aspect-[1.586] w-full object-cover"
-									/>
-										<span class="bls-rec-badge">推荐</span>
-									</div>
-									<div class="relative mt-3 min-w-0">
-										<p class="text-xs font-bold text-[var(--bls-cyan)]">{card.bank}</p>
-										<h3 class="mt-1 line-clamp-1 text-base font-black text-white group-hover:text-[var(--bls-gold-bright)]">{card.name}</h3>
-										<p class="mt-2 text-sm font-black text-[var(--bls-gold-bright)]">
-											{featuredMetric(card).label} {featuredMetric(card).value}
-										</p>
-										<span class="bls-btn mt-3 px-3 py-2 text-xs">
-											立即办卡
-										</span>
-									</div>
-								</div>
-							</a>
-						{/each}
+						<div class="grid gap-3 sm:gap-5 sm:grid-cols-2 lg:grid-cols-3">
+							{#each mixedCards as item (item.key)}
+								{#if item.kind === 'featured'}
+									<a
+										href={item.card.href}
+										class="group bls-feature-card relative p-2 sm:p-3"
+									>
+										<div class="relative">
+											<div class="relative overflow-hidden rounded-[4px] border-2 border-white/10 bg-[var(--bls-inset)]">
+												<img
+													src={item.card.image}
+													alt={item.card.alt}
+													class="aspect-[1.586] w-full object-cover"
+												/>
+												<span class="bls-rec-badge">推荐</span>
+											</div>
+											<div class="relative mt-3 min-w-0">
+												<p class="text-xs font-bold text-[var(--bls-cyan)]">{item.card.bank}</p>
+												<h3 class="mt-1 line-clamp-1 text-base font-black text-white group-hover:text-[var(--bls-gold-bright)]">{item.card.name}</h3>
+												<p class="mt-2 text-sm font-black text-[var(--bls-gold-bright)]">
+													{featuredMetric(item.card).label} {featuredMetric(item.card).value}
+												</p>
+												<span class="bls-btn mt-3 px-3 py-2 text-xs">
+													立即办卡
+												</span>
+											</div>
+										</div>
+									</a>
+								{:else}
+									<article class="group bls-card p-2 sm:p-3">
+										<a
+											href={item.card.isDemo ? '/dashboard' : `/cards/${item.card.id}/edit`}
+											class="grid grid-cols-[112px_minmax(0,1fr)] items-center gap-3 sm:block"
+										>
+											<CardFace
+												imageUrl={item.card.image_url}
+												bankName={item.card.bank_name}
+												displayName={item.card.displayName}
+												lastFour={item.card.last_four}
+												cardStyle={item.card.cardStyle}
+												class="rounded-xl"
+											/>
 
-						{#each visibleCards as card}
-							<article class="group bls-card p-2 sm:p-3">
-								<a
-									href={card.isDemo ? '/dashboard' : `/cards/${card.id}/edit`}
-									class="grid grid-cols-[112px_minmax(0,1fr)] items-center gap-3 sm:block"
-								>
-									<CardFace
-										imageUrl={card.image_url}
-										bankName={card.bank_name}
-										displayName={card.displayName}
-										lastFour={card.last_four}
-										cardStyle={card.cardStyle}
-										class="rounded-xl"
-									/>
-
-									<div class="min-w-0 sm:mt-4">
-										<h3 class="line-clamp-2 text-sm font-bold leading-5 text-white group-hover:text-[var(--bls-cyan)] sm:line-clamp-1 sm:text-base">{card.displayName}</h3>
-										<p class="mt-1 text-xs text-[var(--bls-muted)] sm:text-sm">{displayCountry(card.country)} · {card.card_tier ?? '标准卡'} · 尾号 {card.last_four}</p>
-									</div>
-								</a>
-								<button
-									type="button"
-									onclick={() => toggleCardDetails(card.id)}
-									class="mt-2 w-full rounded-[4px] border-2 border-white/5 bg-white/[0.04] px-3 py-2 text-left text-xs text-[var(--bls-muted)] transition hover:border-[var(--bls-cyan)] hover:text-[var(--bls-cyan)] sm:mt-3"
-									aria-expanded={expandedCardIds.has(card.id)}
-								>
-									<span class="flex items-center justify-between gap-3">
-										<span class="min-w-0 truncate">查看详情</span>
-										<span class={`shrink-0 text-sm transition ${expandedCardIds.has(card.id) ? 'rotate-180' : ''}`}>⌄</span>
-									</span>
-								</button>
-								{#if expandedCardIds.has(card.id)}
-									<div class="mt-2 grid grid-cols-3 gap-2 text-center text-xs">
-										<div class="rounded-[4px] border-2 border-white/5 bg-white/[0.04] px-2 py-3">
-											<p class="text-[var(--bls-muted)]">账单</p>
-											<p class="mt-1 font-bold text-white">{card.statement_day} 日</p>
-										</div>
-										<div class="rounded-[4px] border-2 border-white/5 bg-white/[0.04] px-2 py-3">
-											<p class="text-[var(--bls-muted)]">还款</p>
-											<p class="mt-1 font-bold text-white">{card.due_day} 日</p>
-										</div>
-										<div class="rounded-[4px] border-2 border-white/5 bg-white/[0.04] px-2 py-3">
-											<p class="text-[var(--bls-muted)]">提前</p>
-											<p class="mt-1 font-bold text-white">{card.lead_days} 天</p>
-										</div>
-									</div>
+											<div class="min-w-0 sm:mt-4">
+												<h3 class="line-clamp-2 text-sm font-bold leading-5 text-white group-hover:text-[var(--bls-cyan)] sm:line-clamp-1 sm:text-base">{item.card.displayName}</h3>
+												<p class="mt-1 text-xs text-[var(--bls-muted)] sm:text-sm">{displayCountry(item.card.country)} · {item.card.card_tier ?? '标准卡'} · 尾号 {item.card.last_four}</p>
+											</div>
+										</a>
+										<button
+											type="button"
+											onclick={() => toggleCardDetails(item.card.id)}
+											class="mt-2 w-full rounded-[4px] border-2 border-white/5 bg-white/[0.04] px-3 py-2 text-left text-xs text-[var(--bls-muted)] transition hover:border-[var(--bls-cyan)] hover:text-[var(--bls-cyan)] sm:mt-3"
+											aria-expanded={expandedCardIds.has(item.card.id)}
+										>
+											<span class="flex items-center justify-between gap-3">
+												<span class="min-w-0 truncate">查看详情</span>
+												<span class={`shrink-0 text-sm transition ${expandedCardIds.has(item.card.id) ? 'rotate-180' : ''}`}>⌄</span>
+											</span>
+										</button>
+										{#if expandedCardIds.has(item.card.id)}
+											<div class="mt-2 grid grid-cols-3 gap-2 text-center text-xs">
+												<div class="rounded-[4px] border-2 border-white/5 bg-white/[0.04] px-2 py-3">
+													<p class="text-[var(--bls-muted)]">账单</p>
+													<p class="mt-1 font-bold text-white">{item.card.statement_day} 日</p>
+												</div>
+												<div class="rounded-[4px] border-2 border-white/5 bg-white/[0.04] px-2 py-3">
+													<p class="text-[var(--bls-muted)]">还款</p>
+													<p class="mt-1 font-bold text-white">{item.card.due_day} 日</p>
+												</div>
+												<div class="rounded-[4px] border-2 border-white/5 bg-white/[0.04] px-2 py-3">
+													<p class="text-[var(--bls-muted)]">提前</p>
+													<p class="mt-1 font-bold text-white">{item.card.lead_days} 天</p>
+												</div>
+											</div>
+										{/if}
+									</article>
 								{/if}
-							</article>
-						{/each}
-						{#if data.cards.length > 0 && visibleCards.length === 0}
-							<div class="bls-panel p-8 text-center sm:col-span-2 lg:col-span-3">
+							{/each}
+							{#if data.cards.length > 0 && visibleCards.length === 0}
+								<div class="bls-panel p-8 text-center sm:col-span-2 lg:col-span-3">
 								<p class="text-sm text-[var(--bls-muted)]">没有找到匹配的卡片。</p>
 								<button
 									type="button"
@@ -261,60 +306,75 @@
 			</section>
 
 			<aside class="dashboard-reminders-aside order-first xl:order-none">
-				<div class="bls-panel dashboard-reminders-panel overflow-hidden p-5">
-					<div class="flex items-center justify-between">
-						<div>
-							<h2 class="text-lg font-bold text-white">未来 30 天</h2>
-							<p class="mt-1 text-sm text-[var(--bls-muted)]">临近账单和还款提醒</p>
+				<div class="dashboard-right-rail space-y-4">
+					<div class="bls-panel dashboard-reminders-panel overflow-hidden p-5">
+						<div class="flex items-center justify-between">
+							<div>
+								<h2 class="text-lg font-bold text-white">未来 30 天</h2>
+								<p class="mt-1 text-sm text-[var(--bls-muted)]">临近账单和还款提醒</p>
+							</div>
+							<span class="bls-chip-active px-3 py-1 text-xs font-semibold">{data.reminders.length} 条</span>
 						</div>
-						<span class="bls-chip-active px-3 py-1 text-xs font-semibold">{data.reminders.length} 条</span>
+
+						{#if data.reminders.length === 0}
+							<div class="mt-5 rounded-[4px] border-2 border-white/5 bg-white/[0.04] p-4 text-sm text-[var(--bls-muted)]">暂无 30 天内提醒。</div>
+						{:else}
+							<div class="dashboard-reminders-list mt-5 divide-y divide-white/10 overflow-y-auto pr-1">
+								{#each pagedReminders as reminder}
+									<div class="flex items-start justify-between gap-4 py-4">
+										<div class="min-w-0">
+											<p class="line-clamp-1 text-sm font-semibold text-white">{reminder.catalogName ?? reminder.cardName}</p>
+											<p class="mt-1 text-xs text-[var(--bls-muted)]">{reminder.typeLabel} · 尾号 {reminder.lastFour}</p>
+										</div>
+										<div class="shrink-0 text-right">
+											<p class="text-sm font-bold text-[var(--bls-gold-bright)]">{reminder.daysUntilTarget} 天后</p>
+											<p class="mt-1 text-xs text-[var(--bls-muted)]">{reminder.targetDate}</p>
+										</div>
+									</div>
+								{/each}
+							</div>
+							{#if data.reminders.length > remindersPerPage}
+								<div class="mt-4 flex items-center justify-between border-t border-white/10 pt-4 text-xs text-[var(--bls-muted)]">
+									<p>{reminderStart}-{reminderEnd} / {data.reminders.length}</p>
+									<div class="flex items-center gap-2">
+										<button
+											type="button"
+											disabled={reminderPage === 1}
+											onclick={() => (reminderPage = Math.max(1, reminderPage - 1))}
+											class="bls-btn-ghost px-3 py-1.5 font-semibold disabled:cursor-not-allowed disabled:opacity-40"
+										>
+											上一页
+										</button>
+										<button
+											type="button"
+											disabled={reminderPage === totalReminderPages}
+											onclick={() => (reminderPage = Math.min(totalReminderPages, reminderPage + 1))}
+											class="bls-btn-ghost px-3 py-1.5 font-semibold disabled:cursor-not-allowed disabled:opacity-40"
+										>
+											下一页
+										</button>
+									</div>
+								</div>
+							{/if}
+						{/if}
 					</div>
 
-					{#if data.reminders.length === 0}
-						<div class="mt-5 rounded-[4px] border-2 border-white/5 bg-white/[0.04] p-4 text-sm text-[var(--bls-muted)]">暂无 30 天内提醒。</div>
-					{:else}
-						<div class="dashboard-reminders-list mt-5 divide-y divide-white/10 overflow-y-auto pr-1">
-							{#each pagedReminders as reminder}
-								<div class="flex items-start justify-between gap-4 py-4">
-									<div class="min-w-0">
-										<p class="line-clamp-1 text-sm font-semibold text-white">{reminder.catalogName ?? reminder.cardName}</p>
-										<p class="mt-1 text-xs text-[var(--bls-muted)]">{reminder.typeLabel} · 尾号 {reminder.lastFour}</p>
-									</div>
-									<div class="shrink-0 text-right">
-										<p class="text-sm font-bold text-[var(--bls-gold-bright)]">{reminder.daysUntilTarget} 天后</p>
-										<p class="mt-1 text-xs text-[var(--bls-muted)]">{reminder.targetDate}</p>
-									</div>
-								</div>
-							{/each}
-						</div>
-						{#if data.reminders.length > remindersPerPage}
-							<div class="mt-4 flex items-center justify-between border-t border-white/10 pt-4 text-xs text-[var(--bls-muted)]">
-								<p>{reminderStart}-{reminderEnd} / {data.reminders.length}</p>
-								<div class="flex items-center gap-2">
-									<button
-										type="button"
-										disabled={reminderPage === 1}
-										onclick={() => (reminderPage = Math.max(1, reminderPage - 1))}
-										class="bls-btn-ghost px-3 py-1.5 font-semibold disabled:cursor-not-allowed disabled:opacity-40"
-									>
-										上一页
-									</button>
-									<button
-										type="button"
-										disabled={reminderPage === totalReminderPages}
-										onclick={() => (reminderPage = Math.min(totalReminderPages, reminderPage + 1))}
-										class="bls-btn-ghost px-3 py-1.5 font-semibold disabled:cursor-not-allowed disabled:opacity-40"
-									>
-										下一页
-									</button>
-								</div>
-							</div>
-						{/if}
-					{/if}
+					<div class="dashboard-ad-stack grid gap-3">
+						<a
+							href="https://www.baily.life/projects/knowledge-planet/"
+							target="_blank"
+							rel="noreferrer"
+							class="dashboard-ad-card dashboard-ad-card-planet"
+						>
+							<span class="min-w-0">
+								<span class="bls-label text-[var(--bls-gold-bright)]">Knowledge Planet</span>
+								<span class="mt-1 block text-lg font-black text-white">加入贝利知识星球</span>
+								<span class="mt-1 block text-xs leading-5 text-[var(--bls-muted)]">信用卡、积分和权益玩法，一起系统整理。</span>
+							</span>
+							<span class="dashboard-ad-cta">立即加入</span>
+						</a>
+					</div>
 				</div>
-				{#if data.user}
-					<p class="mt-4 text-center text-xs text-[var(--bls-muted)]">当前登录邮箱：{data.user.email}</p>
-				{/if}
 			</aside>
 		</div>
 	</main>
