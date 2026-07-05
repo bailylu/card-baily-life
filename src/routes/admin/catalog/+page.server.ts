@@ -87,11 +87,14 @@ export const actions: Actions = {
 			const formData = await request.formData();
 			const id = Number(url.searchParams.get('id') || formData.get('id'));
 			const editingId = Number.isInteger(id) && id > 0 ? id : null;
+			const country = String(formData.get('country') ?? 'CN').trim() || 'CN';
 			const bankName = validateText(formData.get('bank_name'), '银行名称');
 			const cardName = validateText(formData.get('card_name'), '卡片名称');
 			const cardTier = String(formData.get('card_tier') ?? '').trim();
 			const network = String(formData.get('network') ?? '').trim();
-			const tags = String(formData.get('tags') ?? '').trim();
+			const cardType = String(formData.get('card_type') ?? '').trim();
+			const rawTags = String(formData.get('tags') ?? '').trim();
+			const tags = Array.from(new Set([cardType, ...rawTags.split(/[,，、\s]+/)].map((tag) => tag.trim()).filter(Boolean))).join('、');
 			const notes = String(formData.get('notes') ?? '').trim();
 			const image = formData.get('image');
 			const imageUrl = validateImageDataUrl(formData.get('image_data_url')) ?? (image instanceof File ? await fileToDataUrl(image) : null);
@@ -130,6 +133,7 @@ export const actions: Actions = {
 				await db
 					.update(card_catalog)
 					.set({
+						country,
 						bank_name: bankName,
 						card_name: cardName,
 						card_tier: cardTier || null,
@@ -142,7 +146,7 @@ export const actions: Actions = {
 					.where(eq(card_catalog.id, matched.id));
 			} else {
 				await db.insert(card_catalog).values({
-					country: 'CN',
+					country,
 					bank_name: bankName,
 					card_name: cardName,
 					card_tier: cardTier || null,

@@ -33,7 +33,11 @@ test('parseCardForm accepts a catalog card with annual fee date', () => {
 		dueDay: 23,
 		annualFeeMonth: 3,
 		annualFeeDay: 18,
-		leadDays: 3
+		leadDays: 3,
+		remindStatement: true,
+		remindDue: true,
+		remindAnnualFee: true,
+		selectedImageUrl: null
 	});
 });
 

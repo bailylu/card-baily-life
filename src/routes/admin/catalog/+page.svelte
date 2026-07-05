@@ -9,11 +9,43 @@
 	let selectedFile = $state<File | null>(null);
 	let rotation = $state(0);
 	let editingId = $state<number | null>(null);
+	let aiQuery = $state('');
+	let aiLoading = $state(false);
+	let aiError = $state('');
+	let aiMessage = $state('');
+	let aiDuplicateCandidates = $state<Array<{ id: number; bank_name: string; card_name: string; reason: string }>>([]);
+	let country = $state('CN');
+	let bankEntryMode = $state<'select' | 'custom'>('select');
 	let bankName = $state('');
 	let cardName = $state('');
+	let cardType = $state('信用卡');
 	let cardTier = $state('');
-	const CARD_TIERS = ['白金', '金卡'];
-	const NETWORKS = ['Visa', 'Mastercard', '银联', 'Amex', 'JCB'];
+	const FALLBACK_CARD_TIERS = ['普卡', '金卡', '白金', '钻石', '黑金', 'Signature', 'Infinite'];
+	const countryLabels: Record<string, string> = {
+		CN: '中国大陆',
+		HK: '中国香港',
+		TW: '中国台湾',
+		JP: '日本',
+		US: '美国'
+	};
+	const countryOrder = ['CN', 'HK', 'TW', 'JP', 'US'];
+	const CARD_TYPES = ['信用卡', '借记卡', '其它'];
+	const FALLBACK_NETWORKS = ['银联', 'American Express', 'JCB', 'Mastercard', 'Visa', 'Visa / 银联'];
+	function displayCountry(value: string | null | undefined) {
+		return value ? countryLabels[value] ?? value : '未知地区';
+	}
+	function displayCardType(value: string | null | undefined) {
+		if (value?.includes('借记卡')) return '借记卡';
+		if (value?.includes('信用卡')) return '信用卡';
+		return '其它';
+	}
+	function tagsWithoutType(value: string | null | undefined) {
+		return (value ?? '')
+			.split(/[,，、\s]+/)
+			.map((tag) => tag.trim())
+			.filter((tag) => tag && !CARD_TYPES.includes(tag))
+			.join('、');
+	}
 
 	let network = $state('');
 	let selectedNetworks = $state<string[]>([]);
@@ -23,7 +55,8 @@
 	}
 
 	function stringToNetworks(str: string) {
-		return str.split(/[/,，、\s]+/).map(s => s.trim()).filter(s => NETWORKS.includes(s));
+		const allowed = new Set([...FALLBACK_NETWORKS, ...networkOptions]);
+		return str.split(/[/,，、]+/).map(s => s.trim()).filter(s => allowed.has(s));
 	}
 
 	function toggleNetwork(net: string) {
@@ -34,7 +67,13 @@
 	}
 	let tags = $state('');
 	let notes = $state('');
-	let selectedBank = $state('全部');
+	let catalogCountry = $state('全部');
+	let catalogType = $state('全部');
+	let catalogBank = $state('全部');
+	let catalogNetwork = $state('全部');
+	let catalogTier = $state('全部');
+	let currentPage = $state(1);
+	const PAGE_SIZE = 24;
 
 	type Variant = { label: string; imageUrl: string | null; file: File | null };
 	let variants = $state<Variant[]>([]);
@@ -69,8 +108,73 @@
 		variants = [...variants];
 	}
 
-	const bankOptions = $derived([...new Set(data.cards.map((card) => card.bank_name))]);
-	const visibleCards = $derived(selectedBank === '全部' ? data.cards : data.cards.filter((card) => card.bank_name === selectedBank));
+	const countryOptions = $derived([
+		...countryOrder.filter((code) => data.cards.some((card) => card.country === code)),
+		...Array.from(new Set(data.cards.map((card) => card.country).filter((code): code is string => !!code && !countryOrder.includes(code))))
+	]);
+	const bankOptions = $derived([
+		...new Set(
+			data.cards
+				.filter((card) => !country || card.country === country)
+				.map((card) => card.bank_name)
+		)
+	]);
+	const networkOptions = $derived([
+		...FALLBACK_NETWORKS,
+		...new Set(
+			data.cards
+				.map((card) => card.network)
+				.flatMap((value) => (value ?? '').split(/[/,，、]+/).map((item) => item.trim()))
+				.filter(Boolean)
+		)
+	].filter((value, index, arr) => arr.indexOf(value) === index));
+	const tierOptions = $derived([
+		...new Set([
+			...data.cards.map((card) => card.card_tier).filter((tier): tier is string => !!tier?.trim()),
+			...FALLBACK_CARD_TIERS
+		])
+	]);
+	const catalogBankOptions = $derived([
+		...new Set(
+			data.cards
+				.filter((card) => catalogCountry === '全部' || card.country === catalogCountry)
+				.filter((card) => catalogType === '全部' || displayCardType(card.tags) === catalogType)
+				.map((card) => card.bank_name)
+		)
+	]);
+	const visibleCards = $derived(
+		data.cards
+			.filter((card) => catalogCountry === '全部' || card.country === catalogCountry)
+			.filter((card) => catalogType === '全部' || displayCardType(card.tags) === catalogType)
+			.filter((card) => catalogBank === '全部' || card.bank_name === catalogBank)
+			.filter((card) => catalogNetwork === '全部' || (card.network ?? '').split(/[/,，、]+/).map((item) => item.trim()).includes(catalogNetwork))
+			.filter((card) => catalogTier === '全部' || card.card_tier === catalogTier)
+	);
+	const totalPages = $derived(Math.max(1, Math.ceil(visibleCards.length / PAGE_SIZE)));
+	const pagedCards = $derived(visibleCards.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE));
+
+	$effect(() => {
+		country;
+		if (bankEntryMode === 'select' && bankName && bankOptions.length > 0 && !bankOptions.includes(bankName)) bankName = '';
+	});
+
+	$effect(() => {
+		catalogCountry;
+		catalogType;
+		catalogBank;
+		catalogNetwork;
+		catalogTier;
+		currentPage = 1;
+	});
+
+	$effect(() => {
+		if (catalogBank !== '全部' && !catalogBankOptions.includes(catalogBank)) catalogBank = '全部';
+	});
+
+	$effect(() => {
+		if (currentPage > totalPages) currentPage = totalPages;
+		if (currentPage < 1) currentPage = 1;
+	});
 
 	function revokePreview() {
 		if (previewUrl?.startsWith('blob:')) URL.revokeObjectURL(previewUrl);
@@ -159,12 +263,15 @@
 
 	function editCard(card: PageData['cards'][number]) {
 		editingId = card.id;
+		country = card.country ?? 'CN';
+		bankEntryMode = 'select';
 		bankName = card.bank_name;
 		cardName = card.card_name;
+		cardType = displayCardType(card.tags);
 		cardTier = card.card_tier ?? '';
 		network = card.network ?? '';
 		selectedNetworks = stringToNetworks(network);
-		tags = card.tags ?? '';
+		tags = tagsWithoutType(card.tags);
 		notes = card.notes ?? '';
 		selectedFile = null;
 		imageDataUrl = null;
@@ -176,8 +283,11 @@
 
 	function resetForm() {
 		editingId = null;
+		country = 'CN';
+		bankEntryMode = 'select';
 		bankName = '';
 		cardName = '';
+		cardType = '信用卡';
 		cardTier = '';
 		network = '';
 		selectedNetworks = [];
@@ -197,21 +307,96 @@
 		event.preventDefault();
 	}
 
+	function goToPage(page: number) {
+		currentPage = Math.min(totalPages, Math.max(1, page));
+	}
+
+	async function runAiFill() {
+		const query = aiQuery.trim();
+		aiError = '';
+		aiMessage = '';
+		aiDuplicateCandidates = [];
+		if (!query) {
+			aiError = '先输入卡片名称';
+			return;
+		}
+
+		aiLoading = true;
+		try {
+			const response = await fetch('/api/admin/catalog/ai-fill', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ query })
+			});
+			const result = await response.json() as {
+				error?: string;
+				fill?: {
+					country?: string;
+					card_type?: string;
+					bank_name?: string;
+					card_name?: string;
+					card_tier?: string;
+					networks?: string[];
+					tags?: string[];
+					notes?: string;
+					duplicate_candidates?: Array<{ id: number; bank_name: string; card_name: string; reason: string }>;
+				};
+			};
+			if (!response.ok || !result.fill) throw new Error(result.error || 'AI 识别失败');
+
+			const fill = result.fill;
+			const nextCountry = fill.country || 'CN';
+			const nextBank = fill.bank_name?.trim() || '';
+			const banksForCountry = [
+				...new Set(
+					data.cards
+						.filter((card) => card.country === nextCountry)
+						.map((card) => card.bank_name)
+				)
+			];
+
+			country = nextCountry;
+			cardType = fill.card_type || '信用卡';
+			cardName = fill.card_name?.trim() || query;
+			cardTier = fill.card_tier?.trim() || '';
+			selectedNetworks = (fill.networks ?? []).map((item) => item.trim()).filter(Boolean);
+			network = networksToString(selectedNetworks);
+			tags = (fill.tags ?? []).map((item) => item.trim()).filter(Boolean).join('、');
+			notes = fill.notes?.trim() || '';
+			if (nextBank && banksForCountry.includes(nextBank)) {
+				bankEntryMode = 'select';
+				bankName = nextBank;
+			} else {
+				bankEntryMode = 'custom';
+				bankName = nextBank;
+			}
+			aiDuplicateCandidates = fill.duplicate_candidates ?? [];
+			aiMessage = aiDuplicateCandidates.length > 0
+				? `已填入表单，并找到 ${aiDuplicateCandidates.length} 个可能重复项。`
+				: '已根据卡片名称填入表单，请复核后保存。';
+		} catch (error) {
+			aiError = error instanceof Error ? error.message : 'AI 识别失败';
+		} finally {
+			aiLoading = false;
+		}
+	}
+
 </script>
 
 <svelte:head>
 	<title>卡库管理 — 贝利卡管家</title>
 </svelte:head>
 
-<main class="min-h-screen bg-gray-50 px-4 py-8">
-	<div class="mx-auto max-w-5xl">
+<main class="bls-page admin-dark px-4 py-8">
+	<div class="mx-auto max-w-7xl">
 		<div class="mb-6 flex items-center justify-between">
 			<div>
-				<a href="/dashboard" class="text-sm font-medium text-blue-600 hover:text-blue-700">← 返回我的卡片</a>
-				<h1 class="mt-3 text-3xl font-bold text-gray-950">卡库管理</h1>
-				<p class="mt-2 text-sm text-gray-500">上传卡面、填写银行和卡片名称，保存后会立即进入卡片库。</p>
+				<a href="/dashboard" class="text-sm font-bold text-[var(--bls-cyan)] hover:text-[var(--bls-gold-bright)]">← 返回我的卡片</a>
+				<p class="bls-label mt-6 text-[var(--bls-cyan)]">Catalog Control</p>
+				<h1 class="mt-2 text-3xl font-black text-white">卡库管理</h1>
+				<p class="mt-2 text-sm text-[var(--bls-muted)]">维护添加卡片页使用的卡库资料、卡面、地区银行和卡组织信息。</p>
 			</div>
-			<a href="/cards/add" class="rounded-full bg-white px-4 py-2 text-sm font-medium text-gray-700 ring-1 ring-gray-200 hover:bg-gray-50">
+			<a href="/cards/add" class="bls-btn px-4 py-2 text-sm">
 				查看卡库
 			</a>
 		</div>
@@ -230,7 +415,7 @@
 			<div class="mb-4 rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-700">已保存到卡库。</div>
 		{/if}
 
-		<div class="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
+		<div class="space-y-6">
 			<section class="rounded-3xl border border-gray-200 bg-white p-5 shadow-sm">
 				<div class="flex items-center justify-between gap-3">
 					<h2 class="text-lg font-semibold text-gray-950">{editingId ? '编辑卡片' : '新增 / 更新卡片'}</h2>
@@ -242,12 +427,129 @@
 				</div>
 				<p class="mt-1 text-sm text-gray-500">点右侧编辑后会修改原记录；不点编辑则保存为新卡。不传新图会保留原卡面。</p>
 
+				<div class="admin-callout admin-callout-cyan mt-5 p-4">
+					<div class="flex flex-wrap items-end gap-3">
+						<label class="min-w-0 flex-1">
+							<span class="text-sm font-bold text-gray-700">AI 识别卡片</span>
+							<input
+								bind:value={aiQuery}
+								onkeydown={(event) => {
+									if (event.key === 'Enter') {
+										event.preventDefault();
+										void runAiFill();
+									}
+								}}
+								class="mt-2 w-full rounded-xl border border-gray-200 px-3 py-3 text-sm outline-none focus:border-blue-500"
+								placeholder="输入卡片名称，例如：中信银行万豪旅享家精逸白金卡"
+							/>
+						</label>
+						<button
+							type="button"
+							class="bls-btn px-4 py-3 text-sm disabled:cursor-not-allowed disabled:opacity-50"
+							disabled={aiLoading}
+							onclick={() => void runAiFill()}
+						>
+							{aiLoading ? '识别中...' : 'AI 识别'}
+						</button>
+					</div>
+					<p class="mt-2 text-xs leading-5 text-gray-400">只填文字字段，图片仍然手动上传；保存前请复核识别结果。</p>
+					{#if aiError}
+						<p class="mt-3 text-sm font-bold text-red-600">{aiError}</p>
+					{/if}
+					{#if aiMessage}
+						<p class="mt-3 text-sm font-bold text-blue-600">{aiMessage}</p>
+					{/if}
+					{#if aiDuplicateCandidates.length}
+						<div class="mt-3 space-y-2">
+							<p class="text-xs font-bold text-gray-500">可能已存在：</p>
+							{#each aiDuplicateCandidates as candidate}
+								<button
+									type="button"
+									class="block w-full rounded-[4px] border-2 border-[var(--bls-line)] bg-[rgba(9,14,26,0.56)] px-3 py-2 text-left text-xs text-[var(--bls-body)] hover:border-[var(--bls-cyan)]"
+									onclick={() => {
+										const matched = data.cards.find((card) => card.id === candidate.id);
+										if (matched) editCard(matched);
+									}}
+								>
+									<span class="font-black text-white">{candidate.bank_name} {candidate.card_name}</span>
+									<span class="ml-2 text-[var(--bls-muted)]">{candidate.reason}</span>
+								</button>
+							{/each}
+						</div>
+					{/if}
+				</div>
+
 				<form method="POST" action={editingId ? `?/save&id=${editingId}` : '?/save'} enctype="multipart/form-data" class="mt-5 space-y-4">
 					<input type="hidden" name="id" value={editingId ?? ''} />
 					<div class="grid gap-4 sm:grid-cols-2">
 						<label class="block">
+							<span class="text-sm font-medium text-gray-700">国家 / 地区</span>
+							<select bind:value={country} name="country" required class="mt-2 w-full rounded-xl border border-gray-200 px-3 py-3 text-sm outline-none focus:border-blue-500">
+								{#each countryOptions as option}
+									<option value={option}>{displayCountry(option)}</option>
+								{/each}
+								{#if !countryOptions.includes('CN')}
+									<option value="CN">中国大陆</option>
+								{/if}
+								{#if !countryOptions.includes('HK')}
+									<option value="HK">中国香港</option>
+								{/if}
+								{#if !countryOptions.includes('TW')}
+									<option value="TW">中国台湾</option>
+								{/if}
+								{#if !countryOptions.includes('JP')}
+									<option value="JP">日本</option>
+								{/if}
+								{#if !countryOptions.includes('US')}
+									<option value="US">美国</option>
+								{/if}
+							</select>
+						</label>
+						<label class="block">
+							<span class="text-sm font-medium text-gray-700">卡种类别</span>
+							<select bind:value={cardType} name="card_type" required class="mt-2 w-full rounded-xl border border-gray-200 px-3 py-3 text-sm outline-none focus:border-blue-500">
+								{#each CARD_TYPES as type}
+									<option value={type}>{type}</option>
+								{/each}
+							</select>
+						</label>
+						<label class="block">
 							<span class="text-sm font-medium text-gray-700">银行名称</span>
-							<input bind:value={bankName} name="bank_name" required onkeydown={preventEnterSubmit} class="mt-2 w-full rounded-xl border border-gray-200 px-3 py-3 text-sm outline-none focus:border-blue-500" placeholder="例如：招商银行" />
+							<div class="mt-2 grid gap-2 sm:grid-cols-[minmax(0,1fr)_auto]">
+								{#if bankEntryMode === 'select'}
+									<select bind:value={bankName} name="bank_name" required class="w-full rounded-xl border border-gray-200 px-3 py-3 text-sm outline-none focus:border-blue-500">
+										<option value="">选择已有银行</option>
+										{#each bankOptions as bank}
+											<option value={bank}>{bank}</option>
+										{/each}
+									</select>
+									<button
+										type="button"
+										class="rounded-lg border border-gray-200 px-3 py-2 text-xs font-bold text-gray-600 hover:border-blue-500 hover:text-blue-700"
+										onclick={() => {
+											bankEntryMode = 'custom';
+											bankName = '';
+										}}
+									>
+										新增银行
+									</button>
+								{:else}
+									<input bind:value={bankName} name="bank_name" required onkeydown={preventEnterSubmit} class="w-full rounded-xl border border-gray-200 px-3 py-3 text-sm outline-none focus:border-blue-500" placeholder="输入新银行名称" />
+									<button
+										type="button"
+										class="rounded-lg border border-gray-200 px-3 py-2 text-xs font-bold text-gray-600 hover:border-blue-500 hover:text-blue-700"
+										onclick={() => {
+											bankEntryMode = 'select';
+											bankName = '';
+										}}
+									>
+										选择已有
+									</button>
+								{/if}
+							</div>
+							<p class="mt-2 text-xs text-gray-400">
+								当前地区已有 {bankOptions.length} 个银行；新增银行会随卡片一起入库。
+							</p>
 						</label>
 						<label class="block">
 							<span class="text-sm font-medium text-gray-700">卡片名称</span>
@@ -260,7 +562,7 @@
 							<span class="text-sm font-medium text-gray-700">卡片等级（可选）</span>
 							<input type="hidden" name="card_tier" value={cardTier} />
 							<div class="mt-2 flex flex-wrap gap-2">
-								{#each CARD_TIERS as tier}
+								{#each tierOptions as tier}
 									<button
 										type="button"
 										onclick={() => { cardTier = cardTier === tier ? '' : tier; }}
@@ -275,7 +577,7 @@
 							<span class="text-sm font-medium text-gray-700">卡组织（可选，可多选）</span>
 							<input type="hidden" name="network" value={network} />
 							<div class="mt-2 flex flex-wrap gap-2">
-								{#each NETWORKS as net}
+								{#each networkOptions as net}
 									<button
 										type="button"
 										onclick={() => toggleNetwork(net)}
@@ -381,28 +683,97 @@
 					<h2 class="text-lg font-semibold text-gray-950">当前卡库</h2>
 					<span class="text-sm text-gray-400">{visibleCards.length} / {data.cards.length} 张</span>
 				</div>
-				{#if bankOptions.length > 0}
-					<div class="mt-4 flex flex-wrap gap-2">
+				<div class="mt-4 space-y-3">
+					<div class="grid gap-3 md:grid-cols-5">
+						<select bind:value={catalogCountry} class="rounded-xl border border-gray-200 px-3 py-3 text-sm outline-none focus:border-blue-500">
+							<option value="全部">全部地区</option>
+							{#each countryOptions as option}
+								<option value={option}>{displayCountry(option)}</option>
+							{/each}
+						</select>
+						<select bind:value={catalogType} class="rounded-xl border border-gray-200 px-3 py-3 text-sm outline-none focus:border-blue-500">
+							<option value="全部">全部类型</option>
+							{#each CARD_TYPES as type}
+								<option value={type}>{type}</option>
+							{/each}
+						</select>
+						<select bind:value={catalogBank} class="rounded-xl border border-gray-200 px-3 py-3 text-sm outline-none focus:border-blue-500">
+							<option value="全部">全部银行</option>
+							{#each catalogBankOptions as bank}
+								<option value={bank}>{bank}</option>
+							{/each}
+						</select>
+						<select bind:value={catalogNetwork} class="rounded-xl border border-gray-200 px-3 py-3 text-sm outline-none focus:border-blue-500">
+							<option value="全部">全部卡组织</option>
+							{#each networkOptions as net}
+								<option value={net}>{net}</option>
+							{/each}
+						</select>
+						<select bind:value={catalogTier} class="rounded-xl border border-gray-200 px-3 py-3 text-sm outline-none focus:border-blue-500">
+							<option value="全部">全部等级</option>
+							{#each tierOptions as tier}
+								<option value={tier}>{tier}</option>
+							{/each}
+						</select>
+					</div>
+
+					<div class="flex flex-wrap gap-2">
 						<button
 							type="button"
-							class={`rounded-full px-3 py-1.5 text-xs font-semibold ring-1 transition ${selectedBank === '全部' ? 'bg-blue-600 text-white ring-blue-600' : 'bg-white text-gray-600 ring-gray-200 hover:bg-gray-50'}`}
-							onclick={() => (selectedBank = '全部')}
+							class={`rounded-full px-3 py-1.5 text-xs font-semibold ring-1 transition ${catalogCountry === '全部' ? 'bg-blue-600 text-white ring-blue-600' : 'bg-white text-gray-600 ring-gray-200 hover:bg-gray-50'}`}
+							onclick={() => (catalogCountry = '全部')}
 						>
-							全部银行
+							全部地区
 						</button>
-						{#each bankOptions as bank}
+						{#each countryOptions as option}
 							<button
 								type="button"
-								class={`rounded-full px-3 py-1.5 text-xs font-semibold ring-1 transition ${selectedBank === bank ? 'bg-blue-600 text-white ring-blue-600' : 'bg-white text-gray-600 ring-gray-200 hover:bg-gray-50'}`}
-								onclick={() => (selectedBank = bank)}
+								class={`rounded-full px-3 py-1.5 text-xs font-semibold ring-1 transition ${catalogCountry === option ? 'bg-blue-600 text-white ring-blue-600' : 'bg-white text-gray-600 ring-gray-200 hover:bg-gray-50'}`}
+								onclick={() => (catalogCountry = option)}
 							>
-								{bank}
+								{displayCountry(option)}
 							</button>
 						{/each}
 					</div>
-				{/if}
-				<div class="mt-5 grid max-h-[44rem] gap-4 overflow-y-auto pr-1 sm:grid-cols-2">
-					{#each visibleCards as card}
+					<div class="flex flex-wrap gap-2">
+						<button
+							type="button"
+							class={`rounded-full px-3 py-1.5 text-xs font-semibold ring-1 transition ${catalogType === '全部' ? 'bg-blue-600 text-white ring-blue-600' : 'bg-white text-gray-600 ring-gray-200 hover:bg-gray-50'}`}
+							onclick={() => (catalogType = '全部')}
+						>
+							全部类型
+						</button>
+						{#each CARD_TYPES as type}
+							<button
+								type="button"
+								class={`rounded-full px-3 py-1.5 text-xs font-semibold ring-1 transition ${catalogType === type ? 'bg-blue-600 text-white ring-blue-600' : 'bg-white text-gray-600 ring-gray-200 hover:bg-gray-50'}`}
+								onclick={() => (catalogType = type)}
+							>
+								{type}
+							</button>
+						{/each}
+					</div>
+					<div class="flex flex-wrap gap-2">
+						<button
+							type="button"
+							class={`rounded-full px-3 py-1.5 text-xs font-semibold ring-1 transition ${catalogNetwork === '全部' ? 'bg-blue-600 text-white ring-blue-600' : 'bg-white text-gray-600 ring-gray-200 hover:bg-gray-50'}`}
+							onclick={() => (catalogNetwork = '全部')}
+						>
+							全部卡组织
+						</button>
+						{#each networkOptions as net}
+							<button
+								type="button"
+								class={`rounded-full px-3 py-1.5 text-xs font-semibold ring-1 transition ${catalogNetwork === net ? 'bg-blue-600 text-white ring-blue-600' : 'bg-white text-gray-600 ring-gray-200 hover:bg-gray-50'}`}
+								onclick={() => (catalogNetwork = net)}
+							>
+								{net}
+							</button>
+						{/each}
+					</div>
+				</div>
+				<div class="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+					{#each pagedCards as card}
 						<article class="rounded-2xl border border-gray-100 bg-gray-50 p-3">
 								<CardFace
 									imageUrl={card.image_url}
@@ -457,6 +828,41 @@
 								</div>
 						</article>
 					{/each}
+				</div>
+				<div class="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-white/10 pt-4">
+					<p class="text-sm text-gray-400">
+						第 {currentPage} / {totalPages} 页 · 当前显示 {pagedCards.length} 张，共 {visibleCards.length} 张
+					</p>
+					<div class="flex items-center gap-2">
+						<button
+							type="button"
+							class="bls-btn-ghost px-3 py-2 text-xs font-bold disabled:cursor-not-allowed disabled:opacity-40"
+							disabled={currentPage <= 1}
+							onclick={() => goToPage(currentPage - 1)}
+						>
+							上一页
+						</button>
+						{#each Array.from({ length: Math.min(totalPages, 5) }, (_, index) => {
+							const start = Math.min(Math.max(currentPage - 2, 1), Math.max(totalPages - 4, 1));
+							return start + index;
+						}) as page}
+							<button
+								type="button"
+								class={`rounded-[4px] border-2 px-3 py-2 text-xs font-black ${page === currentPage ? 'border-[var(--bls-cyan)] bg-[rgba(47,230,212,0.14)] text-[var(--bls-cyan)]' : 'border-[var(--bls-line)] text-[var(--bls-body)] hover:border-[var(--bls-cyan)]'}`}
+								onclick={() => goToPage(page)}
+							>
+								{page}
+							</button>
+						{/each}
+						<button
+							type="button"
+							class="bls-btn-ghost px-3 py-2 text-xs font-bold disabled:cursor-not-allowed disabled:opacity-40"
+							disabled={currentPage >= totalPages}
+							onclick={() => goToPage(currentPage + 1)}
+						>
+							下一页
+						</button>
+					</div>
 				</div>
 			</section>
 		</div>

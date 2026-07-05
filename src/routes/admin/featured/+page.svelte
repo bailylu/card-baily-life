@@ -25,6 +25,11 @@
 	let processedImageDataUrl = $state('');
 	let uploadPreviewUrl = $state('');
 	let uploadError = $state('');
+	let aiQuery = $state('');
+	let aiLoading = $state(false);
+	let aiError = $state('');
+	let aiMessage = $state('');
+	let aiDuplicateCandidates = $state<Array<{ id: string; name: string; reason: string }>>([]);
 
 	let defaultHref = $derived(formId ? `/refer/${formId}` : '/refer/推荐ID');
 
@@ -72,6 +77,59 @@
 	function resetEdit() {
 		editing = null;
 		fillForm(null);
+	}
+
+	async function runAiFill() {
+		const query = aiQuery.trim();
+		aiError = '';
+		aiMessage = '';
+		aiDuplicateCandidates = [];
+		if (!query) {
+			aiError = '先输入卡片或活动名称。';
+			return;
+		}
+
+		aiLoading = true;
+		try {
+			const response = await fetch('/api/admin/featured/ai-fill', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ query })
+			});
+			const result = (await response.json()) as {
+				error?: string;
+				fill?: {
+					bank?: string;
+					name?: string;
+					description?: string;
+					expected_yield?: string;
+					href?: string;
+					image_hint?: string;
+					duplicate_candidates?: Array<{ id: string; name: string; reason: string }>;
+				};
+			};
+			if (!response.ok || !result.fill) throw new Error(result.error || 'AI 识别失败');
+
+			const fill = result.fill;
+			formBank = fill.bank?.trim() || '首页推荐';
+			formPartner = '办卡活动';
+			formName = fill.name?.trim() || query;
+			formDescription = fill.description?.trim() || '';
+			formMetric1Label = '预计收益';
+			formMetric1Value = fill.expected_yield?.trim() || '';
+			formHref = fill.href?.trim() || '';
+			if (!formAlt && formName) formAlt = formName;
+
+			aiDuplicateCandidates = fill.duplicate_candidates ?? [];
+			aiMessage = aiDuplicateCandidates.length
+				? `已填入表单，并找到 ${aiDuplicateCandidates.length} 个可能重复项。`
+				: '已根据输入填入推荐表单，请复核后保存。';
+			if (fill.image_hint && !formImage) aiMessage += ` 图片建议：${fill.image_hint}`;
+		} catch (error) {
+			aiError = error instanceof Error ? error.message : 'AI 识别失败';
+		} finally {
+			aiLoading = false;
+		}
 	}
 
 	function metric(promotion: PageData['promotions'][number] | null | undefined, index: number) {
@@ -133,55 +191,103 @@
 	<title>首页推荐管理 — 贝利卡管家</title>
 </svelte:head>
 
-<main class="min-h-screen bg-gray-50 px-5 py-8 lg:px-8">
+<main class="bls-page admin-dark px-5 py-8 lg:px-8">
 	<div class="mx-auto max-w-[1680px]">
 		<div class="mb-8 flex items-start justify-between gap-6">
 			<div>
-				<a href="/dashboard" class="text-sm font-medium text-blue-600 hover:text-blue-700">← 返回我的卡片</a>
-				<h1 class="mt-3 text-3xl font-bold text-gray-950">首页推荐管理</h1>
-				<p class="mt-2 text-sm text-gray-500">首页只展示卡名、一句活动说明、卡图和立即办卡入口。</p>
+				<a href="/dashboard" class="text-sm font-bold text-[var(--bls-cyan)] hover:text-[var(--bls-gold-bright)]">← 返回我的卡片</a>
+				<p class="bls-label mt-6 text-[var(--bls-cyan)]">Featured Control</p>
+				<h1 class="mt-2 text-3xl font-black text-white">首页推荐管理</h1>
+				<p class="mt-2 text-sm text-[var(--bls-muted)]">管理首页推荐卡片、预计收益、跳转入口和卡面展示。</p>
 			</div>
 			<div class="flex gap-2">
-				<a href="/admin/catalog" class="rounded-full bg-white px-4 py-2 text-sm font-medium text-gray-700 ring-1 ring-gray-200 hover:bg-gray-50">
+				<a href="/admin/catalog" class="bls-btn-ghost px-4 py-2 text-sm font-bold">
 					卡库管理
 				</a>
-				<a href="/dashboard" class="rounded-full bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700">
+				<a href="/dashboard" class="bls-btn px-4 py-2 text-sm">
 					查看首页
 				</a>
 			</div>
 		</div>
 
 		{#if data.configMissing}
-			<div class="mb-4 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-700">
+			<div class="admin-alert admin-alert-warn mb-4 p-4 text-sm">
 				推荐数据暂时不可用，当前展示默认推荐。请稍后刷新后再编辑。
 			</div>
 		{/if}
 
 		{#if form && 'error' in form && form.error}
-			<div class="mb-4 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">{form.error}</div>
+			<div class="admin-alert admin-alert-error mb-4 p-4 text-sm">{form.error}</div>
 		{/if}
 
 		{#if data.saved}
-			<div class="mb-4 rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-700">已保存首页推荐。</div>
+			<div class="admin-alert admin-alert-success mb-4 p-4 text-sm">已保存首页推荐。</div>
 		{/if}
 
 		<div class="grid gap-8 xl:grid-cols-[minmax(600px,0.9fr)_minmax(760px,1.1fr)]">
-			<section class="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm">
+			<section class="bls-panel p-6">
 				<div class="flex items-center justify-between">
 					<h2 class="text-lg font-semibold text-gray-950">{editing ? '编辑推荐' : '新增推荐'}</h2>
 					{#if editing}
-						<button type="button" class="rounded-full bg-gray-100 px-3 py-1.5 text-xs font-medium text-gray-600 hover:bg-gray-200" onclick={resetEdit}>
+						<button type="button" class="bls-btn-ghost px-3 py-1.5 text-xs font-bold" onclick={resetEdit}>
 							取消编辑
 						</button>
 					{/if}
 				</div>
 
+				<div class="admin-callout admin-callout-cyan mt-5 p-4">
+					<div class="flex flex-wrap items-end gap-3">
+						<label class="min-w-0 flex-1">
+							<span class="text-sm font-bold text-gray-700">AI 填写推荐</span>
+							<input
+								bind:value={aiQuery}
+								onkeydown={(event) => {
+									if (event.key === 'Enter') {
+										event.preventDefault();
+										void runAiFill();
+									}
+								}}
+								class="mt-2 w-full rounded-xl border border-blue-100 bg-white px-3 py-3 text-sm outline-none focus:border-blue-500"
+								placeholder="输入卡片或活动，例如：中信万豪精逸白金卡 新户 1500 元"
+							/>
+						</label>
+						<button
+							type="button"
+							class="bls-btn px-4 py-3 text-sm disabled:cursor-not-allowed disabled:opacity-60"
+							disabled={aiLoading}
+							onclick={() => void runAiFill()}
+						>
+							{aiLoading ? '识别中...' : 'AI 填写'}
+						</button>
+					</div>
+					<p class="mt-2 text-xs leading-5 text-blue-700">会填卡名、活动一句话、预计收益和跳转建议；图片仍需手动确认。</p>
+					{#if aiError}
+						<p class="mt-2 text-sm font-bold text-red-600">{aiError}</p>
+					{/if}
+					{#if aiMessage}
+						<p class="mt-2 text-sm font-bold text-emerald-700">{aiMessage}</p>
+					{/if}
+					{#if aiDuplicateCandidates.length > 0}
+						<div class="mt-3 flex flex-wrap gap-2">
+							{#each aiDuplicateCandidates as candidate}
+								{@const matchedPromotion = data.promotions.find((promotion) => promotion.id === candidate.id)}
+								{#if matchedPromotion}
+									<button
+										type="button"
+										class="rounded-full border border-blue-200 bg-white px-3 py-1.5 text-xs font-bold text-blue-700 hover:border-blue-500"
+										title={candidate.reason}
+										onclick={() => startEdit(matchedPromotion)}
+									>
+										编辑已有：{candidate.name}
+									</button>
+								{/if}
+							{/each}
+						</div>
+					{/if}
+				</div>
+
 				<form method="POST" action="?/save" enctype="multipart/form-data" class="mt-6 space-y-5">
-					<label class="block">
-						<span class="text-sm font-medium text-gray-700">推荐 ID</span>
-						<input name="id" required bind:value={formId} class="mt-2 w-full rounded-xl border border-gray-200 px-3 py-3 text-sm outline-none focus:border-blue-500" placeholder="例如 citic-marriott" />
-						<span class="mt-2 block text-xs leading-5 text-gray-400">用于生成默认详情页地址，例如 /refer/citic-marriott。</span>
-					</label>
+					<input type="hidden" name="id" value={formId} />
 
 					<label class="block">
 						<span class="text-sm font-medium text-gray-700">卡片名称</span>
@@ -193,7 +299,7 @@
 						<textarea name="description" required rows="3" bind:value={formDescription} class="mt-2 w-full rounded-xl border border-gray-200 px-3 py-3 text-sm outline-none focus:border-blue-500" placeholder="例如：新户 60 天内消费达标，可拿 30,000 点万豪积分。"></textarea>
 					</label>
 
-					<label class="block rounded-2xl bg-amber-50/70 p-4 ring-1 ring-amber-100">
+					<label class="admin-callout admin-callout-gold block p-4">
 						<span class="text-sm font-medium text-gray-700">预计收益</span>
 						<input
 							name="metric_1_value"
@@ -220,7 +326,7 @@
 						<input name="sort_order" type="number" bind:value={formSortOrder} class="mt-2 w-full rounded-xl border border-gray-200 px-3 py-3 text-sm outline-none focus:border-blue-500" />
 					</label>
 
-					<label class="block rounded-2xl bg-blue-50/60 p-4 ring-1 ring-blue-100">
+					<label class="admin-callout admin-callout-cyan block p-4">
 						<span class="text-sm font-medium text-gray-700">立即办卡跳转</span>
 						<input name="href" bind:value={formHref} class="mt-2 w-full rounded-xl border border-blue-100 bg-white px-3 py-3 text-sm outline-none focus:border-blue-500" placeholder={defaultHref} />
 						<span class="mt-2 block text-xs leading-5 text-blue-700">
@@ -247,10 +353,10 @@
 					</label>
 					<input type="hidden" name="processed_image" value={processedImageDataUrl} />
 
-					<div class="rounded-2xl bg-gray-50 p-4 ring-1 ring-gray-100">
+					<div class="admin-subpanel p-4">
 						<div class="flex flex-wrap items-center justify-between gap-3">
 							<span class="text-sm font-medium text-gray-700">上传图片方向</span>
-							<div class="flex rounded-full bg-white p-1 ring-1 ring-gray-200">
+							<div class="admin-segmented flex p-1">
 								<button
 									type="button"
 									class={`rounded-full px-3 py-1.5 text-xs font-semibold ${uploadRotation === 'none' ? 'bg-blue-600 text-white' : 'text-gray-500 hover:text-blue-700'}`}
@@ -288,57 +394,55 @@
 						<input name="alt" bind:value={formAlt} class="mt-2 w-full rounded-xl border border-gray-200 px-3 py-3 text-sm outline-none focus:border-blue-500" placeholder="默认使用卡片名称" />
 					</label>
 
-					<label class="flex items-center gap-3 rounded-2xl bg-gray-50 p-4 text-sm font-medium text-gray-700">
+					<label class="admin-subpanel flex items-center gap-3 p-4 text-sm font-medium text-gray-700">
 						<input name="enabled" type="checkbox" bind:checked={formEnabled} class="h-5 w-5 rounded border-gray-300 text-blue-600" />
-						启用并展示在首页轮播
+						启用并展示在我的卡片页推荐区
 					</label>
 
-					<button class="w-full rounded-2xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-700">
+					<button class="bls-btn w-full justify-center px-5 py-3 text-sm">
 						{editing ? '保存修改' : '新增推荐'}
 					</button>
 				</form>
 			</section>
 
-			<section class="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm">
+			<section class="bls-panel p-6">
 				<div class="flex items-center justify-between">
-					<h2 class="text-lg font-semibold text-gray-950">首页效果预览</h2>
+					<h2 class="text-lg font-semibold text-gray-950">推荐卡片预览</h2>
 					<span class="text-sm text-gray-400">{data.promotions.length} 条</span>
 				</div>
 
-				<div class="mt-6 overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
-					<div class="bg-gradient-to-br from-white via-slate-50 to-blue-50/70 p-7">
-						<p class="text-sm font-bold text-blue-700">精选推荐</p>
-						<h3 class="mt-1 text-2xl font-black tracking-tight text-slate-950">什么卡值得申？</h3>
-
-						<div class="mt-6 grid items-center gap-8 lg:grid-cols-[minmax(0,0.82fr)_minmax(460px,1.18fr)]">
-							<div class="min-w-0">
-								<h4 class="max-w-2xl text-4xl font-black leading-[1.08] tracking-tight text-slate-950">
-									{preview.name}
-								</h4>
-								<p class="mt-5 max-w-xl text-base leading-8 text-slate-600">
-									{preview.description}
-								</p>
-								<p class="mt-5 text-2xl font-black text-amber-600">
-									预计收益 {preview.expectedYield}
-								</p>
-								<div class="mt-7">
-									<a href={preview.href} class="inline-flex rounded-2xl bg-blue-600 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-blue-600/20 hover:bg-blue-700">
-										立即办卡
-									</a>
-								</div>
+				<div class="admin-preview-shell mt-6 p-5">
+					<p class="bls-label text-[var(--bls-cyan)]">Card Desk</p>
+					<h3 class="mt-1 text-xl font-black text-white">我的卡片</h3>
+					<div class="mt-4 grid gap-4 md:grid-cols-3">
+						<a href={preview.href} class="group bls-feature-card relative p-3">
+							<div class="relative overflow-hidden rounded-[4px] border-2 border-white/10 bg-[var(--bls-inset)]">
+								<img src={preview.image} alt={preview.alt} class="aspect-[1.586] w-full object-cover" />
+								<span class="bls-rec-badge">推荐</span>
 							</div>
-							<div class="flex min-w-0 items-center justify-center">
-								<div class="relative w-full max-w-[540px]">
-									<div class="absolute inset-6 rounded-[2rem] bg-blue-200/50 blur-3xl"></div>
-									<img
-										src={preview.image}
-										alt={preview.alt}
-										class="relative aspect-[1.586] w-full rounded-[1.7rem] object-cover shadow-2xl shadow-slate-300"
-									/>
-								</div>
+							<div class="relative mt-3 min-w-0">
+								<p class="text-xs font-bold text-[var(--bls-cyan)]">{preview.bank}</p>
+								<h4 class="mt-1 line-clamp-1 text-base font-black text-white group-hover:text-[var(--bls-gold-bright)]">{preview.name}</h4>
+								<p class="mt-2 text-sm font-black text-[var(--bls-gold-bright)]">预计收益 {preview.expectedYield}</p>
+								<span class="bls-btn mt-3 px-3 py-2 text-xs">立即办卡</span>
 							</div>
-						</div>
+						</a>
+						{#each data.promotions.slice(0, 2) as promotion}
+							<a href={promotion.href} class="group bls-feature-card relative p-3">
+								<div class="relative overflow-hidden rounded-[4px] border-2 border-white/10 bg-[var(--bls-inset)]">
+									<img src={promotion.image} alt={promotion.alt} class="aspect-[1.586] w-full object-cover" />
+									<span class="bls-rec-badge">推荐</span>
+								</div>
+								<div class="relative mt-3 min-w-0">
+									<p class="text-xs font-bold text-[var(--bls-cyan)]">{promotion.bank}</p>
+									<h4 class="mt-1 line-clamp-1 text-base font-black text-white group-hover:text-[var(--bls-gold-bright)]">{promotion.name}</h4>
+									<p class="mt-2 text-sm font-black text-[var(--bls-gold-bright)]">预计收益 {metric(promotion, 0).value || '未填写'}</p>
+									<span class="bls-btn mt-3 px-3 py-2 text-xs">立即办卡</span>
+								</div>
+							</a>
+						{/each}
 					</div>
+					<p class="mt-3 text-xs text-[var(--bls-muted)]">按当前 dashboard 的星标推荐卡片样式预览，不再使用旧首页大横幅。</p>
 				</div>
 
 				<div class="mt-6 flex items-center justify-between">
@@ -347,26 +451,26 @@
 				</div>
 				<div class="mt-5 space-y-4">
 					{#each data.promotions as promotion}
-						<article class="rounded-2xl border border-gray-100 bg-gray-50 p-4">
+						<article class="admin-featured-row p-4">
 							<div class="grid gap-4 sm:grid-cols-[220px_minmax(0,1fr)]">
 								<img src={promotion.image} alt={promotion.alt} class="aspect-[1.586] w-full rounded-xl object-cover ring-1 ring-gray-200" />
 								<div class="min-w-0">
 									<div class="flex flex-wrap items-center gap-2">
-										<span class="rounded-full bg-white px-2.5 py-1 text-xs font-semibold text-gray-600 ring-1 ring-gray-200">排序 {promotion.sortOrder}</span>
+										<span class="admin-pill px-2.5 py-1 text-xs font-semibold">排序 {promotion.sortOrder}</span>
 										<span class={`rounded-full px-2.5 py-1 text-xs font-semibold ring-1 ${promotion.enabled ? 'bg-emerald-50 text-emerald-700 ring-emerald-100' : 'bg-gray-100 text-gray-500 ring-gray-200'}`}>
 											{promotion.enabled ? '已启用' : '已关闭'}
 										</span>
 									</div>
-									<h3 class="mt-3 text-xl font-black text-gray-950">{promotion.name}</h3>
+									<h3 class="mt-3 text-xl font-black text-white">{promotion.name}</h3>
 									<p class="mt-2 text-sm font-black text-amber-600">预计收益 {metric(promotion, 0).value || '未填写'}</p>
 									<p class="mt-2 line-clamp-2 text-sm leading-6 text-gray-500">{promotion.description}</p>
 									<div class="mt-4 flex gap-2">
-										<button type="button" class="rounded-full bg-white px-3 py-1.5 text-xs font-medium text-blue-600 ring-1 ring-blue-100 hover:bg-blue-50" onclick={() => startEdit(promotion)}>
+										<button type="button" class="bls-btn-ghost px-3 py-1.5 text-xs font-bold" onclick={() => startEdit(promotion)}>
 											编辑
 										</button>
 										<form method="POST" action="?/deletePromotion">
 											<input type="hidden" name="id" value={promotion.id} />
-											<button class="rounded-full bg-white px-3 py-1.5 text-xs font-medium text-red-600 ring-1 ring-red-100 hover:bg-red-50">
+											<button class="admin-danger-btn px-3 py-1.5 text-xs font-bold">
 												删除
 											</button>
 										</form>

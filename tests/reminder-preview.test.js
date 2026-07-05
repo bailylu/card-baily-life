@@ -9,12 +9,17 @@ test('getReminderPreview clamps dates to the end of short months', () => {
 			{
 				id: 'card-1',
 				displayName: '测试卡',
+				catalogName: null,
+				bank_name: null,
 				last_four: '0318',
 				statement_day: 31,
 				due_day: 30,
 				annual_fee_month: null,
 				annual_fee_day: null,
-				lead_days: 3
+				lead_days: 3,
+				remind_statement: true,
+				remind_due: true,
+				remind_annual_fee: true
 			}
 		],
 		new Date(2027, 1, 1),
@@ -31,12 +36,17 @@ test('getReminderPreview returns annual fee reminders inside the window', () => 
 			{
 				id: 'card-1',
 				displayName: '测试卡',
+				catalogName: null,
+				bank_name: null,
 				last_four: '0318',
 				statement_day: 1,
 				due_day: 2,
 				annual_fee_month: 3,
 				annual_fee_day: 18,
-				lead_days: 7
+				lead_days: 7,
+				remind_statement: true,
+				remind_due: true,
+				remind_annual_fee: true
 			}
 		],
 		new Date(2027, 2, 1),
@@ -53,28 +63,38 @@ test('getReminderPreview sorts by the nearest reminder date first', () => {
 			{
 				id: 'card-late-target-early-remind',
 				displayName: '提前提醒卡',
+				catalogName: null,
+				bank_name: null,
 				last_four: '1111',
 				statement_day: 15,
 				due_day: 20,
 				annual_fee_month: null,
 				annual_fee_day: null,
-				lead_days: 10
+				lead_days: 10,
+				remind_statement: true,
+				remind_due: true,
+				remind_annual_fee: true
 			},
 			{
 				id: 'card-early-target-late-remind',
 				displayName: '当天提醒卡',
+				catalogName: null,
+				bank_name: null,
 				last_four: '2222',
 				statement_day: 10,
 				due_day: 21,
 				annual_fee_month: null,
 				annual_fee_day: null,
-				lead_days: 0
+				lead_days: 0,
+				remind_statement: true,
+				remind_due: true,
+				remind_annual_fee: true
 			}
 		],
 		new Date(2027, 2, 1),
 		30
 	);
 
-	assert.equal(previews[0].cardId, 'card-late-target-early-remind');
-	assert.equal(previews[0].remindDate, '2027-03-05');
+	assert.equal(previews[0].cardId, 'card-early-target-late-remind');
+	assert.equal(previews[0].remindDate, '2027-03-10');
 });

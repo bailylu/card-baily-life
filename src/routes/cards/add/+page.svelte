@@ -162,6 +162,15 @@
 
 	let selectedCardId = $state<number | null>(null);
 	let variantIndexes = $state<Record<number, number>>({});
+	let selectedCard = $derived(() =>
+		selectedCardId ? data.catalog.find((card) => card.id === selectedCardId) ?? null : null
+	);
+	let selectedCardName = $derived(selectedCard()?.card_name ?? '');
+	let selectedCardMeta = $derived(() => {
+		const card = selectedCard();
+		if (!card) return '';
+		return `${displayCountry(card.country)} · ${card.bank_name} · ${card.card_tier ?? '等级未标注'}`;
+	});
 
 	function stepVariant(cardId: number, delta: number, total: number, event: MouseEvent) {
 		event.preventDefault();
@@ -325,7 +334,7 @@
 						{@const currentImg = imgs[varIdx] ?? null}
 						<label class="cursor-pointer">
 							<input class="peer sr-only" type="radio" name="catalog_id" value={card.id} bind:group={selectedCardId} />
-								<div class="bls-card p-2.5 peer-checked:border-[var(--bls-cyan)] peer-checked:shadow-[var(--bls-ring-cyan)] sm:p-3">
+								<div class="bls-card add-card-choice p-2.5 sm:p-3">
 									<div class="relative">
 										<CardFace
 											imageUrl={currentImg}
@@ -405,6 +414,24 @@
 					<h2 class="text-base font-black text-white">卡片信息</h2>
 					<p class="mt-1 text-xs text-[var(--bls-muted)]">备注名称只在你的卡片列表里显示，方便自己识别。</p>
 				</div>
+				{#if selectedCard()}
+					<div class="mt-4 border-2 border-[rgba(47,230,212,0.45)] bg-[rgba(47,230,212,0.06)] p-3 shadow-[0_0_18px_rgba(47,230,212,0.1)]">
+						<p class="bls-label text-[var(--bls-cyan)]">Selected Card</p>
+						<div class="mt-2 flex items-start justify-between gap-3">
+							<div class="min-w-0">
+								<p class="truncate text-sm font-black text-white">{selectedCardName}</p>
+								<p class="mt-1 truncate text-xs text-[var(--bls-muted)]">
+									{selectedCardMeta()}
+								</p>
+							</div>
+							<span class="shrink-0 border-2 border-[rgba(47,230,212,0.55)] bg-[rgba(47,230,212,0.12)] px-2 py-1 text-xs font-black text-[var(--bls-cyan)]">已确认</span>
+						</div>
+					</div>
+				{:else}
+					<div class="mt-4 border-2 border-dashed border-[rgba(150,170,210,0.28)] bg-white/[0.03] p-3 text-xs text-[var(--bls-muted)]">
+						先在左侧选择一张卡片，再填写提醒信息。
+					</div>
+				{/if}
 				<div class="mt-4 grid grid-cols-2 gap-3 sm:gap-4">
 					<label class="col-span-2 block">
 						<span class="text-sm font-medium text-[var(--bls-body)]">备注名称</span>

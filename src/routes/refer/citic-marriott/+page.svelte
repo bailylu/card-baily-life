@@ -19,7 +19,7 @@
 	<title>中信万豪精逸白金卡申请流程 — 贝利卡管家</title>
 </svelte:head>
 
-<main class="min-h-screen bg-[#f5f7fb] text-slate-950">
+<main class="refer-dark min-h-screen text-slate-950">
 	<header class="border-b border-slate-200/80 bg-white/90 backdrop-blur">
 		<div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
 			<a href="/dashboard" class="text-sm font-semibold text-blue-600 hover:text-blue-700">← 返回我的卡片</a>

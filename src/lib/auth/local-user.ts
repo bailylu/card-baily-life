@@ -1,5 +1,5 @@
 import type { InferSelectModel } from 'drizzle-orm';
-import { users } from '$lib/db/schema';
+import { users } from '../db/schema.ts';
 
 export type LocalUser = InferSelectModel<typeof users>;
 

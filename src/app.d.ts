@@ -13,6 +13,9 @@ declare global {
 				ADMIN_TELEGRAM_CHAT_ID?: string;
 				CRM_API_BASE?: string;
 				CRM_API_KEY?: string;
+				MINIMAX_API_KEY?: string;
+				MINIMAX_API_BASE_URL?: string;
+				MINIMAX_MODEL?: string;
 				PUBLIC_CLERK_PUBLISHABLE_KEY?: string;
 				PUBLIC_CLERK_SIGN_UP_URL?: string;
 				PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL?: string;

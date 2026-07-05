@@ -22,6 +22,16 @@ function optionalText(formData: FormData, name: string, fallback: string, max = 
 	return value;
 }
 
+function slugify(input: string) {
+	return input
+		.trim()
+		.toLowerCase()
+		.normalize('NFKD')
+		.replace(/[^\p{Letter}\p{Number}]+/gu, '-')
+		.replace(/^-+|-+$/g, '')
+		.slice(0, 80);
+}
+
 async function fileToDataUrl(file: File) {
 	if (file.size === 0) return null;
 	if (file.size > MAX_IMAGE_BYTES) throw new Error('活动图片不能超过 500KB，请先压缩后再上传');
@@ -79,7 +89,9 @@ export const actions: Actions = {
 
 		try {
 			const formData = await request.formData();
-			const id = String(formData.get('id') ?? crypto.randomUUID()).trim() || crypto.randomUUID();
+			const name = requiredText(formData, 'name', '卡片名称', 80);
+			const requestedId = String(formData.get('id') ?? '').trim();
+			const id = requestedId || slugify(name) || crypto.randomUUID();
 			const existing = await getDb(platform.env.DB)
 				.select({ image_url: featured_promotions.image_url })
 				.from(featured_promotions)
@@ -93,7 +105,6 @@ export const actions: Actions = {
 
 			const now = Math.floor(Date.now() / 1000);
 			const sortOrder = Number(formData.get('sort_order') || 100);
-			const name = requiredText(formData, 'name', '卡片名称', 80);
 			const values = {
 				id,
 				bank: optionalText(formData, 'bank', '首页推荐', 80),
