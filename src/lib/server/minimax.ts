@@ -1,7 +1,7 @@
 import { env as privateEnv } from '$env/dynamic/private';
 
 const DEFAULT_MODEL = 'MiniMax-M3';
-const DEFAULT_BASE_URL = 'https://api.minimax.io/v1';
+const DEFAULT_BASE_URL = 'https://api.minimax.chat/v1';
 
 function envValue(platform: App.Platform | undefined, key: keyof App.Platform['env']) {
 	return String(platform?.env?.[key] ?? privateEnv[key] ?? '').trim();
