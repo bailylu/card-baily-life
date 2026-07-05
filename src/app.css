@@ -99,6 +99,20 @@ textarea {
 	color: var(--bls-cyan);
 }
 
+.dashboard-nav-links {
+	display: flex;
+	order: 2;
+	margin-left: auto;
+}
+
+.dashboard-actions {
+	order: 3;
+}
+
+.dashboard-header-add {
+	display: inline-flex;
+}
+
 .bls-logo-tile {
 	display: grid;
 	place-items: center;
@@ -473,6 +487,14 @@ textarea {
 	text-transform: uppercase;
 }
 
+.bls-rec-badge-compact {
+	left: -2.35rem;
+	top: 0.55rem;
+	width: 7rem;
+	font-size: 0.58rem;
+	letter-spacing: 0.14em;
+}
+
 .dashboard-reminders-aside {
 	align-self: start;
 }
@@ -676,5 +698,32 @@ textarea {
 	.bls-logo-tile {
 		width: 2.25rem;
 		height: 2.25rem;
+	}
+
+	.dashboard-nav-links {
+		display: none;
+	}
+
+	.dashboard-nav-links .bls-nav-link {
+		border-color: rgba(150, 170, 210, 0.18);
+		background: rgba(255, 255, 255, 0.035);
+		padding: 0.35rem 0.55rem;
+		font-size: 0.72rem;
+		line-height: 1;
+	}
+
+	.dashboard-actions {
+		order: 2;
+	}
+
+	.dashboard-header-add {
+		display: none;
+	}
+
+	.bls-nav .bls-btn,
+	.bls-nav .bls-btn-ghost {
+		white-space: nowrap;
+		padding-inline: 0.7rem;
+		font-size: 0.78rem;
 	}
 }

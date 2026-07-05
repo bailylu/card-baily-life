@@ -106,7 +106,7 @@
 
 <div class="bls-page">
 	<header class="bls-nav fixed inset-x-0 top-0 z-50">
-		<div class="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6 sm:py-4">
+		<div class="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-3 sm:px-6 sm:py-4">
 			<a href="/dashboard" class="flex items-center gap-3">
 				<img src="/images/brand/logo-mark.svg" alt="" class="h-10 w-10 shrink-0" />
 				<div>
@@ -114,26 +114,8 @@
 					<p class="text-xs text-[var(--bls-muted)]">账单日、还款日、年费日</p>
 				</div>
 			</a>
-			<div class="flex shrink-0 items-center gap-2 sm:gap-3">
-				<div class="hidden items-center gap-2 md:flex">
-					<a
-						href="https://baily.life/"
-						target="_blank"
-						rel="noreferrer"
-						class="bls-nav-link"
-					>
-						贝利主页
-					</a>
-					<a
-						href="https://wx.zsxq.com/group/15555858118552"
-						target="_blank"
-						rel="noreferrer"
-						class="bls-nav-link"
-					>
-						知识星球
-					</a>
-				</div>
-				<a href="/cards/add" class="bls-btn px-3 py-2 text-sm sm:px-4">
+			<div class="dashboard-actions flex shrink-0 items-center gap-2 sm:gap-3">
+				<a href="/cards/add" class="bls-btn dashboard-header-add px-3 py-2 text-sm sm:px-4">
 					添加信用卡
 				</a>
 				<details class="group relative">
@@ -145,6 +127,8 @@
 							<p class="bls-label text-[var(--bls-gold-bright)]">Account</p>
 							<p class="mt-1 truncate text-xs text-[var(--bls-muted)]">{data.user?.email ?? '个人中心'}</p>
 						</div>
+						<a href="https://baily.life/" target="_blank" rel="noreferrer" class="mt-2 block border-2 border-transparent px-3 py-2 text-[var(--bls-body)] hover:border-[var(--bls-cyan)] hover:bg-white/5 hover:text-white">贝利主页</a>
+						<a href="https://wx.zsxq.com/group/15555858118552" target="_blank" rel="noreferrer" class="block border-2 border-transparent px-3 py-2 text-[var(--bls-body)] hover:border-[var(--bls-cyan)] hover:bg-white/5 hover:text-white">知识星球</a>
 						<a href="/me" class="mt-2 block border-2 border-transparent px-3 py-2 text-[var(--bls-body)] hover:border-[var(--bls-cyan)] hover:bg-white/5 hover:text-white">我的信息</a>
 						{#if data.isAdmin}
 							<a href="/admin/catalog" class="block border-2 border-transparent px-3 py-2 text-[var(--bls-body)] hover:border-[var(--bls-cyan)] hover:bg-white/5 hover:text-white">卡库管理</a>
@@ -157,6 +141,24 @@
 						</form>
 					</div>
 				</details>
+			</div>
+			<div class="dashboard-nav-links items-center gap-2">
+				<a
+					href="https://baily.life/"
+					target="_blank"
+					rel="noreferrer"
+					class="bls-nav-link"
+				>
+					贝利主页
+				</a>
+				<a
+					href="https://wx.zsxq.com/group/15555858118552"
+					target="_blank"
+					rel="noreferrer"
+					class="bls-nav-link"
+				>
+					知识星球
+				</a>
 			</div>
 		</div>
 	</header>
@@ -175,7 +177,10 @@
 						<p class="bls-label text-[var(--bls-cyan)]">Card Desk</p>
 						<h1 class="mt-1 text-xl font-black text-white">我的卡片</h1>
 					</div>
-					<span class="bls-chip px-3 py-1 text-xs font-semibold">{visibleCards.length} / {data.cards.length} 张</span>
+					<a href="/cards/add" class="bls-btn px-3 py-2 text-xs sm:hidden">
+						添加信用卡
+					</a>
+					<span class="bls-chip hidden px-3 py-1 text-xs font-semibold sm:inline-flex">{visibleCards.length} / {data.cards.length} 张</span>
 				</div>
 
 				{#if data.cards.length === 0 && featuredCards.length === 0}
@@ -185,7 +190,7 @@
 					</div>
 				{:else}
 					{#if data.cards.length > 6}
-						<div class="bls-panel mb-5 p-3">
+						<div class="bls-panel mb-5 hidden p-3 sm:block">
 							<div class="grid gap-3 md:grid-cols-[minmax(0,1fr)_150px_150px]">
 								<input
 									bind:value={cardSearch}
@@ -205,6 +210,30 @@
 								</select>
 							</div>
 						</div>
+						<details class="bls-panel mb-4 p-3 sm:hidden">
+							<summary class="flex cursor-pointer list-none items-center justify-between text-sm font-black text-white">
+								<span>筛选卡片</span>
+								<span class="text-xs text-[var(--bls-muted)]">{visibleCards.length} 张</span>
+							</summary>
+							<div class="mt-3 grid gap-3">
+								<input
+									bind:value={cardSearch}
+									type="search"
+									placeholder="搜索卡名、银行、尾号"
+									class="bls-input w-full px-3 py-2 text-sm"
+								/>
+								<select bind:value={selectedCountry} class="bls-input px-3 py-2 text-sm">
+									{#each cardCountries as country}
+										<option value={country}>{country}</option>
+									{/each}
+								</select>
+								<select bind:value={selectedBank} class="bls-input px-3 py-2 text-sm">
+									{#each cardBanks as bank}
+										<option value={bank}>{bank}</option>
+									{/each}
+								</select>
+							</div>
+						</details>
 					{/if}
 
 						<div class="grid gap-3 sm:gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -212,7 +241,27 @@
 								{#if item.kind === 'featured'}
 									<a
 										href={item.card.href}
-										class="group bls-feature-card relative p-2 sm:p-3"
+										class="group bls-card grid grid-cols-[112px_minmax(0,1fr)] items-center gap-3 p-2 sm:hidden"
+									>
+										<div class="relative overflow-hidden rounded-xl border-2 border-white/10 bg-[var(--bls-inset)]">
+											<img
+												src={item.card.image}
+												alt={item.card.alt}
+												class="aspect-[1.586] w-full object-cover"
+											/>
+											<span class="bls-rec-badge bls-rec-badge-compact">推荐</span>
+										</div>
+										<div class="min-w-0">
+											<p class="text-xs font-bold text-[var(--bls-cyan)]">{item.card.bank}</p>
+											<h3 class="mt-1 line-clamp-2 text-sm font-bold leading-5 text-white group-hover:text-[var(--bls-cyan)]">{item.card.name}</h3>
+											<p class="mt-1 text-xs font-black text-[var(--bls-gold-bright)]">
+												{featuredMetric(item.card).label} {featuredMetric(item.card).value}
+											</p>
+										</div>
+									</a>
+									<a
+										href={item.card.href}
+										class="group bls-feature-card relative hidden p-2 sm:block sm:p-3"
 									>
 										<div class="relative">
 											<div class="relative overflow-hidden rounded-[4px] border-2 border-white/10 bg-[var(--bls-inset)]">
@@ -258,7 +307,7 @@
 										<button
 											type="button"
 											onclick={() => toggleCardDetails(item.card.id)}
-											class="mt-2 w-full rounded-[4px] border-2 border-white/5 bg-white/[0.04] px-3 py-2 text-left text-xs text-[var(--bls-muted)] transition hover:border-[var(--bls-cyan)] hover:text-[var(--bls-cyan)] sm:mt-3"
+											class="mt-2 hidden w-full rounded-[4px] border-2 border-white/5 bg-white/[0.04] px-3 py-2 text-left text-xs text-[var(--bls-muted)] transition hover:border-[var(--bls-cyan)] hover:text-[var(--bls-cyan)] sm:mt-3 sm:block"
 											aria-expanded={expandedCardIds.has(item.card.id)}
 										>
 											<span class="flex items-center justify-between gap-3">
