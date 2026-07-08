@@ -26,13 +26,17 @@ To also copy each backup into Google Drive or another synced folder, set `D1_BAC
 D1_BACKUP_TARGET_DIR="$HOME/Library/CloudStorage/GoogleDrive-ACCOUNT/My Drive/card-baily-life-d1" npm run backup:d1
 ```
 
-On macOS, install a daily 03:15 backup job:
+On macOS, install an automatic backup job:
 
 ```bash
 D1_BACKUP_TARGET_DIR="/path/to/Google Drive/card-baily-life-d1" npm run backup:d1:install
 ```
 
-The scheduled job keeps 30 days by default. Override it with `D1_BACKUP_RETENTION_DAYS=90`.
+The scheduled job runs daily and keeps 30 days by default. Override the cadence and retention with `D1_BACKUP_INTERVAL_DAYS` and `D1_BACKUP_RETENTION_DAYS`:
+
+```bash
+D1_BACKUP_TARGET_DIR="$HOME/Library/Mobile Documents/com~apple~CloudDocs/card-baily-life-d1-backups" D1_BACKUP_INTERVAL_DAYS=7 D1_BACKUP_RETENTION_DAYS=30 npm run backup:d1:install
+```
 
 Recommended cadence:
 

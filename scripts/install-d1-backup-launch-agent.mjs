@@ -10,6 +10,9 @@ const plistPath = path.join(launchAgentsDir, `${label}.plist`);
 const logDir = path.join(root, 'secure-backups', 'logs');
 const targetDir = process.env.D1_BACKUP_TARGET_DIR ?? '';
 const retentionDays = process.env.D1_BACKUP_RETENTION_DAYS ?? '30';
+const intervalDays = Number(process.env.D1_BACKUP_INTERVAL_DAYS ?? 1);
+const startIntervalSeconds =
+	Number.isFinite(intervalDays) && intervalDays > 0 ? Math.round(intervalDays * 24 * 60 * 60) : 24 * 60 * 60;
 
 mkdirSync(launchAgentsDir, { recursive: true });
 mkdirSync(logDir, { recursive: true });
@@ -44,13 +47,8 @@ const plist = `<?xml version="1.0" encoding="UTF-8"?>
 	<dict>
 		${env.join('\n\t\t')}
 	</dict>
-	<key>StartCalendarInterval</key>
-	<dict>
-		<key>Hour</key>
-		<integer>3</integer>
-		<key>Minute</key>
-		<integer>15</integer>
-	</dict>
+	<key>StartInterval</key>
+	<integer>${startIntervalSeconds}</integer>
 	<key>StandardOutPath</key>
 	<string>${path.join(logDir, 'd1-backup.out.log')}</string>
 	<key>StandardErrorPath</key>
@@ -68,8 +66,9 @@ if (load.status !== 0) {
 	process.exit(load.status ?? 1);
 }
 
-console.log(`Installed daily D1 backup LaunchAgent: ${plistPath}`);
-console.log('Schedule: every day at 03:15 local time');
+console.log(`Installed D1 backup LaunchAgent: ${plistPath}`);
+console.log(`Schedule: every ${intervalDays} day(s) after the agent is loaded`);
+console.log(`Retention: ${retentionDays} day(s)`);
 if (targetDir) {
 	console.log(`Cloud copy target: ${targetDir}`);
 } else {
