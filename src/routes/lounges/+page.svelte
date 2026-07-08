@@ -653,15 +653,12 @@
 											{:else}
 												<span class="lounge-none">未覆盖</span>
 											{/if}
-											<span
-												class={`lounge-cell-comment-badge ${comments.length > 0 ? 'has-count' : 'is-empty'}`}
-												aria-label={comments.length > 0 ? `${comments.length} 条留言` : '添加留言'}
-											>
-												<span aria-hidden="true">💬</span>
-												{#if comments.length > 0}
+											{#if comments.length > 0}
+												<span class="lounge-cell-comment-badge" aria-label={`${comments.length} 条留言`}>
+													<span aria-hidden="true">💬</span>
 													<span>{comments.length}</span>
-												{/if}
-											</span>
+												</span>
+											{/if}
 										</button>
 									</td>
 								{/each}
@@ -721,15 +718,12 @@
 											</span>
 										{/if}
 									</span>
-									<span
-										class={`lounge-mobile-comment-cue ${count > 0 ? 'has-count' : 'is-empty'}`}
-										aria-label={count > 0 ? `${count} 条留言` : '添加留言'}
-									>
-										<span aria-hidden="true">💬</span>
-										{#if count > 0}
+									{#if count > 0}
+										<span class="lounge-mobile-comment-cue" aria-label={`${count} 条留言`}>
+											<span aria-hidden="true">💬</span>
 											<span>{count}</span>
-										{/if}
-									</span>
+										</span>
+									{/if}
 								</button>
 							{/each}
 						{/if}
@@ -1276,39 +1270,25 @@
 		align-items: center;
 		justify-content: center;
 		gap: 0.16rem;
-		border: 1px solid rgba(47, 230, 212, 0.28);
+		border: 1px solid rgba(255, 218, 123, 0.58);
 		border-radius: 999px;
-		background: rgba(47, 230, 212, 0.09);
-		color: #b9fff8;
+		background: rgba(232, 181, 61, 0.2);
+		color: #fff0b0;
 		font-size: 0.7rem;
 		font-weight: 950;
 		line-height: 1;
 		padding: 0 0.32rem;
-		box-shadow: 0 0 0 1px rgba(47, 230, 212, 0.05) inset;
-		opacity: 0.82;
+		opacity: 1;
 	}
 
 	.lounge-cell-comment-badge > span:first-child {
 		font-size: 0.78rem;
 	}
 
-	.lounge-cell-comment-badge.is-empty > span:first-child {
-		filter: grayscale(0.2);
-		opacity: 0.84;
-	}
-
-	.lounge-service-cell.has-comments .lounge-cell-comment-badge,
-	.lounge-cell-comment-badge.has-count {
-		border-color: rgba(255, 218, 123, 0.58);
-		background: rgba(232, 181, 61, 0.2);
-		color: #fff0b0;
-		opacity: 1;
-	}
-
 	.lounge-service-cell:hover .lounge-cell-comment-badge {
 		opacity: 1;
-		border-color: rgba(47, 230, 212, 0.72);
-		background: rgba(47, 230, 212, 0.16);
+		border-color: var(--bls-gold);
+		background: rgba(232, 181, 61, 0.26);
 		color: #ffffff;
 	}
 
@@ -1666,26 +1646,19 @@
 		align-items: center;
 		justify-content: center;
 		gap: 0.12rem;
-		border: 1px solid rgba(47, 230, 212, 0.26);
+		border: 1px solid rgba(255, 218, 123, 0.58);
 		border-radius: 999px;
-		background: rgba(47, 230, 212, 0.08);
-		color: #c7fff8;
+		background: rgba(232, 181, 61, 0.18);
+		color: #fff0b0;
 		font-size: 0.66rem;
 		font-weight: 950;
 		line-height: 1;
 		padding: 0 0.25rem;
-		opacity: 0.84;
+		opacity: 1;
 	}
 
 	.lounge-mobile-comment-cue > span:first-child {
 		font-size: 0.76rem;
-	}
-
-	.lounge-mobile-comment-cue.has-count {
-		border-color: rgba(255, 218, 123, 0.58);
-		background: rgba(232, 181, 61, 0.18);
-		color: #fff0b0;
-		opacity: 1;
 	}
 
 	@media (max-width: 1024px) {
@@ -1944,12 +1917,6 @@
 			width: 1.28rem;
 			height: 1.28rem;
 			padding: 0;
-		}
-
-		.lounge-mobile-comment-cue.has-count {
-			width: auto;
-			min-width: 1.72rem;
-			padding: 0 0.24rem;
 		}
 
 		.lounge-mobile-comment-cue > span:first-child {
