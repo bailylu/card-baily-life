@@ -1,0 +1,9061 @@
+{
+	"title": "机场贵宾覆盖表 2025.6更新",
+	"sourceFile": "CIP.xlsx",
+	"channels": [
+		{
+			"id": "农行26年限6次",
+			"name": "农行26年限6次",
+			"statusColumn": 5,
+			"codeColumn": 6,
+			"total": 56,
+			"companionAirports": 25,
+			"vipBuildingAirports": 28
+		},
+		{
+			"id": "招行",
+			"name": "招行",
+			"statusColumn": 7,
+			"codeColumn": 8,
+			"total": 51,
+			"companionAirports": null,
+			"vipBuildingAirports": 32
+		},
+		{
+			"id": "工行",
+			"name": "工行",
+			"statusColumn": 9,
+			"codeColumn": 10,
+			"total": 28,
+			"companionAirports": 8,
+			"vipBuildingAirports": 22
+		},
+		{
+			"id": "建行已取消",
+			"name": "建行已取消",
+			"statusColumn": 11,
+			"codeColumn": 12,
+			"total": 46,
+			"companionAirports": null,
+			"vipBuildingAirports": 29
+		},
+		{
+			"id": "交行",
+			"name": "交行",
+			"statusColumn": 13,
+			"codeColumn": 14,
+			"total": 41,
+			"companionAirports": null,
+			"vipBuildingAirports": 26
+		},
+		{
+			"id": "广发",
+			"name": "广发",
+			"statusColumn": 15,
+			"codeColumn": 16,
+			"total": 21,
+			"companionAirports": null,
+			"vipBuildingAirports": 15
+		},
+		{
+			"id": "兴业",
+			"name": "兴业",
+			"statusColumn": 17,
+			"codeColumn": 18,
+			"total": 30,
+			"companionAirports": null,
+			"vipBuildingAirports": 18
+		},
+		{
+			"id": "银联回归",
+			"name": "银联回归",
+			"statusColumn": 19,
+			"codeColumn": 20,
+			"total": 59,
+			"companionAirports": null,
+			"vipBuildingAirports": 1
+		}
+	],
+	"records": [
+		{
+			"section": "A",
+			"seq": 1,
+			"city": "阿克苏",
+			"airport": "红旗坡机场",
+			"coveredCount": 2,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				}
+			]
+		},
+		{
+			"section": "A",
+			"seq": 2,
+			"city": "阿拉尔",
+			"airport": "塔里木机场",
+			"coveredCount": 1,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				}
+			]
+		},
+		{
+			"section": "B",
+			"seq": 3,
+			"city": "包头",
+			"airport": "东河机场",
+			"coveredCount": 2,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": true,
+					"status": "+1",
+					"statusLabel": "可带1人",
+					"code": "X",
+					"tags": [
+						"安检后休息室"
+					]
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "D",
+					"tags": [
+						"贵宾区休息+独立安检"
+					]
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				}
+			]
+		},
+		{
+			"section": "B",
+			"seq": 4,
+			"city": "北海",
+			"airport": "福成机场",
+			"coveredCount": 1,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				}
+			]
+		},
+		{
+			"section": "B",
+			"seq": 5,
+			"city": "北京",
+			"airport": "首都机场",
+			"coveredCount": 7,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "CH",
+					"tags": [
+						"CIP通道+休息室",
+						"热食"
+					]
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "CH",
+					"tags": [
+						"CIP通道+休息室",
+						"热食"
+					]
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "CH",
+					"tags": [
+						"CIP通道+休息室",
+						"热食"
+					]
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "CH",
+					"tags": [
+						"CIP通道+休息室",
+						"热食"
+					]
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "CH",
+					"tags": [
+						"CIP通道+休息室",
+						"热食"
+					]
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "CH",
+					"tags": [
+						"CIP通道+休息室",
+						"热食"
+					]
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				}
+			]
+		},
+		{
+			"section": "B",
+			"seq": 6,
+			"city": "北京",
+			"airport": "大兴机场",
+			"coveredCount": 7,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "XH",
+					"tags": [
+						"安检后休息室",
+						"热食"
+					]
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "CH",
+					"tags": [
+						"CIP通道+休息室",
+						"热食"
+					]
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "CH",
+					"tags": [
+						"CIP通道+休息室",
+						"热食"
+					]
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "CH",
+					"tags": [
+						"CIP通道+休息室",
+						"热食"
+					]
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "CH",
+					"tags": [
+						"CIP通道+休息室",
+						"热食"
+					]
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "CH",
+					"tags": [
+						"CIP通道+休息室",
+						"热食"
+					]
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				}
+			]
+		},
+		{
+			"section": "C",
+			"seq": 7,
+			"city": "成都",
+			"airport": "双流机场",
+			"coveredCount": 7,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "V",
+					"tags": [
+						"贵宾楼/VIP"
+					]
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VY",
+					"tags": [
+						"贵宾楼/VIP",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				}
+			]
+		},
+		{
+			"section": "C",
+			"seq": 8,
+			"city": "成都",
+			"airport": "天府机场",
+			"coveredCount": 2,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "本地卡",
+					"tags": [
+						"本地卡"
+					]
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "CH",
+					"tags": [
+						"CIP通道+休息室",
+						"热食"
+					]
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "借记卡V",
+					"tags": [
+						"借记卡",
+						"贵宾楼/VIP"
+					]
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "XY",
+					"tags": [
+						"安检后休息室",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				}
+			]
+		},
+		{
+			"section": "C",
+			"seq": 9,
+			"city": "重庆",
+			"airport": "江北机场",
+			"coveredCount": 8,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": true,
+					"status": "+1",
+					"statusLabel": "可带1人",
+					"code": "VHY",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VHY",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VHY",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "CH",
+					"tags": [
+						"CIP通道+休息室",
+						"热食"
+					]
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "CH",
+					"tags": [
+						"CIP通道+休息室",
+						"热食"
+					]
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "CH",
+					"tags": [
+						"CIP通道+休息室",
+						"热食"
+					]
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				}
+			]
+		},
+		{
+			"section": "C",
+			"seq": 10,
+			"city": "长沙",
+			"airport": "黄花机场",
+			"coveredCount": 7,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				}
+			]
+		},
+		{
+			"section": "C",
+			"seq": 11,
+			"city": "长春",
+			"airport": "龙嘉机场",
+			"coveredCount": 6,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "XH",
+					"tags": [
+						"安检后休息室",
+						"热食"
+					]
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "XH",
+					"tags": [
+						"安检后休息室",
+						"热食"
+					]
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VHY",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VHY",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "XHY",
+					"tags": [
+						"安检后休息室",
+						"热食",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				}
+			]
+		},
+		{
+			"section": "C",
+			"seq": 12,
+			"city": "常州",
+			"airport": "奔牛机场",
+			"coveredCount": 2,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "D",
+					"tags": [
+						"贵宾区休息+独立安检"
+					]
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				}
+			]
+		},
+		{
+			"section": "C",
+			"seq": 13,
+			"city": "赤峰",
+			"airport": "玉龙机场",
+			"coveredCount": 2,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": true,
+					"status": "+1",
+					"statusLabel": "可带1人",
+					"code": "VY",
+					"tags": [
+						"贵宾楼/VIP",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				}
+			]
+		},
+		{
+			"section": "D",
+			"seq": 14,
+			"city": "大连",
+			"airport": "周水子机场",
+			"coveredCount": 5,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "本地卡",
+					"tags": [
+						"本地卡"
+					]
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "DH",
+					"tags": [
+						"贵宾区休息+独立安检",
+						"热食"
+					]
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "V",
+					"tags": [
+						"贵宾楼/VIP"
+					]
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VY",
+					"tags": [
+						"贵宾楼/VIP",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				}
+			]
+		},
+		{
+			"section": "D",
+			"seq": 15,
+			"city": "大理",
+			"airport": "荒草坝机场",
+			"coveredCount": 1,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				}
+			]
+		},
+		{
+			"section": "D",
+			"seq": 16,
+			"city": "大同",
+			"airport": "云冈机场",
+			"coveredCount": 2,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "V",
+					"tags": [
+						"贵宾楼/VIP"
+					]
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "V",
+					"tags": [
+						"贵宾楼/VIP"
+					]
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				}
+			]
+		},
+		{
+			"section": "D",
+			"seq": 17,
+			"city": "东营",
+			"airport": "胜利机场",
+			"coveredCount": 2,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": true,
+					"status": "+1",
+					"statusLabel": "可带1人",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				}
+			]
+		},
+		{
+			"section": "D",
+			"seq": 18,
+			"city": "迪庆",
+			"airport": "香格里拉机场",
+			"coveredCount": 1,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				}
+			]
+		},
+		{
+			"section": "D",
+			"seq": 19,
+			"city": "德宏",
+			"airport": "芒市机场",
+			"coveredCount": 1,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				}
+			]
+		},
+		{
+			"section": "E",
+			"seq": 20,
+			"city": "鄂尔多斯",
+			"airport": "伊金霍洛机场",
+			"coveredCount": 3,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": true,
+					"status": "+1",
+					"statusLabel": "可带1人",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				}
+			]
+		},
+		{
+			"section": "E",
+			"seq": 21,
+			"city": "恩施",
+			"airport": "许家坪机场",
+			"coveredCount": 0,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				}
+			]
+		},
+		{
+			"section": "F",
+			"seq": 22,
+			"city": "福州",
+			"airport": "长乐机场",
+			"coveredCount": 8,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "D",
+					"tags": [
+						"贵宾区休息+独立安检"
+					]
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "D",
+					"tags": [
+						"贵宾区休息+独立安检"
+					]
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "D",
+					"tags": [
+						"贵宾区休息+独立安检"
+					]
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "D",
+					"tags": [
+						"贵宾区休息+独立安检"
+					]
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "D",
+					"tags": [
+						"贵宾区休息+独立安检"
+					]
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "D",
+					"tags": [
+						"贵宾区休息+独立安检"
+					]
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "D",
+					"tags": [
+						"贵宾区休息+独立安检"
+					]
+				}
+			]
+		},
+		{
+			"section": "G",
+			"seq": 23,
+			"city": "广州",
+			"airport": "白云机场",
+			"coveredCount": 6,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "XHY",
+					"tags": [
+						"安检后休息室",
+						"热食",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "仅黑金无限",
+					"tags": []
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "CHY",
+					"tags": [
+						"CIP通道+休息室",
+						"热食",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "暂停",
+					"tags": [
+						"暂停"
+					]
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "CHY",
+					"tags": [
+						"CIP通道+休息室",
+						"热食",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "CHY",
+					"tags": [
+						"CIP通道+休息室",
+						"热食",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "CHY",
+					"tags": [
+						"CIP通道+休息室",
+						"热食",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				}
+			]
+		},
+		{
+			"section": "G",
+			"seq": 24,
+			"city": "贵阳",
+			"airport": "龙洞堡机场",
+			"coveredCount": 6,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": true,
+					"status": "+1",
+					"statusLabel": "可带1人",
+					"code": "X",
+					"tags": [
+						"安检后休息室"
+					]
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VHY",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				}
+			]
+		},
+		{
+			"section": "G",
+			"seq": 25,
+			"city": "赣州",
+			"airport": "黄金机场",
+			"coveredCount": 3,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": true,
+					"status": "+2",
+					"statusLabel": "可带2人",
+					"code": "VY",
+					"tags": [
+						"贵宾楼/VIP",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VY",
+					"tags": [
+						"贵宾楼/VIP",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VY",
+					"tags": [
+						"贵宾楼/VIP",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				}
+			]
+		},
+		{
+			"section": "G",
+			"seq": 26,
+			"city": "桂林",
+			"airport": "两江机场",
+			"coveredCount": 4,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": true,
+					"status": "+1",
+					"statusLabel": "可带1人",
+					"code": "V",
+					"tags": [
+						"贵宾楼/VIP"
+					]
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "V",
+					"tags": [
+						"贵宾楼/VIP"
+					]
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "V",
+					"tags": [
+						"贵宾楼/VIP"
+					]
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				}
+			]
+		},
+		{
+			"section": "H",
+			"seq": 27,
+			"city": "哈尔滨",
+			"airport": "太平机场",
+			"coveredCount": 6,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": true,
+					"status": "+1",
+					"statusLabel": "可带1人",
+					"code": "VY",
+					"tags": [
+						"贵宾楼/VIP",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VY",
+					"tags": [
+						"贵宾楼/VIP",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VY",
+					"tags": [
+						"贵宾楼/VIP",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VY",
+					"tags": [
+						"贵宾楼/VIP",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VY",
+					"tags": [
+						"贵宾楼/VIP",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				}
+			]
+		},
+		{
+			"section": "H",
+			"seq": 28,
+			"city": "杭州",
+			"airport": "萧山机场",
+			"coveredCount": 7,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VHY",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VHY",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "VHY",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VHY",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VHY",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VHY",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VHY",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				}
+			]
+		},
+		{
+			"section": "H",
+			"seq": 29,
+			"city": "合肥",
+			"airport": "新桥机场",
+			"coveredCount": 6,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": true,
+					"status": "+1",
+					"statusLabel": "可带1人",
+					"code": "VY",
+					"tags": [
+						"贵宾楼/VIP",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "CH",
+					"tags": [
+						"CIP通道+休息室",
+						"热食"
+					]
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "V",
+					"tags": [
+						"贵宾楼/VIP"
+					]
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "CH",
+					"tags": [
+						"CIP通道+休息室",
+						"热食"
+					]
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "CH",
+					"tags": [
+						"CIP通道+休息室",
+						"热食"
+					]
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				}
+			]
+		},
+		{
+			"section": "H",
+			"seq": 30,
+			"city": "呼和浩特",
+			"airport": "白塔机场",
+			"coveredCount": 7,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": true,
+					"status": "+1",
+					"statusLabel": "可带1人",
+					"code": "V",
+					"tags": [
+						"贵宾楼/VIP"
+					]
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "V",
+					"tags": [
+						"贵宾楼/VIP"
+					]
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "V",
+					"tags": [
+						"贵宾楼/VIP"
+					]
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "V",
+					"tags": [
+						"贵宾楼/VIP"
+					]
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "V",
+					"tags": [
+						"贵宾楼/VIP"
+					]
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "V",
+					"tags": [
+						"贵宾楼/VIP"
+					]
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				}
+			]
+		},
+		{
+			"section": "H",
+			"seq": 31,
+			"city": "呼伦贝尔",
+			"airport": "海拉尔机场",
+			"coveredCount": 3,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": true,
+					"status": "+1",
+					"statusLabel": "可带1人",
+					"code": "D",
+					"tags": [
+						"贵宾区休息+独立安检"
+					]
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "D",
+					"tags": [
+						"贵宾区休息+独立安检"
+					]
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "D",
+					"tags": [
+						"贵宾区休息+独立安检"
+					]
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				}
+			]
+		},
+		{
+			"section": "H",
+			"seq": 32,
+			"city": "惠州",
+			"airport": "平潭机场",
+			"coveredCount": 1,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": true,
+					"status": "+1",
+					"statusLabel": "可带1人",
+					"code": "XHY",
+					"tags": [
+						"安检后休息室",
+						"热食",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				}
+			]
+		},
+		{
+			"section": "H",
+			"seq": 33,
+			"city": "淮安",
+			"airport": "涟水机场",
+			"coveredCount": 0,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				}
+			]
+		},
+		{
+			"section": "H",
+			"seq": 34,
+			"city": "黄山",
+			"airport": "屯溪机场",
+			"coveredCount": 1,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				}
+			]
+		},
+		{
+			"section": "H",
+			"seq": 35,
+			"city": "菏泽",
+			"airport": "牡丹机场",
+			"coveredCount": 1,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				}
+			]
+		},
+		{
+			"section": "H",
+			"seq": 36,
+			"city": "海口",
+			"airport": "美兰机场",
+			"coveredCount": 2,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				}
+			]
+		},
+		{
+			"section": "H",
+			"seq": 37,
+			"city": "邯郸",
+			"airport": "邯郸机场",
+			"coveredCount": 1,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				}
+			]
+		},
+		{
+			"section": "J",
+			"seq": 38,
+			"city": "济南",
+			"airport": "遥墙机场",
+			"coveredCount": 8,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				}
+			]
+		},
+		{
+			"section": "J",
+			"seq": 39,
+			"city": "济宁",
+			"airport": "大安机场",
+			"coveredCount": 1,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				}
+			]
+		},
+		{
+			"section": "J",
+			"seq": 40,
+			"city": "揭阳",
+			"airport": "潮汕机场",
+			"coveredCount": 1,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "XHY",
+					"tags": [
+						"安检后休息室",
+						"热食",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "V",
+					"tags": [
+						"贵宾楼/VIP"
+					]
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				}
+			]
+		},
+		{
+			"section": "J",
+			"seq": 41,
+			"city": "荆州",
+			"airport": "沙市机场",
+			"coveredCount": 1,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "D",
+					"tags": [
+						"贵宾区休息+独立安检"
+					]
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				}
+			]
+		},
+		{
+			"section": "J",
+			"seq": 42,
+			"city": "吉安",
+			"airport": "井冈山机场",
+			"coveredCount": 1,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				}
+			]
+		},
+		{
+			"section": "J",
+			"seq": 43,
+			"city": "锦州",
+			"airport": "锦州湾机场",
+			"coveredCount": 1,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				}
+			]
+		},
+		{
+			"section": "K",
+			"seq": 44,
+			"city": "昆明",
+			"airport": "长水机场",
+			"coveredCount": 7,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "V",
+					"tags": [
+						"贵宾楼/VIP"
+					]
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "V",
+					"tags": [
+						"贵宾楼/VIP"
+					]
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "本地卡",
+					"tags": [
+						"本地卡"
+					]
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "V",
+					"tags": [
+						"贵宾楼/VIP"
+					]
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "V",
+					"tags": [
+						"贵宾楼/VIP"
+					]
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VY",
+					"tags": [
+						"贵宾楼/VIP",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				}
+			]
+		},
+		{
+			"section": "K",
+			"seq": 45,
+			"city": "喀什",
+			"airport": "喀什机场",
+			"coveredCount": 1,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "V",
+					"tags": [
+						"贵宾楼/VIP"
+					]
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				}
+			]
+		},
+		{
+			"section": "K",
+			"seq": 46,
+			"city": "库尔勒",
+			"airport": "库尔勒机场",
+			"coveredCount": 1,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": true,
+					"status": "+1",
+					"statusLabel": "可带1人",
+					"code": "D",
+					"tags": [
+						"贵宾区休息+独立安检"
+					]
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				}
+			]
+		},
+		{
+			"section": "L",
+			"seq": 47,
+			"city": "拉萨",
+			"airport": "贡嘎机场",
+			"coveredCount": 2,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": true,
+					"status": "+1",
+					"statusLabel": "可带1人",
+					"code": "V",
+					"tags": [
+						"贵宾楼/VIP"
+					]
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "V",
+					"tags": [
+						"贵宾楼/VIP"
+					]
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				}
+			]
+		},
+		{
+			"section": "L",
+			"seq": 48,
+			"city": "丽江",
+			"airport": "三义机场",
+			"coveredCount": 3,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "V",
+					"tags": [
+						"贵宾楼/VIP"
+					]
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				}
+			]
+		},
+		{
+			"section": "L",
+			"seq": 49,
+			"city": "兰州",
+			"airport": "中川机场",
+			"coveredCount": 5,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "V",
+					"tags": [
+						"贵宾楼/VIP"
+					]
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VY",
+					"tags": [
+						"贵宾楼/VIP",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": true,
+					"status": "+1",
+					"statusLabel": "可带1人",
+					"code": "V",
+					"tags": [
+						"贵宾楼/VIP"
+					]
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "V",
+					"tags": [
+						"贵宾楼/VIP"
+					]
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "V",
+					"tags": [
+						"贵宾楼/VIP"
+					]
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				}
+			]
+		},
+		{
+			"section": "L",
+			"seq": 50,
+			"city": "临沂",
+			"airport": "启阳机场",
+			"coveredCount": 0,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				}
+			]
+		},
+		{
+			"section": "L",
+			"seq": 51,
+			"city": "柳州",
+			"airport": "白莲机场",
+			"coveredCount": 1,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "V",
+					"tags": [
+						"贵宾楼/VIP"
+					]
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				}
+			]
+		},
+		{
+			"section": "L",
+			"seq": 52,
+			"city": "林芝",
+			"airport": "米林机场",
+			"coveredCount": 1,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				}
+			]
+		},
+		{
+			"section": "M",
+			"seq": 53,
+			"city": "绵阳",
+			"airport": "南郊机场",
+			"coveredCount": 2,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "V",
+					"tags": [
+						"贵宾楼/VIP"
+					]
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "V",
+					"tags": [
+						"贵宾楼/VIP"
+					]
+				}
+			]
+		},
+		{
+			"section": "M",
+			"seq": 54,
+			"city": "梅州",
+			"airport": "梅县机场",
+			"coveredCount": 1,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				}
+			]
+		},
+		{
+			"section": "M",
+			"seq": 55,
+			"city": "满洲里",
+			"airport": "西郊机场",
+			"coveredCount": 1,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": true,
+					"status": "+1",
+					"statusLabel": "可带1人",
+					"code": "D",
+					"tags": [
+						"贵宾区休息+独立安检"
+					]
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				}
+			]
+		},
+		{
+			"section": "N",
+			"seq": 56,
+			"city": "南京",
+			"airport": "禄口机场",
+			"coveredCount": 4,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "CHY",
+					"tags": [
+						"CIP通道+休息室",
+						"热食",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				}
+			]
+		},
+		{
+			"section": "N",
+			"seq": 57,
+			"city": "南昌",
+			"airport": "昌北机场",
+			"coveredCount": 7,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": true,
+					"status": "+1",
+					"statusLabel": "可带1人",
+					"code": "VHY",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VHY",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VHY",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VY",
+					"tags": [
+						"贵宾楼/VIP",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				}
+			]
+		},
+		{
+			"section": "N",
+			"seq": 58,
+			"city": "南宁",
+			"airport": "吴圩机场",
+			"coveredCount": 7,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VY",
+					"tags": [
+						"贵宾楼/VIP",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "V",
+					"tags": [
+						"贵宾楼/VIP"
+					]
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "V",
+					"tags": [
+						"贵宾楼/VIP"
+					]
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "V",
+					"tags": [
+						"贵宾楼/VIP"
+					]
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				}
+			]
+		},
+		{
+			"section": "N",
+			"seq": 59,
+			"city": "南通",
+			"airport": "兴东机场",
+			"coveredCount": 1,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "DY",
+					"tags": [
+						"贵宾区休息+独立安检",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				}
+			]
+		},
+		{
+			"section": "N",
+			"seq": 60,
+			"city": "南阳",
+			"airport": "姜营机场",
+			"coveredCount": 1,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				}
+			]
+		},
+		{
+			"section": "N",
+			"seq": 61,
+			"city": "宁波",
+			"airport": "栎社机场",
+			"coveredCount": 6,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "XY",
+					"tags": [
+						"安检后休息室",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VY",
+					"tags": [
+						"贵宾楼/VIP",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VY",
+					"tags": [
+						"贵宾楼/VIP",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VY",
+					"tags": [
+						"贵宾楼/VIP",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VY",
+					"tags": [
+						"贵宾楼/VIP",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				}
+			]
+		},
+		{
+			"section": "Q",
+			"seq": 62,
+			"city": "青岛",
+			"airport": "胶东机场",
+			"coveredCount": 5,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "本地卡",
+					"tags": [
+						"本地卡"
+					]
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				}
+			]
+		},
+		{
+			"section": "Q",
+			"seq": 63,
+			"city": "琼海",
+			"airport": "博鳌机场",
+			"coveredCount": 1,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				}
+			]
+		},
+		{
+			"section": "Q",
+			"seq": 64,
+			"city": "泉州",
+			"airport": "晋江机场",
+			"coveredCount": 5,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": true,
+					"status": "+1",
+					"statusLabel": "可带1人",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": true,
+					"status": "+1",
+					"statusLabel": "可带1人",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				}
+			]
+		},
+		{
+			"section": "S",
+			"seq": 65,
+			"city": "上海",
+			"airport": "虹桥机场",
+			"coveredCount": 7,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "CH",
+					"tags": [
+						"CIP通道+休息室",
+						"热食"
+					]
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "CH",
+					"tags": [
+						"CIP通道+休息室",
+						"热食"
+					]
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "本地卡",
+					"tags": [
+						"本地卡"
+					]
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "CH",
+					"tags": [
+						"CIP通道+休息室",
+						"热食"
+					]
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "CH",
+					"tags": [
+						"CIP通道+休息室",
+						"热食"
+					]
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "CH",
+					"tags": [
+						"CIP通道+休息室",
+						"热食"
+					]
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "CH",
+					"tags": [
+						"CIP通道+休息室",
+						"热食"
+					]
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				}
+			]
+		},
+		{
+			"section": "S",
+			"seq": 66,
+			"city": "上海",
+			"airport": "浦东机场",
+			"coveredCount": 6,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "CH",
+					"tags": [
+						"CIP通道+休息室",
+						"热食"
+					]
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "CH",
+					"tags": [
+						"CIP通道+休息室",
+						"热食"
+					]
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "本地卡",
+					"tags": [
+						"本地卡"
+					]
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "CH",
+					"tags": [
+						"CIP通道+休息室",
+						"热食"
+					]
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "CH",
+					"tags": [
+						"CIP通道+休息室",
+						"热食"
+					]
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "CH",
+					"tags": [
+						"CIP通道+休息室",
+						"热食"
+					]
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "CH",
+					"tags": [
+						"CIP通道+休息室",
+						"热食"
+					]
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				}
+			]
+		},
+		{
+			"section": "S",
+			"seq": 67,
+			"city": "上饶",
+			"airport": "三清山机场",
+			"coveredCount": 1,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				}
+			]
+		},
+		{
+			"section": "S",
+			"seq": 68,
+			"city": "三亚",
+			"airport": "凤凰机场",
+			"coveredCount": 0,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				}
+			]
+		},
+		{
+			"section": "S",
+			"seq": 69,
+			"city": "深圳",
+			"airport": "宝安机场",
+			"coveredCount": 7,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "XHY",
+					"tags": [
+						"安检后休息室",
+						"热食",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "本地卡",
+					"tags": [
+						"本地卡"
+					]
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": true,
+					"status": "+1",
+					"statusLabel": "可带1人",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				}
+			]
+		},
+		{
+			"section": "S",
+			"seq": 70,
+			"city": "沈阳",
+			"airport": "桃仙机场",
+			"coveredCount": 6,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": true,
+					"status": "+1",
+					"statusLabel": "可带1人",
+					"code": "VHY",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VHY",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VHY",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VHY",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				}
+			]
+		},
+		{
+			"section": "S",
+			"seq": 71,
+			"city": "石家庄",
+			"airport": "正定机场",
+			"coveredCount": 7,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": true,
+					"status": "+1",
+					"statusLabel": "可带1人",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": true,
+					"status": "+1",
+					"statusLabel": "可带1人",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				}
+			]
+		},
+		{
+			"section": "T",
+			"seq": 72,
+			"city": "太原",
+			"airport": "武宿机场",
+			"coveredCount": 6,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": true,
+					"status": "+2",
+					"statusLabel": "可带2人",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "本地卡",
+					"tags": [
+						"本地卡"
+					]
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				}
+			]
+		},
+		{
+			"section": "T",
+			"seq": 73,
+			"city": "腾冲",
+			"airport": "驼峰机场",
+			"coveredCount": 1,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				}
+			]
+		},
+		{
+			"section": "T",
+			"seq": 74,
+			"city": "天津",
+			"airport": "滨海机场",
+			"coveredCount": 7,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VHY",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VHY",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VHY",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VHY",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VHY",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VHY",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				}
+			]
+		},
+		{
+			"section": "W",
+			"seq": 75,
+			"city": "无锡苏州",
+			"airport": "硕放机场",
+			"coveredCount": 2,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				}
+			]
+		},
+		{
+			"section": "W",
+			"seq": 76,
+			"city": "芜湖",
+			"airport": "宣州机场",
+			"coveredCount": 0,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				}
+			]
+		},
+		{
+			"section": "W",
+			"seq": 77,
+			"city": "温州",
+			"airport": "龙湾机场",
+			"coveredCount": 5,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VHY",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "VHY",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VHY",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VHY",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				}
+			]
+		},
+		{
+			"section": "W",
+			"seq": 78,
+			"city": "乌鲁木齐",
+			"airport": "地窝堡机场",
+			"coveredCount": 5,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": true,
+					"status": "+1",
+					"statusLabel": "可带1人",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				}
+			]
+		},
+		{
+			"section": "W",
+			"seq": 79,
+			"city": "武汉",
+			"airport": "天河机场",
+			"coveredCount": 8,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": true,
+					"status": "+1",
+					"statusLabel": "可带1人",
+					"code": "VHY",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VHY",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VHY",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VHY",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VHY",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VHY",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VHY",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				}
+			]
+		},
+		{
+			"section": "W",
+			"seq": 80,
+			"city": "乌海",
+			"airport": "乌海机场",
+			"coveredCount": 1,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": true,
+					"status": "+1",
+					"statusLabel": "可带1人",
+					"code": "V",
+					"tags": [
+						"贵宾楼/VIP"
+					]
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				}
+			]
+		},
+		{
+			"section": "X",
+			"seq": 81,
+			"city": "徐州",
+			"airport": "观音机场",
+			"coveredCount": 1,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "V",
+					"tags": [
+						"贵宾楼/VIP"
+					]
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				}
+			]
+		},
+		{
+			"section": "X",
+			"seq": 82,
+			"city": "厦门",
+			"airport": "高崎机场",
+			"coveredCount": 6,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VHY",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "本地卡",
+					"tags": [
+						"本地卡"
+					]
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				}
+			]
+		},
+		{
+			"section": "X",
+			"seq": 83,
+			"city": "西安",
+			"airport": "咸阳机场",
+			"coveredCount": 7,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VHY",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				}
+			]
+		},
+		{
+			"section": "X",
+			"seq": 84,
+			"city": "西宁",
+			"airport": "曹家堡机场",
+			"coveredCount": 6,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": true,
+					"status": "+1",
+					"statusLabel": "可带1人",
+					"code": "V",
+					"tags": [
+						"贵宾楼/VIP"
+					]
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "V",
+					"tags": [
+						"贵宾楼/VIP"
+					]
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "V",
+					"tags": [
+						"贵宾楼/VIP"
+					]
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "V",
+					"tags": [
+						"贵宾楼/VIP"
+					]
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "V",
+					"tags": [
+						"贵宾楼/VIP"
+					]
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				}
+			]
+		},
+		{
+			"section": "X",
+			"seq": 85,
+			"city": "西双版纳",
+			"airport": "嘎洒机场",
+			"coveredCount": 2,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				}
+			]
+		},
+		{
+			"section": "Y",
+			"seq": 86,
+			"city": "宜昌",
+			"airport": "三峡机场",
+			"coveredCount": 6,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": true,
+					"status": "+1",
+					"statusLabel": "可带1人",
+					"code": "D",
+					"tags": [
+						"贵宾区休息+独立安检"
+					]
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "D",
+					"tags": [
+						"贵宾区休息+独立安检"
+					]
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": true,
+					"status": "+1",
+					"statusLabel": "可带1人",
+					"code": "D",
+					"tags": [
+						"贵宾区休息+独立安检"
+					]
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "D",
+					"tags": [
+						"贵宾区休息+独立安检"
+					]
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "D",
+					"tags": [
+						"贵宾区休息+独立安检"
+					]
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "D",
+					"tags": [
+						"贵宾区休息+独立安检"
+					]
+				}
+			]
+		},
+		{
+			"section": "Y",
+			"seq": 87,
+			"city": "银川",
+			"airport": "河东机场",
+			"coveredCount": 6,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VH",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食"
+					]
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				}
+			]
+		},
+		{
+			"section": "Y",
+			"seq": 88,
+			"city": "榆林",
+			"airport": "榆阳机场",
+			"coveredCount": 2,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "V",
+					"tags": [
+						"贵宾楼/VIP"
+					]
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				}
+			]
+		},
+		{
+			"section": "Y",
+			"seq": 89,
+			"city": "运城",
+			"airport": "关公机场",
+			"coveredCount": 1,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				}
+			]
+		},
+		{
+			"section": "Y",
+			"seq": 90,
+			"city": "烟台",
+			"airport": "蓬莱机场",
+			"coveredCount": 4,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": true,
+					"status": "+1",
+					"statusLabel": "可带1人",
+					"code": "V",
+					"tags": [
+						"贵宾楼/VIP"
+					]
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": true,
+					"status": "+1",
+					"statusLabel": "可带1人",
+					"code": "V",
+					"tags": [
+						"贵宾楼/VIP"
+					]
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": true,
+					"status": "+1",
+					"statusLabel": "可带1人",
+					"code": "V",
+					"tags": [
+						"贵宾楼/VIP"
+					]
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": true,
+					"status": "+1",
+					"statusLabel": "可带1人",
+					"code": "V",
+					"tags": [
+						"贵宾楼/VIP"
+					]
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				}
+			]
+		},
+		{
+			"section": "Y",
+			"seq": 91,
+			"city": "玉树",
+			"airport": "巴塘机场",
+			"coveredCount": 1,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": true,
+					"status": "+1",
+					"statusLabel": "可带1人",
+					"code": "V",
+					"tags": [
+						"贵宾楼/VIP"
+					]
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				}
+			]
+		},
+		{
+			"section": "Y",
+			"seq": 92,
+			"city": "延安",
+			"airport": "南泥湾机场",
+			"coveredCount": 1,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": true,
+					"status": "+2",
+					"statusLabel": "可带2人",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				}
+			]
+		},
+		{
+			"section": "Y",
+			"seq": 93,
+			"city": "岳阳",
+			"airport": "三荷机场",
+			"coveredCount": 0,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "新开",
+					"tags": [
+						"新开"
+					]
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				}
+			]
+		},
+		{
+			"section": "Z",
+			"seq": 94,
+			"city": "珠海",
+			"airport": "金湾机场",
+			"coveredCount": 3,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "XHY",
+					"tags": [
+						"安检后休息室",
+						"热食",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				}
+			]
+		},
+		{
+			"section": "Z",
+			"seq": 95,
+			"city": "郑州",
+			"airport": "新郑机场",
+			"coveredCount": 7,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "CH",
+					"tags": [
+						"CIP通道+休息室",
+						"热食"
+					]
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VHY",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": true,
+					"status": "+1",
+					"statusLabel": "可带1人",
+					"code": "VHY",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VHY",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VHY",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "VHY",
+					"tags": [
+						"贵宾楼/VIP",
+						"热食",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				}
+			]
+		},
+		{
+			"section": "Z",
+			"seq": 96,
+			"city": "张家界",
+			"airport": "荷花机场",
+			"coveredCount": 1,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				}
+			]
+		},
+		{
+			"section": "Z",
+			"seq": 97,
+			"city": "舟山",
+			"airport": "普陀山机场",
+			"coveredCount": 1,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				}
+			]
+		},
+		{
+			"section": "Z",
+			"seq": 98,
+			"city": "湛江",
+			"airport": "吴川机场",
+			"coveredCount": 1,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "XY",
+					"tags": [
+						"安检后休息室",
+						"需预约"
+					]
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				}
+			]
+		},
+		{
+			"section": "Z",
+			"seq": 99,
+			"city": "遵义",
+			"airport": "新舟机场",
+			"coveredCount": 1,
+			"services": [
+				{
+					"channelId": "农行26年限6次",
+					"channelName": "农行26年限6次",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "招行",
+					"channelName": "招行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "工行",
+					"channelName": "工行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "建行已取消",
+					"channelName": "建行已取消",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "交行",
+					"channelName": "交行",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "广发",
+					"channelName": "广发",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "兴业",
+					"channelName": "兴业",
+					"covered": false,
+					"status": "",
+					"statusLabel": "未覆盖",
+					"code": "",
+					"tags": []
+				},
+				{
+					"channelId": "银联回归",
+					"channelName": "银联回归",
+					"covered": true,
+					"status": "√",
+					"statusLabel": "可用",
+					"code": "C",
+					"tags": [
+						"CIP通道+休息室"
+					]
+				}
+			]
+		}
+	],
+	"legend": [
+		{
+			"key": "√/+1/+2",
+			"description": "有机场贵宾可用及可带同行成人数"
+		},
+		{
+			"key": "X",
+			"description": "仅安检后休息室"
+		},
+		{
+			"key": "C",
+			"description": "公共候机区域的两舱或专用安检通道+休息室，cip，银联大多为此项"
+		},
+		{
+			"key": "D",
+			"description": "贵宾区域休息+独立安检后到公共候机区域登机，介于cip与vip之间"
+		},
+		{
+			"key": "V",
+			"description": "贵宾楼（区域），小车送机，vip（远机位小车近机位步行的计入vip）"
+		},
+		{
+			"key": "H",
+			"description": "饭点提供热食，水准不一，不一定准确"
+		},
+		{
+			"key": "Y",
+			"description": "规则要求提前预约，部分可现场预约或直接使用"
+		}
+	],
+	"stats": {
+		"airports": 99,
+		"cities": 96,
+		"channels": 8
+	}
+}

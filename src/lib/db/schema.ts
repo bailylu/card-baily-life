@@ -118,3 +118,13 @@ export const featured_promotions = sqliteTable('featured_promotions', {
 	created_at: integer('created_at').notNull(),
 	updated_at: integer('updated_at').notNull()
 });
+
+export const lounge_comments = sqliteTable('lounge_comments', {
+	id: text('id').primaryKey(),
+	record_seq: text('record_seq').notNull(),
+	channel_id: text('channel_id').notNull(),
+	user_id: text('user_id').notNull().references(() => users.id),
+	user_email: text('user_email').notNull(),
+	body: text('body').notNull(),
+	created_at: integer('created_at').notNull()
+});
