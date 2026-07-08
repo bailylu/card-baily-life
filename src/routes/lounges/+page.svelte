@@ -21,7 +21,7 @@
 		arrowSide: 'left' | 'right';
 		note?: {
 			title: string;
-			body: string;
+			body?: string;
 			sourceUrl?: string;
 			sourceLabel?: string;
 		};
@@ -128,22 +128,68 @@
 		return name;
 	}
 
-	function channelNote(channel: Channel) {
-		if (channelDisplayName(channel.name) !== '农行') return null;
-		return {
-			title: '农行贵宾厅权益规则',
-			body: '精粹级全部温暖为每卡每年 6 次，积分另换 3 次，消费达标维持无限次。',
-			sourceUrl: 'https://www.abchina.com/cn/CreditCard/AboutUs/Update/202511/t20251117_2510181.htm',
-			sourceLabel: '中国农业银行公告'
-		};
+	const channelDisplayOrder = ['农行', '招行', '工行', '建行', '兴业', '广发', '交行', '银联'];
+	const channelDisplayRank = new Map(channelDisplayOrder.map((name, index) => [name, index]));
+
+	function compareChannel(a: Channel, b: Channel) {
+		const rankDiff =
+			(channelDisplayRank.get(channelDisplayName(a.name)) ?? 1000) -
+			(channelDisplayRank.get(channelDisplayName(b.name)) ?? 1000);
+		if (rankDiff !== 0) return rankDiff;
+		return channelDisplayName(a.name).localeCompare(channelDisplayName(b.name), 'zh-Hans-CN');
 	}
 
-	const channelOptions = $derived(['全部渠道', ...data.channels.map((channel) => channelDisplayName(channel.name))]);
+	const orderedChannels = $derived([...data.channels].sort(compareChannel));
+
+	function channelNote(channel: Channel) {
+		const sourceByChannel: Record<string, { title: string; body?: string; sourceUrl: string; sourceLabel: string }> = {
+			农行: {
+				title: '农行贵宾厅权益规则',
+				body: '精粹级全部温暖为每卡每年 6 次，积分另换 3 次，消费达标维持无限次。',
+				sourceUrl: 'https://www.abchina.com/cn/CreditCard/AboutUs/Update/202511/t20251117_2510181.htm',
+				sourceLabel: '中国农业银行公告'
+			},
+			招行: {
+				title: '招行机场贵宾厅查询',
+				sourceUrl: 'https://market.cmbchina.com/MPage/online/220531115056699/vip/airport_vip/jcxz-city.html',
+				sourceLabel: '招商银行机场贵宾厅'
+			},
+			工行: {
+				title: '工行机场贵宾厅参考',
+				sourceUrl: 'https://www.flyert.com/forum.php?mod=viewthread&tid=4184221',
+				sourceLabel: '飞客茶馆整理'
+			},
+			建行: {
+				title: '建行龙卡机场贵宾厅服务',
+				sourceUrl: 'https://creditcard3.ccb.com/cn/creditcard/news/detail/20241113_1731465211.html',
+				sourceLabel: '中国建设银行公告'
+			},
+			交行: {
+				title: '交行机场贵宾服务',
+				sourceUrl: 'https://www.bankcomm.com/BankCommSite/upload/infos/201712/19/85209/OTO_PC/jichangguibin2017.html',
+				sourceLabel: '交通银行机场贵宾'
+			},
+			兴业: {
+				title: '兴业机场贵宾服务',
+				sourceUrl: 'https://creditcard.cib.com.cn/minisite/jichangguibin/pc/index.html',
+				sourceLabel: '兴业银行机场贵宾'
+			},
+			广发: {
+				title: '广发机场贵宾服务',
+				sourceUrl: 'https://card.cgbchina.com.cn/subsite/201110/4269435/index.html',
+				sourceLabel: '广发信用卡机场贵宾'
+			}
+		};
+
+		return sourceByChannel[channelDisplayName(channel.name)] ?? null;
+	}
+
+	const channelOptions = $derived(['全部渠道', ...orderedChannels.map((channel) => channelDisplayName(channel.name))]);
 
 	const visibleChannels = $derived(
 		selectedChannel === '全部渠道'
-			? data.channels
-			: data.channels.filter((channel) => channelDisplayName(channel.name) === selectedChannel)
+			? orderedChannels
+			: orderedChannels.filter((channel) => channelDisplayName(channel.name) === selectedChannel)
 	);
 
 	function serviceFor(record: RecordItem, channel: Channel) {
@@ -265,7 +311,13 @@
 	const vipCount = $derived(data.records.filter(recordHasVip).length);
 
 	function activeServices(record: RecordItem) {
-		return record.services.filter((service) => service.covered);
+		return record.services
+			.filter((service) => service.covered)
+			.sort(
+				(a, b) =>
+					(channelDisplayRank.get(channelDisplayName(a.channelName)) ?? 1000) -
+					(channelDisplayRank.get(channelDisplayName(b.channelName)) ?? 1000)
+			);
 	}
 
 	function mobileServices(record: RecordItem) {
@@ -552,7 +604,7 @@
 											class="lounge-channel-note-button"
 										>
 											<span>{channelDisplayName(channel.name)}</span>
-											<small>官网介绍</small>
+											<small>查看来源</small>
 										</a>
 									{:else}
 										{channelDisplayName(channel.name)}
@@ -712,7 +764,9 @@
 								<div class="lounge-chat-avatar">规</div>
 								<div class="lounge-chat-bubble">
 									<strong>{activeCommentTarget.note.title}</strong>
-									<p>{activeCommentTarget.note.body}</p>
+									{#if activeCommentTarget.note.body}
+										<p>{activeCommentTarget.note.body}</p>
+									{/if}
 									{#if activeCommentTarget.note.sourceUrl}
 										<a href={activeCommentTarget.note.sourceUrl} target="_blank" rel="noreferrer">
 											{activeCommentTarget.note.sourceLabel ?? '查看来源'}
