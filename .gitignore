@@ -7,6 +7,8 @@ node_modules
 .wrangler
 /.svelte-kit
 /build
+dist
+coverage
 
 # OS
 .DS_Store
@@ -16,8 +18,26 @@ Thumbs.db
 .env
 .env.*
 .dev.vars
+.dev.vars.*
 !.env.example
 !.env.test
+
+# Local tools and backups
+.claude/
+.codex/
+backups/
+secure-backups/
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+*.db
+*.dump
+*.sql.gz
+*.bak
+*.key
+*.pem
+*.p12
+*.pfx
 
 # Vite
 vite.config.js.timestamp-*
