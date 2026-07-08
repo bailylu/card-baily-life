@@ -9,6 +9,7 @@
 		"preview": "vite preview",
 		"test": "node --experimental-strip-types --test tests/*.test.js",
 		"backup:d1": "node scripts/backup-d1.mjs",
+		"backup:d1:install": "node scripts/install-d1-backup-launch-agent.mjs",
 		"cards:images": "node scripts/generate-card-image-migration.mjs",
 		"prepare": "svelte-kit sync || echo ''",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",

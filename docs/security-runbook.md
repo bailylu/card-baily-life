@@ -18,7 +18,21 @@ Create a remote D1 SQL export before risky deploys, schema changes, or bulk data
 npm run backup:d1
 ```
 
-The export is written to `secure-backups/d1/` and ignored by Git. Move important backups to an encrypted external location after export.
+The export is compressed as `.sql.gz`, written to `secure-backups/d1/`, and ignored by Git. Move important backups to an encrypted external location after export.
+
+To also copy each backup into Google Drive or another synced folder, set `D1_BACKUP_TARGET_DIR`:
+
+```bash
+D1_BACKUP_TARGET_DIR="$HOME/Library/CloudStorage/GoogleDrive-ACCOUNT/My Drive/card-baily-life-d1" npm run backup:d1
+```
+
+On macOS, install a daily 03:15 backup job:
+
+```bash
+D1_BACKUP_TARGET_DIR="/path/to/Google Drive/card-baily-life-d1" npm run backup:d1:install
+```
+
+The scheduled job keeps 30 days by default. Override it with `D1_BACKUP_RETENTION_DAYS=90`.
 
 Recommended cadence:
 
