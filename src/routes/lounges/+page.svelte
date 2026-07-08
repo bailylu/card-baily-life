@@ -653,11 +653,15 @@
 											{:else}
 												<span class="lounge-none">未覆盖</span>
 											{/if}
-											{#if comments.length > 0}
-												<span class="lounge-cell-comment-badge" aria-label={`${comments.length} 条留言`}>
-													{comments.length}
-												</span>
-											{/if}
+											<span
+												class={`lounge-cell-comment-badge ${comments.length > 0 ? 'has-count' : 'is-empty'}`}
+												aria-label={comments.length > 0 ? `${comments.length} 条留言` : '添加留言'}
+											>
+												<span aria-hidden="true">💬</span>
+												{#if comments.length > 0}
+													<span>{comments.length}</span>
+												{/if}
+											</span>
 										</button>
 									</td>
 								{/each}
@@ -703,9 +707,6 @@
 								>
 									<span class="lounge-mobile-bank">
 										<span>{channelDisplayName(service.channelName)}</span>
-										{#if count > 0}
-											<span class="lounge-mobile-comment-dot">{count}</span>
-										{/if}
 									</span>
 									<span class="lounge-mobile-tags">
 										{#if mobileItems.length > 0}
@@ -718,6 +719,15 @@
 											<span class="lounge-service-pill" title="已覆盖" aria-label="已覆盖">
 												<span aria-hidden="true">✓</span>
 											</span>
+										{/if}
+									</span>
+									<span
+										class={`lounge-mobile-comment-cue ${count > 0 ? 'has-count' : 'is-empty'}`}
+										aria-label={count > 0 ? `${count} 条留言` : '添加留言'}
+									>
+										<span aria-hidden="true">💬</span>
+										{#if count > 0}
+											<span>{count}</span>
 										{/if}
 									</span>
 								</button>
@@ -1260,27 +1270,46 @@
 		position: absolute;
 		right: 0.45rem;
 		bottom: 0.45rem;
-		display: inline-grid;
-		width: 1.25rem;
-		height: 1.25rem;
-		place-items: center;
-		border: 1px solid rgba(255, 255, 255, 0.16);
-		background: rgba(255, 255, 255, 0.08);
-		color: var(--bls-gold-bright);
-		font-size: 0.72rem;
+		display: inline-flex;
+		min-width: 1.55rem;
+		height: 1.35rem;
+		align-items: center;
+		justify-content: center;
+		gap: 0.16rem;
+		border: 1px solid rgba(47, 230, 212, 0.28);
+		border-radius: 999px;
+		background: rgba(47, 230, 212, 0.09);
+		color: #b9fff8;
+		font-size: 0.7rem;
 		font-weight: 950;
+		line-height: 1;
+		padding: 0 0.32rem;
+		box-shadow: 0 0 0 1px rgba(47, 230, 212, 0.05) inset;
+		opacity: 0.82;
 	}
 
-	.lounge-service-cell.has-comments .lounge-cell-comment-badge {
+	.lounge-cell-comment-badge > span:first-child {
+		font-size: 0.78rem;
+	}
+
+	.lounge-cell-comment-badge.is-empty > span:first-child {
+		filter: grayscale(0.2);
+		opacity: 0.84;
+	}
+
+	.lounge-service-cell.has-comments .lounge-cell-comment-badge,
+	.lounge-cell-comment-badge.has-count {
 		border-color: rgba(255, 218, 123, 0.58);
 		background: rgba(232, 181, 61, 0.2);
 		color: #fff0b0;
+		opacity: 1;
 	}
 
 	.lounge-service-cell:hover .lounge-cell-comment-badge {
 		opacity: 1;
-		border-color: var(--bls-gold);
-		background: rgba(232, 181, 61, 0.16);
+		border-color: rgba(47, 230, 212, 0.72);
+		background: rgba(47, 230, 212, 0.16);
+		color: #ffffff;
 	}
 
 	.lounge-comment-overlay {
@@ -1570,7 +1599,7 @@
 
 	.lounge-mobile-service-row {
 		display: grid;
-		grid-template-columns: 4.8rem minmax(0, 1fr);
+		grid-template-columns: 4.8rem minmax(0, 1fr) auto;
 		align-items: center;
 		gap: 0.6rem;
 		width: 100%;
@@ -1628,6 +1657,35 @@
 		justify-content: flex-end;
 		gap: 0.3rem;
 		min-width: 0;
+	}
+
+	.lounge-mobile-comment-cue {
+		display: inline-flex;
+		min-width: 1.45rem;
+		height: 1.35rem;
+		align-items: center;
+		justify-content: center;
+		gap: 0.12rem;
+		border: 1px solid rgba(47, 230, 212, 0.26);
+		border-radius: 999px;
+		background: rgba(47, 230, 212, 0.08);
+		color: #c7fff8;
+		font-size: 0.66rem;
+		font-weight: 950;
+		line-height: 1;
+		padding: 0 0.25rem;
+		opacity: 0.84;
+	}
+
+	.lounge-mobile-comment-cue > span:first-child {
+		font-size: 0.76rem;
+	}
+
+	.lounge-mobile-comment-cue.has-count {
+		border-color: rgba(255, 218, 123, 0.58);
+		background: rgba(232, 181, 61, 0.18);
+		color: #fff0b0;
+		opacity: 1;
 	}
 
 	@media (max-width: 1024px) {
@@ -1879,6 +1937,23 @@
 
 		.lounge-mobile-tags .lounge-service-pill > span:first-child {
 			font-size: 0.78rem;
+		}
+
+		.lounge-mobile-comment-cue {
+			min-width: 1.28rem;
+			width: 1.28rem;
+			height: 1.28rem;
+			padding: 0;
+		}
+
+		.lounge-mobile-comment-cue.has-count {
+			width: auto;
+			min-width: 1.72rem;
+			padding: 0 0.24rem;
+		}
+
+		.lounge-mobile-comment-cue > span:first-child {
+			font-size: 0.72rem;
 		}
 	}
 </style>
