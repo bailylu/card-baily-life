@@ -604,7 +604,7 @@
 											class="lounge-channel-note-button"
 										>
 											<span>{channelDisplayName(channel.name)}</span>
-											<small>查看来源</small>
+											<small>官方列表</small>
 										</a>
 									{:else}
 										{channelDisplayName(channel.name)}
