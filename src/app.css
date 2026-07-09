@@ -728,6 +728,14 @@ textarea {
 }
 
 @media (max-width: 640px) {
+	.dashboard-nav-shell {
+		position: static;
+	}
+
+	.dashboard-main {
+		padding-top: 1.25rem;
+	}
+
 	.add-card-page {
 		overflow-x: hidden;
 		padding-inline: 0.9rem;

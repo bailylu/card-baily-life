@@ -107,7 +107,7 @@
 </svelte:head>
 
 <div class="bls-page">
-	<header class="bls-nav fixed inset-x-0 top-0 z-50">
+	<header class="bls-nav dashboard-nav-shell fixed inset-x-0 top-0 z-50">
 		<div class="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-3 sm:px-6 sm:py-4">
 			<a href="/dashboard" class="flex items-center gap-3">
 				<img src="/images/brand/logo-mark.svg" alt="" class="h-10 w-10 shrink-0" />
@@ -166,7 +166,7 @@
 		</div>
 	</header>
 
-	<main class="relative mx-auto max-w-7xl px-4 pb-5 pt-24 sm:px-6 sm:pb-8 sm:pt-28">
+	<main class="dashboard-main relative mx-auto max-w-7xl px-4 pb-5 pt-24 sm:px-6 sm:pb-8 sm:pt-28">
 		{#if cardSaved}
 			<div class="mb-6 border-2 border-[var(--bls-green)] bg-[rgba(77,240,138,0.12)] p-4 text-sm font-semibold text-emerald-100">
 				卡片已保存，提醒设置已经加入你的卡片列表。
