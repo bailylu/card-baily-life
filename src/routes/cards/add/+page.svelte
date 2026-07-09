@@ -111,13 +111,17 @@
 	);
 	let pageStart = $derived(filteredCatalog.length === 0 ? 0 : (currentPage - 1) * cardsPerPage + 1);
 	let pageEnd = $derived(Math.min(currentPage * cardsPerPage, filteredCatalog.length));
-	let addPagePromotion = $derived(data.featuredCards?.[0] ?? null);
+	let promotionSeed = $derived(
+		`${currentPage}|${search}|${selectedCountry}|${selectedType}|${selectedBank}|${selectedNetwork}|${selectedTier}|${filteredCatalog.length}`
+	);
+	let addPagePromotion = $derived(
+		data.featuredCards?.length
+			? data.featuredCards[seededIndex(promotionSeed, data.featuredCards.length)]
+			: null
+	);
 	let promoInsertIndex = $derived(
 		addPagePromotion && visibleCatalog.length > 0
-			? seededIndex(
-					`${currentPage}|${search}|${selectedCountry}|${selectedType}|${selectedBank}|${selectedNetwork}|${selectedTier}|${filteredCatalog.length}`,
-					visibleCatalog.length
-				)
+			? seededIndex(`${promotionSeed}|slot`, visibleCatalog.length)
 			: -1
 	);
 
