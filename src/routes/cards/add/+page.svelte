@@ -198,9 +198,9 @@
 	<title>添加卡片 — card.baily.life</title>
 </svelte:head>
 
-<main class="bls-page px-4 py-6 sm:px-6 sm:py-8">
+<main class="bls-page add-card-page px-4 py-5 sm:px-6 sm:py-8">
 	<div class="relative mx-auto max-w-7xl">
-		<div>
+		<div class="add-card-hero">
 			<a href="/dashboard" class="text-sm font-semibold text-[var(--bls-cyan)] hover:text-[var(--bls-gold-bright)]">← 返回我的卡片</a>
 			<h1 class="mt-3 text-3xl font-black tracking-tight text-white">添加卡片</h1>
 			<p class="mt-2 text-sm text-[var(--bls-muted)]">先从卡片库选择卡面，再在右侧填写提醒信息。</p>
@@ -218,9 +218,9 @@
 			</div>
 		{/if}
 
-		<form method="POST" action="?/addCard" class="mt-6 grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_420px]" onsubmit={handleAddCardSubmit}>
-			<section class="bls-panel p-5 sm:p-6">
-				<div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+		<form method="POST" action="?/addCard" class="add-card-layout mt-6 grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_420px]" onsubmit={handleAddCardSubmit}>
+			<section class="bls-panel add-card-library p-5 sm:p-6">
+				<div class="add-card-library-head flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
 					<div>
 						<p class="bls-label text-[var(--bls-cyan)]">Card Library</p>
 						<h2 class="mt-1 text-xl font-black text-white">选择卡片种类</h2>
@@ -232,14 +232,14 @@
 						</a>
 					</div>
 				</div>
-				<div class="mt-5 grid gap-3">
+				<div class="add-card-filters mt-5 grid gap-3">
 					<input
 						bind:value={search}
 						type="search"
 						placeholder="搜索银行或卡名"
 						class="bls-input w-full px-4 py-3 text-sm"
 					/>
-					<div class="grid gap-3 sm:grid-cols-2 xl:grid-cols-[120px_120px_minmax(0,1fr)_130px_120px]">
+					<div class="add-card-filter-grid grid gap-3 sm:grid-cols-2 xl:grid-cols-[120px_120px_minmax(0,1fr)_130px_120px]">
 						<select
 							bind:value={selectedCountry}
 							class="bls-input px-4 py-3 text-sm"
@@ -282,7 +282,7 @@
 						</select>
 					</div>
 				</div>
-				<div class="-mx-1 mt-4 flex gap-2 overflow-x-auto px-1 pb-1 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 sm:pb-0">
+				<div class="-mx-1 mt-4 hidden gap-2 overflow-x-auto px-1 pb-1 sm:mx-0 sm:flex sm:flex-wrap sm:overflow-visible sm:px-0 sm:pb-0">
 					{#each countries as country}
 						<button
 							type="button"
@@ -297,7 +297,7 @@
 						</button>
 					{/each}
 				</div>
-				<div class="-mx-1 mt-2 flex gap-2 overflow-x-auto px-1 pb-1 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 sm:pb-0">
+				<div class="-mx-1 mt-2 hidden gap-2 overflow-x-auto px-1 pb-1 sm:mx-0 sm:flex sm:flex-wrap sm:overflow-visible sm:px-0 sm:pb-0">
 					{#each cardTypes as type}
 						<button
 							type="button"
@@ -312,7 +312,7 @@
 						</button>
 					{/each}
 				</div>
-				<div class="-mx-1 mt-2 flex gap-2 overflow-x-auto px-1 pb-1 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 sm:pb-0">
+				<div class="-mx-1 mt-2 hidden gap-2 overflow-x-auto px-1 pb-1 sm:mx-0 sm:flex sm:flex-wrap sm:overflow-visible sm:px-0 sm:pb-0">
 					{#each networks as network}
 						<button
 							type="button"
@@ -327,7 +327,7 @@
 						</button>
 					{/each}
 				</div>
-				<div class="mt-5 grid grid-cols-2 gap-3 md:grid-cols-3 xl:gap-4">
+				<div class="add-card-catalog-grid mt-5 grid grid-cols-2 gap-3 md:grid-cols-3 xl:gap-4">
 					{#each visibleCatalog as card}
 						{@const imgs = getCardImages(card)}
 						{@const varIdx = variantIndexes[card.id] ?? 0}
