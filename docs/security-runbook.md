@@ -38,6 +38,15 @@ The scheduled job runs daily and keeps 30 days by default. Override the cadence 
 D1_BACKUP_TARGET_DIR="$HOME/Library/Mobile Documents/com~apple~CloudDocs/card-baily-life-d1-backups" D1_BACKUP_INTERVAL_DAYS=7 D1_BACKUP_RETENTION_DAYS=30 npm run backup:d1:install
 ```
 
+Current production backup posture:
+
+- A macOS LaunchAgent exports the remote D1 database every 7 days.
+- Backups are copied into iCloud Drive at `~/Library/Mobile Documents/com~apple~CloudDocs/card-baily-life-d1-backups`.
+- Backups are retained for 30 days and older `.sql.gz` files are removed during backup runs.
+- This local job only runs when the Mac is powered on, logged in, and has network access. It does not run while the Mac is shut down.
+- Cloudflare D1 Time Travel remains the first cloud-side recovery option for recent accidental writes or deletes.
+- If backup reliability needs to be independent of the Mac, add a cloud-side scheduled backup such as GitHub Actions or a Cloudflare Worker with a least-privilege Cloudflare API token.
+
 Recommended cadence:
 
 - Before every migration or large import.
