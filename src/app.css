@@ -767,27 +767,6 @@ textarea {
 		margin-top: 1rem;
 	}
 
-	.add-card-promo {
-		grid-template-columns: 6.8rem minmax(0, 1fr);
-		align-items: center;
-		margin-top: 0.9rem;
-		padding: 0.65rem;
-	}
-
-	.add-card-promo .bls-label {
-		font-size: 0.56rem;
-		line-height: 1;
-	}
-
-	.add-card-promo h3 {
-		font-size: 0.9rem;
-		line-height: 1.25;
-	}
-
-	.add-card-promo p {
-		overflow-wrap: anywhere;
-	}
-
 	.add-card-choice {
 		display: grid;
 		grid-template-columns: minmax(7.2rem, 40%) minmax(0, 1fr);
@@ -808,6 +787,22 @@ textarea {
 	}
 
 	.add-card-choice p {
+		overflow-wrap: anywhere;
+	}
+
+	.add-card-promo-card {
+		display: grid;
+		grid-template-columns: minmax(7.2rem, 40%) minmax(0, 1fr);
+		align-items: center;
+		gap: 0.75rem;
+	}
+
+	.add-card-promo-card .mt-3 {
+		margin-top: 0;
+	}
+
+	.add-card-promo-card h3,
+	.add-card-promo-card p {
 		overflow-wrap: anywhere;
 	}
 

@@ -111,6 +111,14 @@
 	let pageStart = $derived(filteredCatalog.length === 0 ? 0 : (currentPage - 1) * cardsPerPage + 1);
 	let pageEnd = $derived(Math.min(currentPage * cardsPerPage, filteredCatalog.length));
 	let addPagePromotion = $derived(data.featuredCards?.[0] ?? null);
+	let promoInsertIndex = $derived(
+		addPagePromotion && visibleCatalog.length > 0
+			? seededIndex(
+					`${currentPage}|${search}|${selectedCountry}|${selectedType}|${selectedBank}|${selectedNetwork}|${selectedTier}|${filteredCatalog.length}`,
+					visibleCatalog.length
+				)
+			: -1
+	);
 
 	$effect(() => {
 		search;
@@ -197,6 +205,14 @@
 
 	function featuredMetric(card: NonNullable<typeof addPagePromotion>) {
 		return card.metrics.find((metric) => metric.value) ?? card.metrics[0] ?? { label: '推荐', value: '查看详情' };
+	}
+
+	function seededIndex(seed: string, length: number) {
+		let hash = 0;
+		for (let index = 0; index < seed.length; index += 1) {
+			hash = (hash * 31 + seed.charCodeAt(index)) >>> 0;
+		}
+		return hash % Math.max(1, length);
 	}
 
 	function handleSelectCard(cardId: number) {
@@ -341,25 +357,23 @@
 						</button>
 					{/each}
 				</div>
-				{#if addPagePromotion}
-					<a href={addPagePromotion.href} class="add-card-promo group mt-4 grid gap-3 border-2 border-[rgba(232,181,61,0.36)] bg-[rgba(232,181,61,0.08)] p-3 hover:border-[var(--bls-gold-bright)] sm:grid-cols-[132px_minmax(0,1fr)_auto] sm:items-center">
-						<div class="relative overflow-hidden rounded-[4px] border-2 border-white/10 bg-[var(--bls-inset)]">
-							<img src={addPagePromotion.image} alt={addPagePromotion.alt} class="aspect-[1.586] w-full object-cover" />
-							<span class="bls-rec-badge bls-rec-badge-compact">推荐</span>
-						</div>
-						<div class="min-w-0">
-							<p class="bls-label text-[var(--bls-gold-bright)]">Recommended Card</p>
-							<h3 class="mt-1 line-clamp-1 text-base font-black text-white group-hover:text-[var(--bls-gold-bright)]">{addPagePromotion.name}</h3>
-							<p class="mt-1 line-clamp-2 text-xs leading-5 text-[var(--bls-muted)]">{addPagePromotion.description}</p>
-							<p class="mt-2 text-sm font-black text-[var(--bls-gold-bright)]">
-								{featuredMetric(addPagePromotion).label} {featuredMetric(addPagePromotion).value}
-							</p>
-						</div>
-						<span class="bls-btn hidden px-3 py-2 text-xs sm:inline-flex">查看推荐</span>
-					</a>
-				{/if}
 				<div class="add-card-catalog-grid mt-5 grid grid-cols-2 gap-3 md:grid-cols-3 xl:gap-4">
-					{#each visibleCatalog as card}
+					{#each visibleCatalog as card, index}
+						{#if addPagePromotion && index === promoInsertIndex}
+							<a href={addPagePromotion.href} class="group bls-feature-card add-card-promo-card relative p-2.5 sm:p-3">
+								<div class="relative overflow-hidden rounded-[4px] border-2 border-white/10 bg-[var(--bls-inset)]">
+									<img src={addPagePromotion.image} alt={addPagePromotion.alt} class="aspect-[1.586] w-full object-cover" />
+									<span class="bls-rec-badge">推荐</span>
+								</div>
+								<div class="relative mt-3 min-w-0">
+									<p class="text-xs font-bold text-[var(--bls-cyan)]">{addPagePromotion.bank}</p>
+									<h3 class="mt-1 line-clamp-2 text-sm font-black leading-snug text-white group-hover:text-[var(--bls-gold-bright)]">{addPagePromotion.name}</h3>
+									<p class="mt-2 text-xs font-black text-[var(--bls-gold-bright)]">
+										{featuredMetric(addPagePromotion).label} {featuredMetric(addPagePromotion).value}
+									</p>
+								</div>
+							</a>
+						{/if}
 						{@const imgs = getCardImages(card)}
 						{@const varIdx = variantIndexes[card.id] ?? 0}
 						{@const currentImg = imgs[varIdx] ?? null}
