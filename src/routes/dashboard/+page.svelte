@@ -121,7 +121,7 @@
 					<summary class="bls-btn-ghost cursor-pointer list-none px-4 py-2 text-sm font-semibold hover:border-[var(--bls-cyan)] hover:text-[var(--bls-cyan)]">
 						我的
 					</summary>
-					<div class="bls-panel absolute right-0 z-50 mt-2 w-48 overflow-hidden p-2 text-sm">
+					<div class="dashboard-account-menu bls-panel absolute right-0 mt-2 w-48 overflow-hidden p-2 text-sm">
 						<div class="border-b-2 border-white/10 px-3 py-2">
 							<p class="bls-label text-[var(--bls-gold-bright)]">Account</p>
 							<p class="mt-1 truncate text-xs text-[var(--bls-muted)]">{data.user?.email ?? '个人中心'}</p>
