@@ -680,17 +680,15 @@ textarea {
 	}
 
 	.add-card-panel-aside {
-		min-height: calc(100vh - 7rem);
+		min-height: 0;
 	}
 
 	.add-card-floating-panel {
-		position: fixed;
-		right: max(1.75rem, calc((100vw - 80rem) / 2 + 1.75rem));
-		top: 9.75rem;
-		width: 400px;
-		max-height: calc(100vh - 11.25rem);
-		overflow-y: auto;
-		padding-right: 0.25rem;
+		position: static;
+		width: auto;
+		max-height: none;
+		overflow: visible;
+		padding-right: 0;
 	}
 }
 
@@ -718,16 +716,13 @@ textarea {
 	}
 
 	.add-card-panel-aside {
-		position: sticky;
-		top: 1.5rem;
 		align-self: start;
 	}
 
 	.add-card-floating-panel {
-		max-height: calc(100vh - 3rem);
-		overflow-y: auto;
-		padding-right: 0.25rem;
-		scrollbar-width: thin;
+		max-height: none;
+		overflow: visible;
+		padding-right: 0;
 	}
 
 }
