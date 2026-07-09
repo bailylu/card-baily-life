@@ -694,6 +694,48 @@ textarea {
 	}
 }
 
+@media (min-width: 1024px) {
+	.add-card-layout {
+		min-height: calc(100vh - 10.5rem);
+	}
+
+	.add-card-library {
+		display: flex;
+		max-height: calc(100vh - 10.5rem);
+		flex-direction: column;
+		overflow: hidden;
+	}
+
+	.add-card-catalog-grid {
+		min-height: 0;
+		overflow-y: auto;
+		padding-right: 0.25rem;
+		scrollbar-width: thin;
+	}
+
+	.add-card-library > .mt-4:last-child {
+		flex-shrink: 0;
+	}
+
+	.add-card-panel-aside {
+		position: sticky;
+		top: 1.5rem;
+		align-self: start;
+	}
+
+	.add-card-floating-panel {
+		max-height: calc(100vh - 3rem);
+		overflow-y: auto;
+		padding-right: 0.25rem;
+		scrollbar-width: thin;
+	}
+
+	#request-card {
+		width: 420px;
+		margin-left: auto;
+	}
+}
+
 @media (max-width: 640px) {
 	.add-card-page {
 		overflow-x: hidden;
