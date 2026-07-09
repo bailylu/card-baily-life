@@ -161,6 +161,7 @@
 	}
 
 	let selectedCardId = $state<number | null>(null);
+	let detailsPanel: HTMLElement | null = $state(null);
 	let variantIndexes = $state<Record<number, number>>({});
 	let selectedCard = $derived(() =>
 		selectedCardId ? data.catalog.find((card) => card.id === selectedCardId) ?? null : null
@@ -191,6 +192,14 @@
 		if (data.hasNotificationChannel) return;
 		event.preventDefault();
 		showNotificationWarning = true;
+	}
+
+	function handleSelectCard(cardId: number) {
+		selectedCardId = cardId;
+		if (typeof window === 'undefined' || window.matchMedia('(min-width: 1024px)').matches) return;
+		window.requestAnimationFrame(() => {
+			detailsPanel?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+		});
 	}
 </script>
 
@@ -333,7 +342,14 @@
 						{@const varIdx = variantIndexes[card.id] ?? 0}
 						{@const currentImg = imgs[varIdx] ?? null}
 						<label class="cursor-pointer">
-							<input class="peer sr-only" type="radio" name="catalog_id" value={card.id} bind:group={selectedCardId} />
+							<input
+								class="peer sr-only"
+								type="radio"
+								name="catalog_id"
+								value={card.id}
+								checked={selectedCardId === card.id}
+								onchange={() => handleSelectCard(card.id)}
+							/>
 								<div class="bls-card add-card-choice p-2.5 sm:p-3">
 									<div class="relative">
 										<CardFace
@@ -407,7 +423,7 @@
 				{/if}
 			</section>
 
-			<aside class="add-card-panel-aside">
+			<aside class="add-card-panel-aside" bind:this={detailsPanel}>
 			<div class="add-card-floating-panel space-y-4">
 			<section class="bls-panel p-5">
 				<div>
