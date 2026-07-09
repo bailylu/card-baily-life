@@ -11,6 +11,7 @@ import {
 import { notifyAdminCardRequest } from '$lib/notifications/admin';
 import { getNotificationSettings } from '$lib/notifications/settings';
 import { syncCardUserToCrm } from '$lib/crm-sync';
+import { defaultFeaturedPromotions, listFeaturedPromotions } from '$lib/featured/promotions';
 
 function hasNotificationChannel(settings: Awaited<ReturnType<typeof getNotificationSettings>>) {
 	return Boolean(
@@ -22,23 +23,33 @@ function hasNotificationChannel(settings: Awaited<ReturnType<typeof getNotificat
 
 export const load: PageServerLoad = async ({ locals, platform }) => {
 	if (!locals.user) redirect(302, '/login');
-	if (!platform?.env.DB) return { user: locals.user, catalog: [], configMissing: true, hasNotificationChannel: false };
+	if (!platform?.env.DB) {
+		return {
+			user: locals.user,
+			catalog: [],
+			configMissing: true,
+			hasNotificationChannel: false,
+			featuredCards: defaultFeaturedPromotions
+		};
+	}
 
 	try {
-		const [catalog, userCards, settings] = await Promise.all([
+		const [catalog, userCards, settings, featuredCards] = await Promise.all([
 			listCatalog(platform.env.DB),
 			listUserCards(platform.env.DB, locals.user.id),
-			getNotificationSettings(platform.env.DB, locals.user.id)
+			getNotificationSettings(platform.env.DB, locals.user.id),
+			listFeaturedPromotions(platform.env.DB)
 		]);
 		const ownedCatalogIds = new Set(userCards.map((c) => c.catalog_id).filter((id) => id != null));
 		return {
 			user: locals.user,
 			catalog: catalog.filter((c) => !ownedCatalogIds.has(c.id)),
 			configMissing: false,
-			hasNotificationChannel: hasNotificationChannel(settings)
+			hasNotificationChannel: hasNotificationChannel(settings),
+			featuredCards
 		};
 	} catch {
-		return { user: locals.user, catalog: [], configMissing: true, hasNotificationChannel: false };
+		return { user: locals.user, catalog: [], configMissing: true, hasNotificationChannel: false, featuredCards: defaultFeaturedPromotions };
 	}
 };
 

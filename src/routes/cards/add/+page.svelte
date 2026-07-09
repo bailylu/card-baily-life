@@ -110,6 +110,7 @@
 	);
 	let pageStart = $derived(filteredCatalog.length === 0 ? 0 : (currentPage - 1) * cardsPerPage + 1);
 	let pageEnd = $derived(Math.min(currentPage * cardsPerPage, filteredCatalog.length));
+	let addPagePromotion = $derived(data.featuredCards?.[0] ?? null);
 
 	$effect(() => {
 		search;
@@ -192,6 +193,10 @@
 		if (data.hasNotificationChannel) return;
 		event.preventDefault();
 		showNotificationWarning = true;
+	}
+
+	function featuredMetric(card: NonNullable<typeof addPagePromotion>) {
+		return card.metrics.find((metric) => metric.value) ?? card.metrics[0] ?? { label: '推荐', value: '查看详情' };
 	}
 
 	function handleSelectCard(cardId: number) {
@@ -336,6 +341,23 @@
 						</button>
 					{/each}
 				</div>
+				{#if addPagePromotion}
+					<a href={addPagePromotion.href} class="add-card-promo group mt-4 grid gap-3 border-2 border-[rgba(232,181,61,0.36)] bg-[rgba(232,181,61,0.08)] p-3 hover:border-[var(--bls-gold-bright)] sm:grid-cols-[132px_minmax(0,1fr)_auto] sm:items-center">
+						<div class="relative overflow-hidden rounded-[4px] border-2 border-white/10 bg-[var(--bls-inset)]">
+							<img src={addPagePromotion.image} alt={addPagePromotion.alt} class="aspect-[1.586] w-full object-cover" />
+							<span class="bls-rec-badge bls-rec-badge-compact">推荐</span>
+						</div>
+						<div class="min-w-0">
+							<p class="bls-label text-[var(--bls-gold-bright)]">Recommended Card</p>
+							<h3 class="mt-1 line-clamp-1 text-base font-black text-white group-hover:text-[var(--bls-gold-bright)]">{addPagePromotion.name}</h3>
+							<p class="mt-1 line-clamp-2 text-xs leading-5 text-[var(--bls-muted)]">{addPagePromotion.description}</p>
+							<p class="mt-2 text-sm font-black text-[var(--bls-gold-bright)]">
+								{featuredMetric(addPagePromotion).label} {featuredMetric(addPagePromotion).value}
+							</p>
+						</div>
+						<span class="bls-btn hidden px-3 py-2 text-xs sm:inline-flex">查看推荐</span>
+					</a>
+				{/if}
 				<div class="add-card-catalog-grid mt-5 grid grid-cols-2 gap-3 md:grid-cols-3 xl:gap-4">
 					{#each visibleCatalog as card}
 						{@const imgs = getCardImages(card)}
@@ -577,6 +599,19 @@
 			<button class="bls-btn w-full px-4 py-4 text-base">
 				保存提醒
 			</button>
+			<a
+				href="https://wx.zsxq.com/group/15555858118552"
+				target="_blank"
+				rel="noreferrer"
+				class="dashboard-ad-card dashboard-ad-card-planet add-card-planet-ad"
+			>
+				<span class="min-w-0">
+					<span class="bls-label text-[var(--bls-gold-bright)]">Knowledge Planet</span>
+					<span class="mt-1 block text-base font-black text-white">加入贝利知识星球</span>
+					<span class="mt-1 block text-xs leading-5 text-[var(--bls-muted)]">和小伙伴一起玩卡，系统整理信用卡、积分和权益玩法。</span>
+				</span>
+				<span class="dashboard-ad-cta">立即加入</span>
+			</a>
 			</div>
 			</aside>
 		</form>
