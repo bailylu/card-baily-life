@@ -730,10 +730,6 @@ textarea {
 		scrollbar-width: thin;
 	}
 
-	#request-card {
-		width: 420px;
-		margin-left: auto;
-	}
 }
 
 @media (max-width: 640px) {
@@ -846,6 +842,10 @@ textarea {
 	.add-card-promo-card h3,
 	.add-card-promo-card p {
 		overflow-wrap: anywhere;
+	}
+
+	.add-card-request-tile {
+		min-height: 8.25rem;
 	}
 
 	.add-card-panel-aside {

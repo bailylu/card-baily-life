@@ -31,6 +31,7 @@
 	let selectedTier = $state('全部等级');
 	let currentPage = $state(1);
 	let showNotificationWarning = $state(false);
+	let isSaving = $state(false);
 	const cardsPerPage = 12;
 	const countryLabels: Record<string, string> = {
 		CN: '中国大陆',
@@ -198,7 +199,10 @@
 	});
 
 	function handleAddCardSubmit(event: SubmitEvent) {
-		if (data.hasNotificationChannel) return;
+		if (data.hasNotificationChannel) {
+			isSaving = true;
+			return;
+		}
 		event.preventDefault();
 		showNotificationWarning = true;
 	}
@@ -383,6 +387,7 @@
 								type="radio"
 								name="catalog_id"
 								value={card.id}
+								required
 								checked={selectedCardId === card.id}
 								onchange={() => handleSelectCard(card.id)}
 							/>
@@ -417,17 +422,16 @@
 								</div>
 						</label>
 					{/each}
-					{#if filteredCatalog.length > 0 && currentPage === totalPages}
+					{#if filteredCatalog.length > 0}
 						<a
 							href="#request-card"
-							class="flex min-h-48 flex-col justify-center border-2 border-dashed border-[rgba(47,230,212,0.35)] bg-[rgba(47,230,212,0.06)] p-5 text-sm transition hover:border-[var(--bls-cyan)]"
+							class="add-card-request-tile group bls-card flex flex-col justify-center border-dashed p-4 text-sm transition hover:border-[var(--bls-cyan)]"
 						>
-							<p class="font-semibold text-white">没有更多卡片了？</p>
-							<p class="mt-2 leading-6 text-[var(--bls-muted)]">
-								如果没有找到心仪的卡片，可以在下方提交银行和卡名，我会尽快补进卡片库。
-							</p>
+							<p class="bls-label text-[var(--bls-cyan)]">Card Request</p>
+							<h3 class="mt-2 text-base font-black text-white group-hover:text-[var(--bls-cyan)]">没有找到想添加的卡？</h3>
+							<p class="mt-2 line-clamp-3 leading-5 text-[var(--bls-muted)]">提交银行和卡名，我审核后补进卡片库。</p>
 							<span class="bls-chip-active mt-4 inline-flex w-fit px-3 py-1 text-xs font-bold">
-								去填写需要的卡
+								提交补充
 							</span>
 						</a>
 					{/if}
@@ -610,8 +614,8 @@
 				</div>
 			</section>
 
-			<button class="bls-btn w-full px-4 py-4 text-base">
-				保存提醒
+			<button class="bls-btn w-full px-4 py-4 text-base disabled:cursor-wait disabled:opacity-75" disabled={isSaving}>
+				{isSaving ? '正在保存提醒...' : '保存提醒'}
 			</button>
 			<a
 				href="https://wx.zsxq.com/group/15555858118552"

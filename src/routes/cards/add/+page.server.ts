@@ -69,7 +69,7 @@ export const actions: Actions = {
 			return fail(500, { error: 'D1 数据库暂不可用，请检查 Cloudflare Pages Dev 或部署配置' });
 		}
 
-		redirect(303, '/dashboard');
+		redirect(303, '/dashboard?card_saved=1');
 	},
 	requestCard: async ({ request, locals, platform }) => {
 		if (!locals.user) redirect(302, '/login');

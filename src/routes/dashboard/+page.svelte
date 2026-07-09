@@ -1,9 +1,11 @@
 <script lang="ts">
+	import { page } from '$app/state';
 	import CardFace from '$lib/components/CardFace.svelte';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
 
+	let cardSaved = $derived(page.url.searchParams.get('card_saved') === '1');
 	let featuredCards = $derived(data.featuredCards);
 	let cardSearch = $state('');
 	let selectedCountry = $state('全部地区');
@@ -165,6 +167,12 @@
 	</header>
 
 	<main class="relative mx-auto max-w-7xl px-4 pb-5 pt-24 sm:px-6 sm:pb-8 sm:pt-28">
+		{#if cardSaved}
+			<div class="mb-6 border-2 border-[var(--bls-green)] bg-[rgba(77,240,138,0.12)] p-4 text-sm font-semibold text-emerald-100">
+				卡片已保存，提醒设置已经加入你的卡片列表。
+			</div>
+		{/if}
+
 		{#if data.configMissing}
 			<div class="mb-6 border-2 border-[var(--bls-gold)] bg-[rgba(232,181,61,0.13)] p-4 text-sm text-[var(--bls-gold-bright)]">
 				数据连接暂时不可用，稍后刷新后会展示已保存的卡片。
