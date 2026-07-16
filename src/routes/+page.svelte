@@ -46,7 +46,9 @@
 
 		const button = target.closest('button');
 		const label = button?.textContent?.trim().toLowerCase() ?? '';
-		if (label.includes('continue')) markSignInPending();
+		if (label.includes('continue') || label.includes('继续') || label.includes('登录')) {
+			markSignInPending();
+		}
 	}
 
 	function handleSignInInput(event: Event) {
@@ -60,7 +62,8 @@
 		const isVerificationStep =
 			dialogText.includes('verification') ||
 			dialogText.includes('code') ||
-			dialogText.includes('验证码');
+			dialogText.includes('验证码') ||
+			dialogText.includes('验证');
 		if (!isVerificationStep) return;
 
 		const inputText = Array.from(dialog.querySelectorAll('input'))
@@ -74,7 +77,7 @@
 	<title>贝利卡管家</title>
 </svelte:head>
 
-<main class="bls-page px-4 text-white">
+<main class="bls-page home-has-mobile-cta px-4 text-white">
 	<div class="absolute inset-0 bg-[radial-gradient(circle_at_10%_10%,_rgba(91,157,255,0.26),_transparent_30%),radial-gradient(circle_at_90%_20%,_rgba(47,230,212,0.13),_transparent_28%),linear-gradient(135deg,_#06090f_0%,_#0a0e18_52%,_#0b1826_100%)]"></div>
 	<div class="absolute left-1/2 top-16 h-72 w-72 -translate-x-1/2 rounded-full bg-blue-500/15 blur-3xl"></div>
 	<div class="absolute -bottom-16 right-0 h-96 w-96 rounded-full bg-cyan-500/10 blur-3xl"></div>
@@ -216,6 +219,20 @@
 		</div>
 	</div>
 
+	{#if !data.user}
+		<div class="home-mobile-cta-bar md:hidden">
+			<button type="button" onclick={openSignIn} class="bls-btn">
+				开始使用
+			</button>
+		</div>
+	{:else}
+		<div class="home-mobile-cta-bar md:hidden">
+			<a href="/dashboard" class="bls-btn">
+				进入我的卡片
+			</a>
+		</div>
+	{/if}
+
 	{#if showSignIn}
 		<div class="fixed inset-0 z-50 grid place-items-center bg-slate-950/70 px-4 py-8 backdrop-blur-sm" role="dialog" aria-modal="true">
 			<button
@@ -227,34 +244,36 @@
 			<div
 				role="dialog"
 				aria-modal="true"
-				aria-labelledby="homepage-sign-in-title"
+				aria-label="登录或注册"
 				tabindex="-1"
-				class="relative w-full max-w-md rounded-[2rem] border border-white/15 bg-white p-5 text-slate-950 shadow-2xl shadow-slate-950/35"
+				class="relative w-full max-w-md rounded-[2rem] border border-white/15 bg-white p-5 pt-12 text-slate-950 shadow-2xl shadow-slate-950/35"
 				onclick={handleSignInInteraction}
 				onkeydown={handleSignInInteraction}
 				oninput={handleSignInInput}
 			>
-				<div class="mb-4 flex items-start justify-between gap-4">
-					<div>
-						<p class="text-sm font-semibold text-blue-600">贝利卡管家</p>
-						<h2 id="homepage-sign-in-title" class="mt-1 text-2xl font-black">登录后继续使用</h2>
-						{#if isSignInPending}
-							<div class="mt-4 flex items-center gap-3 rounded-2xl bg-blue-50 px-4 py-3 text-sm font-semibold text-blue-700 ring-1 ring-blue-100">
-								<span class="h-4 w-4 animate-spin rounded-full border-2 border-blue-200 border-t-blue-600"></span>
-								<span>正在登录，请稍候...</span>
-							</div>
-						{/if}
+				<button
+					type="button"
+					class="absolute right-4 top-4 grid h-9 w-9 place-items-center rounded-full bg-slate-100 text-xl leading-none text-slate-500 hover:bg-slate-200"
+					aria-label="关闭登录弹窗"
+					onclick={closeSignIn}
+				>
+					×
+				</button>
+				{#if isSignInPending}
+					<div class="mb-4 flex items-center gap-3 rounded-2xl bg-blue-50 px-4 py-3 text-sm font-semibold text-blue-700 ring-1 ring-blue-100">
+						<span class="h-4 w-4 animate-spin rounded-full border-2 border-blue-200 border-t-blue-600"></span>
+						<span>正在登录，请稍候...</span>
 					</div>
-					<button
-						type="button"
-						class="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-slate-100 text-xl leading-none text-slate-500 hover:bg-slate-200"
-						aria-label="关闭登录弹窗"
-						onclick={closeSignIn}
-					>
-						×
-					</button>
-				</div>
-				<SignIn signUpUrl="/sign-up" fallbackRedirectUrl="/dashboard" />
+				{/if}
+				<SignIn
+					routing="hash"
+					withSignUp={true}
+					signUpUrl="#/sign-up"
+					fallbackRedirectUrl="/dashboard"
+					forceRedirectUrl="/dashboard"
+					signUpFallbackRedirectUrl="/dashboard"
+					signUpForceRedirectUrl="/dashboard"
+				/>
 			</div>
 		</div>
 	{/if}

@@ -1,6 +1,9 @@
 <script lang="ts">
 	import { page } from '$app/state';
+	import { onMount } from 'svelte';
+	import { SignOutButton } from 'svelte-clerk';
 	import CardFace from '$lib/components/CardFace.svelte';
+	import MobileBottomNav from '$lib/components/MobileBottomNav.svelte';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
@@ -10,6 +13,22 @@
 	let cardSearch = $state('');
 	let selectedCountry = $state('全部地区');
 	let selectedBank = $state('全部银行');
+	let recommendationSeed = $state(1);
+
+	onMount(() => {
+		recommendationSeed = Date.now() ^ Math.floor(Math.random() * 0x7fffffff);
+	});
+
+	function seededRandom(seed: number) {
+		let value = seed >>> 0;
+		return () => {
+			value += 0x6d2b79f5;
+			let result = value;
+			result = Math.imul(result ^ (result >>> 15), result | 1);
+			result ^= result + Math.imul(result ^ (result >>> 7), result | 61);
+			return ((result ^ (result >>> 14)) >>> 0) / 4294967296;
+		};
+	}
 	const countryLabels: Record<string, string> = {
 		CN: '中国大陆',
 		HK: '中国香港',
@@ -57,25 +76,28 @@
 		| { kind: 'featured'; key: string; card: PageData['featuredCards'][number] }
 		| { kind: 'saved'; key: string; card: PageData['cards'][number] };
 	let mixedCards = $derived.by(() => {
+		const random = seededRandom(recommendationSeed);
 		const savedItems: DashboardGridItem[] = visibleCards.map((card) => ({
 			kind: 'saved',
 			key: `saved-${card.id}`,
 			card
 		}));
-		const featuredItems: DashboardGridItem[] = featuredCards.map((card) => ({
-			kind: 'featured',
-			key: `featured-${card.id}`,
-			card
-		}));
+		const featuredItems: DashboardGridItem[] = featuredCards
+			.map((card) => ({
+				kind: 'featured' as const,
+				key: `featured-${card.id}`,
+				card
+			}))
+			.sort(() => random() - 0.5)
+			.slice(0, 3);
 
 		if (savedItems.length === 0) return featuredItems;
 		if (featuredItems.length === 0) return savedItems;
 
 		const result = [...savedItems];
-		const baseLength = savedItems.length;
-		featuredItems.forEach((item, index) => {
-			const rawSlot = Math.round(((index + 1) * baseLength) / (featuredItems.length + 1));
-			const slot = Math.min(result.length, Math.max(1, rawSlot + index));
+		featuredItems.forEach((item) => {
+			const firstAllowedSlot = Math.min(2, result.length);
+			const slot = firstAllowedSlot + Math.floor(random() * (result.length - firstAllowedSlot + 1));
 			result.splice(slot, 0, item);
 		});
 		return result;
@@ -90,6 +112,10 @@
 	let reminderStart = $derived(data.reminders.length === 0 ? 0 : (reminderPage - 1) * remindersPerPage + 1);
 	let reminderEnd = $derived(Math.min(reminderPage * remindersPerPage, data.reminders.length));
 	let expandedCardIds = $state<Set<string | number>>(new Set());
+	let closestDueReminder = $derived(
+		data.reminders.find((reminder) => reminder.typeLabel === '还款日') ?? data.reminders[0] ?? null
+	);
+	let mobileReminders = $derived(closestDueReminder ? [closestDueReminder] : []);
 
 	function toggleCardDetails(cardId: string | number) {
 		expandedCardIds = new Set(expandedCardIds);
@@ -106,7 +132,18 @@
 	<title>我的卡片 — 贝利卡管家</title>
 </svelte:head>
 
-<div class="bls-page">
+<div class="bls-page app-shell">
+	<header class="app-shell-topbar dashboard-card-topbar">
+		<div class="flex min-w-0 items-center gap-2.5">
+			<img src="/images/brand/logo-mark.svg" alt="" class="h-9 w-9 shrink-0" />
+			<div class="app-shell-title min-w-0">
+				<p class="truncate">我的卡片</p>
+				<p class="truncate">{data.cards.length} 张卡 · {data.reminders.length} 条提醒</p>
+			</div>
+		</div>
+		<a href="/cards/add" class="bls-btn shrink-0 px-3 py-2 text-xs">添加</a>
+	</header>
+
 	<header class="bls-nav dashboard-nav-shell fixed inset-x-0 top-0 z-50">
 		<div class="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-3 sm:px-6 sm:py-4">
 			<a href="/dashboard" class="flex items-center gap-3">
@@ -134,11 +171,36 @@
 							<a href="/admin/catalog" class="block border-2 border-transparent px-3 py-2 text-[var(--bls-body)] hover:border-[var(--bls-cyan)] hover:bg-white/5 hover:text-white">卡库管理</a>
 							<a href="/admin/featured" class="block border-2 border-transparent px-3 py-2 text-[var(--bls-body)] hover:border-[var(--bls-cyan)] hover:bg-white/5 hover:text-white">首页推荐</a>
 						{/if}
-						<form method="POST" action="/logout">
-							<button class="block w-full border-2 border-transparent px-3 py-2 text-left text-[var(--bls-muted)] hover:border-[var(--bls-red)] hover:bg-white/5 hover:text-white">
-								退出
-							</button>
-						</form>
+						{#if data.localMock}
+							<a
+								href="/"
+								class="block w-full border-2 border-transparent px-3 py-2 text-left text-[var(--bls-muted)] hover:border-[var(--bls-red)] hover:bg-white/5 hover:text-white"
+							>
+								退出模拟登录
+							</a>
+						{:else}
+						<SignOutButton redirectUrl="/">
+							{#snippet children({ signOut })}
+								<button
+									type="button"
+									class="block w-full border-2 border-transparent px-3 py-2 text-left text-[var(--bls-muted)] hover:border-[var(--bls-red)] hover:bg-white/5 hover:text-white"
+									onclick={async () => {
+										try {
+											await fetch('/logout', {
+												method: 'POST',
+												headers: { accept: 'application/json' }
+											});
+										} catch {
+											// ignore network errors; still sign out of Clerk
+										}
+										signOut();
+									}}
+								>
+									退出
+								</button>
+							{/snippet}
+						</SignOutButton>
+						{/if}
 					</div>
 				</details>
 			</div>
@@ -166,7 +228,7 @@
 		</div>
 	</header>
 
-	<main class="dashboard-main relative mx-auto max-w-7xl px-4 pb-5 pt-24 sm:px-6 sm:pb-8 sm:pt-28">
+	<main class="dashboard-main app-shell-main relative mx-auto max-w-7xl px-4 pb-5 pt-24 sm:px-6 sm:pb-8 sm:pt-28">
 		{#if cardSaved}
 			<div class="mb-6 border-2 border-[var(--bls-green)] bg-[rgba(77,240,138,0.12)] p-4 text-sm font-semibold text-emerald-100">
 				卡片已保存，提醒设置已经加入你的卡片列表。
@@ -179,6 +241,32 @@
 			</div>
 		{/if}
 
+		<section class="app-reminder-mobile-only mb-5">
+			<div class="mb-2 flex items-center justify-between">
+				<div>
+					<p class="bls-label text-[var(--bls-gold-bright)]">Next Payment</p>
+					<h2 class="mt-0.5 text-base font-black text-white">最近还款</h2>
+				</div>
+				<span class="text-xs font-bold text-[var(--bls-cyan)]">30 天内</span>
+			</div>
+			{#if mobileReminders.length === 0}
+				<div class="rounded-lg border-2 border-white/5 bg-white/[0.04] px-3 py-3 text-xs text-[var(--bls-muted)]">
+					暂无还款提醒，添加卡片后会自动出现。
+				</div>
+			{:else}
+				<div class="app-reminder-strip">
+					{#each mobileReminders as reminder}
+						<a href="/reminders" class="app-reminder-chip">
+							<strong class="line-clamp-1">{reminder.catalogName ?? reminder.cardName}</strong>
+							<span class="line-clamp-1">{reminder.typeLabel} · 尾号 {reminder.lastFour}</span>
+							<em>{reminder.daysUntilTarget} 天后 · {reminder.targetDate}</em>
+							<b aria-hidden="true">›</b>
+						</a>
+					{/each}
+				</div>
+			{/if}
+		</section>
+
 		<div class="grid gap-6 xl:grid-cols-[minmax(0,1fr)_360px] xl:gap-8">
 			<section>
 				<div class="mb-4 flex items-center justify-between">
@@ -186,10 +274,17 @@
 						<p class="bls-label text-[var(--bls-cyan)]">Card Desk</p>
 						<h1 class="mt-1 text-xl font-black text-white">我的卡片</h1>
 					</div>
-					<a href="/cards/add" class="bls-btn px-3 py-2 text-xs sm:text-sm">
+					<a href="/cards/add" class="bls-btn hidden px-3 py-2 text-xs sm:inline-flex sm:text-sm md:inline-flex">
 						添加信用卡
 					</a>
 				</div>
+
+				{#if data.cards.length === 0}
+					<div class="mobile-saved-cards-empty bls-panel p-8 text-center">
+						<p class="text-sm text-[var(--bls-muted)]">还没有添加信用卡</p>
+						<a href="/cards/add" class="bls-btn mt-5 px-4 py-2 text-sm">添加卡片</a>
+					</div>
+				{/if}
 
 				{#if data.cards.length === 0 && featuredCards.length === 0}
 					<div class="bls-panel p-10 text-center">
@@ -249,7 +344,7 @@
 								{#if item.kind === 'featured'}
 									<a
 										href={item.card.href}
-										class="group bls-card grid grid-cols-[112px_minmax(0,1fr)] items-center gap-3 p-2 lg:hidden"
+										class="dashboard-featured-card-mobile group bls-card grid grid-cols-[112px_minmax(0,1fr)] items-center gap-3 p-2 lg:hidden"
 									>
 										<div class="relative overflow-hidden rounded-xl border-2 border-white/10 bg-[var(--bls-inset)]">
 											<img
@@ -360,9 +455,23 @@
 						{/if}
 					</div>
 				{/if}
+
+				<a
+					href="https://wx.zsxq.com/group/15555858118552"
+					target="_blank"
+					rel="noreferrer"
+					class="dashboard-ad-card dashboard-ad-card-planet dashboard-card-list-planet"
+				>
+					<span class="min-w-0">
+						<span class="bls-label text-[var(--bls-gold-bright)]">Knowledge Planet</span>
+						<span class="mt-1 block text-base font-black text-white">加入贝利知识星球</span>
+						<span class="mt-1 block text-xs leading-5 text-[var(--bls-muted)]">信用卡、积分与权益玩法，一起交流。</span>
+					</span>
+					<span class="dashboard-ad-cta">立即加入</span>
+				</a>
 			</section>
 
-			<aside class="dashboard-reminders-aside order-first xl:order-none">
+			<aside id="reminders" class="dashboard-reminders-aside">
 				<div class="dashboard-right-rail space-y-4">
 					<div class="bls-panel dashboard-reminders-panel overflow-hidden p-5">
 						<div class="flex items-center justify-between">
@@ -435,4 +544,6 @@
 			</aside>
 		</div>
 	</main>
+
+	<MobileBottomNav />
 </div>

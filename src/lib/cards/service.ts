@@ -310,6 +310,7 @@ export async function getUserCard(db: D1Database, userId: string, cardId: string
 			remind_statement: user_cards.remind_statement,
 			remind_due: user_cards.remind_due,
 			remind_annual_fee: user_cards.remind_annual_fee,
+			selected_image_url: user_cards.selected_image_url,
 			created_at: user_cards.created_at,
 				bank_name: card_catalog.bank_name,
 				card_name: card_catalog.card_name,
@@ -324,6 +325,7 @@ export async function getUserCard(db: D1Database, userId: string, cardId: string
 	if (!card) return null;
 	return {
 		...card,
+		image_url: card.selected_image_url ?? card.image_url,
 		displayName: getDisplayName(card),
 		cardStyle: getCardStyle(card.bank_name, card.card_tier)
 	};

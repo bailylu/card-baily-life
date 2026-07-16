@@ -10,6 +10,8 @@ export const users = sqliteTable('users', {
 	id: text('id').primaryKey(),
 	email: text('email').unique().notNull(),
 	password_hash: text('password_hash'),
+	clerk_user_id: text('clerk_user_id').unique(),
+	notify_synced_at: integer('notify_synced_at'),
 	created_at: integer('created_at').notNull(),
 	last_login_at: integer('last_login_at')
 });

@@ -1,5 +1,6 @@
 import { getReminderPreview, type ReminderPreview, type ReminderType } from '../cards/reminders.ts';
 import type { NotificationSettings } from './settings.ts';
+import { sendBark, sendDingTalk, sendFeishu, sendPushPlus, sendTelegram } from './senders.ts';
 
 type Fetcher = typeof fetch;
 
@@ -66,51 +67,31 @@ export function filterReminderPreviewsBySettings<T extends Pick<ReminderPreview,
 	return previews.filter((preview) => isReminderTypeEnabled(preview.type, settings));
 }
 
-function normalizeBarkKey(input: string) {
-	const value = input.trim();
-	if (!value) return '';
-	if (!/^https?:\/\//i.test(value)) return value;
-
-	try {
-		const url = new URL(value);
-		return url.pathname.split('/').filter(Boolean)[0] ?? value;
-	} catch {
-		return value;
-	}
-}
-
 function buildReminderText(reminder: ReminderPreview) {
 	const name = reminder.catalogName ?? reminder.cardName;
 	return `${name}（尾号 ${reminder.lastFour}）${reminder.typeLabel} 是 ${reminder.targetDate}，请及时确认。`;
 }
 
-async function sendBarkReminder(fetcher: Fetcher, key: string, reminder: ReminderPreview) {
-	const barkKey = normalizeBarkKey(key);
+async function sendReminderViaChannel(
+	fetcher: Fetcher,
+	channel: string,
+	settings: NotificationSettings,
+	reminder: ReminderPreview
+) {
 	const title = `贝利卡管家：${TYPE_TITLES[reminder.type]}`;
 	const content = buildReminderText(reminder);
-	const url = `https://api.day.app/${encodeURIComponent(barkKey)}/${encodeURIComponent(title)}/${encodeURIComponent(content)}`;
-	const response = await fetcher(url);
-	const result = await response.json().catch(() => null) as { code?: number; message?: string } | null;
-	if (!response.ok || (typeof result?.code === 'number' && result.code !== 200)) {
-		throw new Error(result?.message ? `Bark ${reminder.typeLabel}发送失败：${result.message}` : `Bark ${reminder.typeLabel}发送失败`);
-	}
-}
 
-async function sendPushPlusReminder(fetcher: Fetcher, token: string, reminder: ReminderPreview) {
-	const response = await fetcher('https://www.pushplus.plus/send', {
-		method: 'POST',
-		headers: { 'content-type': 'application/json' },
-		body: JSON.stringify({
-			token,
-			title: `贝利卡管家：${TYPE_TITLES[reminder.type]}`,
-			content: buildReminderText(reminder),
-			template: 'txt'
-		})
-	});
-
-	const result = await response.json().catch(() => null) as { code?: number; msg?: string } | null;
-	if (!response.ok || result?.code !== 200) {
-		throw new Error(result?.msg ? `PushPlus ${reminder.typeLabel}发送失败：${result.msg}` : `PushPlus ${reminder.typeLabel}发送失败`);
+	try {
+		if (channel === 'bark') await sendBark(fetcher, settings.barkKey, title, content);
+		if (channel === 'pushplus') await sendPushPlus(fetcher, settings.pushPlusToken, title, content);
+		if (channel === 'telegram') {
+			await sendTelegram(fetcher, settings.telegramBotToken, settings.telegramChatId, title, content);
+		}
+		if (channel === 'feishu') await sendFeishu(fetcher, settings.feishuWebhook, title, content);
+		if (channel === 'dingtalk') await sendDingTalk(fetcher, settings.dingtalkWebhook, title, content);
+	} catch (error) {
+		const message = error instanceof Error ? error.message : `${channel} 发送失败`;
+		throw new Error(`${reminder.typeLabel}${message}`);
 	}
 }
 
@@ -213,6 +194,9 @@ export async function dispatchDueReminders(db: D1Database, options: DispatchOpti
 		const channels: string[] = [];
 		if (settings.barkKey) channels.push('bark');
 		if (settings.pushPlusToken) channels.push('pushplus');
+		if (settings.telegramBotToken && settings.telegramChatId) channels.push('telegram');
+		if (settings.feishuWebhook) channels.push('feishu');
+		if (settings.dingtalkWebhook) channels.push('dingtalk');
 
 		if (channels.length === 0) continue;
 
@@ -225,8 +209,7 @@ export async function dispatchDueReminders(db: D1Database, options: DispatchOpti
 
 				if (!options.dryRun) {
 					try {
-						if (channel === 'bark') await sendBarkReminder(fetcher, settings.barkKey, reminder);
-						if (channel === 'pushplus') await sendPushPlusReminder(fetcher, settings.pushPlusToken, reminder);
+						await sendReminderViaChannel(fetcher, channel, settings, reminder);
 						await markSent(db, reminder, channel);
 					} catch (error) {
 						summary.errors.push(error instanceof Error ? error.message : `${channel} 发送失败`);

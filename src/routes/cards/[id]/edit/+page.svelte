@@ -1,5 +1,6 @@
 <script lang="ts">
 	import CardFace from '$lib/components/CardFace.svelte';
+	import MobileBottomNav from '$lib/components/MobileBottomNav.svelte';
 	import type { ActionData, PageData } from './$types';
 	let { data, form }: { data: PageData; form: ActionData } = $props();
 </script>
@@ -8,7 +9,7 @@
 	<title>编辑卡片 — card.baily.life</title>
 </svelte:head>
 
-<main class="min-h-screen bg-gray-50 px-4 py-8">
+<main class="min-h-screen bg-gray-50 px-4 py-8 app-shell">
 	<div class="mx-auto max-w-2xl">
 		<a href="/dashboard" class="text-sm text-blue-600 hover:text-blue-700">← 返回我的卡片</a>
 		<h1 class="mt-4 text-2xl font-bold text-gray-900">编辑卡片</h1>
@@ -167,4 +168,5 @@
 			</form>
 		{/if}
 	</div>
+	<MobileBottomNav active="cards" />
 </main>

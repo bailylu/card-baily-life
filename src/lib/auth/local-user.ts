@@ -63,6 +63,8 @@ export function createLocalUser(email: string, now: number): LocalUser {
 		id: createShortUserId(),
 		email,
 		password_hash: null,
+		clerk_user_id: null,
+		notify_synced_at: null,
 		created_at: now,
 		last_login_at: now
 	};

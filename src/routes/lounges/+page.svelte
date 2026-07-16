@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import cipData from '$lib/data/cip.json';
+	import MobileBottomNav from '$lib/components/MobileBottomNav.svelte';
 	import type { ActionData, PageData } from './$types';
 
 	type Channel = (typeof cipData.channels)[number];
@@ -499,7 +500,15 @@
 	<title>贵宾厅清单 — 贝利卡管家</title>
 </svelte:head>
 
-<main class="bls-page lounge-page">
+<main class="bls-page lounge-page app-shell">
+	<header class="app-shell-topbar">
+		<div class="app-shell-title min-w-0">
+			<p class="truncate">贵宾厅</p>
+			<p class="truncate">机场渠道查询</p>
+		</div>
+		<a href="/dashboard" class="bls-btn-ghost shrink-0 px-3 py-2 text-xs">卡片</a>
+	</header>
+
 	<div class="lounge-shell">
 		<nav class="lounge-nav">
 			<a href="/dashboard" class="text-sm font-bold text-[var(--bls-cyan)] hover:text-[var(--bls-gold-bright)]">← 返回我的卡片</a>
@@ -829,6 +838,8 @@
 			</div>
 		{/if}
 	</div>
+
+	<MobileBottomNav active="lounges" />
 </main>
 
 <style>
@@ -1693,6 +1704,11 @@
 	@media (max-width: 640px) {
 		.lounge-page {
 			padding: 0.9rem 0.85rem 3rem;
+		}
+
+		.lounge-page > .app-shell-topbar,
+		.lounge-hero {
+			display: none;
 		}
 
 		.lounge-comment-overlay {

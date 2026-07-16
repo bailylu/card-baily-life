@@ -7,6 +7,8 @@ export type NotificationSettings = {
 	telegramBotToken: string;
 	telegramChatId: string;
 	pushPlusToken: string;
+	feishuWebhook: string;
+	dingtalkWebhook: string;
 	statementEnabled: boolean;
 	dueEnabled: boolean;
 	annualFeeEnabled: boolean;
@@ -18,6 +20,8 @@ export const emptyNotificationSettings: NotificationSettings = {
 	telegramBotToken: '',
 	telegramChatId: '',
 	pushPlusToken: '',
+	feishuWebhook: '',
+	dingtalkWebhook: '',
 	statementEnabled: true,
 	dueEnabled: true,
 	annualFeeEnabled: true,
@@ -63,42 +67,23 @@ export async function getNotificationSettings(db: D1Database, userId: string) {
 			if (typeof config.chatId === 'string') settings.telegramChatId = config.chatId;
 		}
 		if (row.type === 'pushplus' && typeof config.token === 'string') settings.pushPlusToken = config.token;
+		if (row.type === 'feishu' && typeof config.webhook === 'string') settings.feishuWebhook = config.webhook;
+		if (row.type === 'dingtalk' && typeof config.webhook === 'string') settings.dingtalkWebhook = config.webhook;
 	}
 
 	return settings;
 }
 
-export async function saveNotificationSettings(
-	db: D1Database,
-	userId: string,
-	settings: NotificationSettings
-) {
-	const drizzle = getDb(db);
-	const now = Math.floor(Date.now() / 1000);
+function buildChannelRows(userId: string, settings: Partial<NotificationSettings>, now: number) {
+	const values: Array<{
+		id: string;
+		user_id: string;
+		type: string;
+		config: string;
+		enabled: number;
+		created_at: number;
+	}> = [];
 
-	await drizzle.delete(notification_channels).where(eq(notification_channels.user_id, userId));
-	await drizzle
-		.insert(notification_preferences)
-		.values({
-			user_id: userId,
-			statement_enabled: settings.statementEnabled ? 1 : 0,
-			due_enabled: settings.dueEnabled ? 1 : 0,
-			annual_fee_enabled: settings.annualFeeEnabled ? 1 : 0,
-			offer_enabled: settings.offerEnabled ? 1 : 0,
-			updated_at: now
-		})
-		.onConflictDoUpdate({
-			target: notification_preferences.user_id,
-			set: {
-				statement_enabled: settings.statementEnabled ? 1 : 0,
-				due_enabled: settings.dueEnabled ? 1 : 0,
-				annual_fee_enabled: settings.annualFeeEnabled ? 1 : 0,
-				offer_enabled: settings.offerEnabled ? 1 : 0,
-				updated_at: now
-			}
-		});
-
-	const values = [];
 	if (settings.barkKey) {
 		values.push({
 			id: crypto.randomUUID(),
@@ -132,8 +117,73 @@ export async function saveNotificationSettings(
 			created_at: now
 		});
 	}
+	if (settings.feishuWebhook) {
+		values.push({
+			id: crypto.randomUUID(),
+			user_id: userId,
+			type: 'feishu',
+			config: JSON.stringify({ webhook: settings.feishuWebhook }),
+			enabled: 1,
+			created_at: now
+		});
+	}
+	if (settings.dingtalkWebhook) {
+		values.push({
+			id: crypto.randomUUID(),
+			user_id: userId,
+			type: 'dingtalk',
+			config: JSON.stringify({ webhook: settings.dingtalkWebhook }),
+			enabled: 1,
+			created_at: now
+		});
+	}
 
+	return values;
+}
+
+/** Replaces a user's notification_channels rows only, leaving preferences untouched. */
+export async function saveNotificationChannels(
+	db: D1Database,
+	userId: string,
+	settings: Partial<NotificationSettings>,
+	now = Math.floor(Date.now() / 1000)
+) {
+	const drizzle = getDb(db);
+	await drizzle.delete(notification_channels).where(eq(notification_channels.user_id, userId));
+	const values = buildChannelRows(userId, settings, now);
 	if (values.length > 0) await drizzle.insert(notification_channels).values(values);
+}
+
+export async function saveNotificationSettings(
+	db: D1Database,
+	userId: string,
+	settings: NotificationSettings
+) {
+	const drizzle = getDb(db);
+	const now = Math.floor(Date.now() / 1000);
+
+	await drizzle
+		.insert(notification_preferences)
+		.values({
+			user_id: userId,
+			statement_enabled: settings.statementEnabled ? 1 : 0,
+			due_enabled: settings.dueEnabled ? 1 : 0,
+			annual_fee_enabled: settings.annualFeeEnabled ? 1 : 0,
+			offer_enabled: settings.offerEnabled ? 1 : 0,
+			updated_at: now
+		})
+		.onConflictDoUpdate({
+			target: notification_preferences.user_id,
+			set: {
+				statement_enabled: settings.statementEnabled ? 1 : 0,
+				due_enabled: settings.dueEnabled ? 1 : 0,
+				annual_fee_enabled: settings.annualFeeEnabled ? 1 : 0,
+				offer_enabled: settings.offerEnabled ? 1 : 0,
+				updated_at: now
+			}
+		});
+
+	await saveNotificationChannels(db, userId, settings, now);
 }
 
 export function settingsFromForm(formData: FormData): NotificationSettings {
@@ -144,6 +194,8 @@ export function settingsFromForm(formData: FormData): NotificationSettings {
 		telegramBotToken: String(formData.get('telegramBotToken') ?? '').trim(),
 		telegramChatId: String(formData.get('telegramChatId') ?? '').trim(),
 		pushPlusToken: String(formData.get('pushPlusToken') ?? '').trim(),
+		feishuWebhook: String(formData.get('feishuWebhook') ?? '').trim(),
+		dingtalkWebhook: String(formData.get('dingtalkWebhook') ?? '').trim(),
 		statementEnabled: enabled('statementEnabled'),
 		dueEnabled: enabled('dueEnabled'),
 		annualFeeEnabled: enabled('annualFeeEnabled'),

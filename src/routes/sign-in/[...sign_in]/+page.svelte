@@ -11,10 +11,17 @@
 		<section class="w-full max-w-md rounded-3xl border border-slate-200 bg-white p-6 shadow-xl shadow-slate-200/70">
 			<div class="mb-6">
 				<a href="/" class="text-sm font-semibold text-blue-600 hover:text-blue-700">← 返回首页</a>
-				<h1 class="mt-6 text-3xl font-black">登录贝利卡管家</h1>
-				<p class="mt-2 text-sm leading-6 text-slate-500">使用 Clerk 统一管理账号，登录后继续管理卡片、提醒和通知设置。</p>
+				<h1 class="mt-6 text-3xl font-black">登录 / 注册</h1>
+				<p class="mt-2 text-sm leading-6 text-slate-500">登录或注册后即可管理卡片、提醒和通知设置。没有账号可直接点组件内的「注册」。</p>
 			</div>
-			<SignIn signUpUrl="/sign-up" fallbackRedirectUrl="/dashboard" />
+			<SignIn
+				withSignUp={true}
+				signUpUrl="/sign-up"
+				fallbackRedirectUrl="/dashboard"
+				forceRedirectUrl="/dashboard"
+				signUpFallbackRedirectUrl="/dashboard"
+				signUpForceRedirectUrl="/dashboard"
+			/>
 		</section>
 	</div>
 </main>

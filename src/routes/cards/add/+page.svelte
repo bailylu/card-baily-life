@@ -1,5 +1,6 @@
 <script lang="ts">
 	import CardFace from '$lib/components/CardFace.svelte';
+	import MobileBottomNav from '$lib/components/MobileBottomNav.svelte';
 	import type { ActionData, PageData } from './$types';
 	let { data, form }: { data: PageData; form: ActionData } = $props();
 
@@ -32,6 +33,7 @@
 	let currentPage = $state(1);
 	let showNotificationWarning = $state(false);
 	let isSaving = $state(false);
+	let mobileStep = $state<1 | 2>(1);
 	const cardsPerPage = 12;
 	const countryLabels: Record<string, string> = {
 		CN: '中国大陆',
@@ -225,7 +227,8 @@
 
 	function handleSelectCard(cardId: number) {
 		selectedCardId = cardId;
-		if (typeof window === 'undefined' || window.matchMedia('(min-width: 1024px)').matches) return;
+		if (typeof window === 'undefined' || window.matchMedia('(min-width: 768px)').matches) return;
+		mobileStep = 2;
 		window.requestAnimationFrame(() => {
 			detailsPanel?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 		});
@@ -236,12 +239,24 @@
 	<title>添加卡片 — card.baily.life</title>
 </svelte:head>
 
-<main class="bls-page add-card-page px-4 py-5 sm:px-6 sm:py-8">
+<main class="bls-page add-card-page app-shell px-4 py-5 sm:px-6 sm:py-8">
 	<div class="relative mx-auto max-w-7xl">
 		<div class="add-card-hero">
-			<a href="/dashboard" class="text-sm font-semibold text-[var(--bls-cyan)] hover:text-[var(--bls-gold-bright)]">← 返回我的卡片</a>
+			<a href="/dashboard" class="text-sm font-semibold text-[var(--bls-cyan)] hover:text-[var(--bls-gold-bright)]">
+				<span class="add-card-back-desktop">← 返回我的卡片</span>
+				<span class="add-card-back-mobile">取消</span>
+			</a>
 			<h1 class="mt-3 text-3xl font-black tracking-tight text-white">添加卡片</h1>
 			<p class="mt-2 text-sm text-[var(--bls-muted)]">先从卡片库选择卡面，再在右侧填写提醒信息。</p>
+		</div>
+		<div class="mobile-add-progress" aria-label="添加卡片进度">
+			<button type="button" class:active={mobileStep === 1} onclick={() => (mobileStep = 1)}>
+				<span>1</span> 选卡
+			</button>
+			<div aria-hidden="true"></div>
+			<button type="button" class:active={mobileStep === 2} disabled={!selectedCardId} onclick={() => (mobileStep = 2)}>
+				<span>2</span> 提醒
+			</button>
 		</div>
 
 		{#if form?.error}
@@ -256,7 +271,7 @@
 			</div>
 		{/if}
 
-		<form method="POST" action="?/addCard" class="add-card-layout mt-6 grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_420px]" onsubmit={handleAddCardSubmit}>
+		<form method="POST" action="?/addCard" class={`add-card-layout mobile-add-step-${mobileStep} mt-6 grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_420px]`} onsubmit={handleAddCardSubmit}>
 			<section class="bls-panel add-card-library p-5 sm:p-6">
 				<div class="add-card-library-head flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
 					<div>
@@ -288,7 +303,7 @@
 						</select>
 						<select
 							bind:value={selectedType}
-							class="bls-input px-4 py-3 text-sm"
+							class="mobile-secondary-filter bls-input px-4 py-3 text-sm"
 						>
 							{#each cardTypes as type}
 								<option value={type}>{type}</option>
@@ -304,7 +319,7 @@
 						</select>
 						<select
 							bind:value={selectedNetwork}
-							class="bls-input px-4 py-3 text-sm"
+							class="mobile-secondary-filter bls-input px-4 py-3 text-sm"
 						>
 							{#each networks as network}
 								<option value={network}>{network}</option>
@@ -312,7 +327,7 @@
 						</select>
 						<select
 							bind:value={selectedTier}
-							class="bls-input px-4 py-3 text-sm"
+							class="mobile-secondary-filter bls-input px-4 py-3 text-sm"
 						>
 							{#each tiers as tier}
 								<option value={tier}>{tier}</option>
@@ -470,12 +485,20 @@
 			<aside class="add-card-panel-aside" bind:this={detailsPanel}>
 			<div class="add-card-floating-panel space-y-4">
 			<section class="bls-panel p-5">
-				<div>
+				<div class="add-card-section-heading">
 					<h2 class="text-base font-black text-white">卡片信息</h2>
 					<p class="mt-1 text-xs text-[var(--bls-muted)]">备注名称只在你的卡片列表里显示，方便自己识别。</p>
 				</div>
 				{#if selectedCard()}
-					<div class="mt-4 border-2 border-[rgba(47,230,212,0.45)] bg-[rgba(47,230,212,0.06)] p-3 shadow-[0_0_18px_rgba(47,230,212,0.1)]">
+					<div class="selected-card-summary mt-4 border-2 border-[rgba(47,230,212,0.45)] bg-[rgba(47,230,212,0.06)] p-3 shadow-[0_0_18px_rgba(47,230,212,0.1)]">
+						<CardFace
+							imageUrl={selectedImageUrl()}
+							bankName={selectedCard()?.bank_name}
+							displayName={selectedCardName}
+							cardStyle={selectedCard()!.cardStyle}
+							class="selected-card-summary-face rounded-lg"
+						/>
+						<div class="selected-card-summary-copy">
 						<p class="bls-label text-[var(--bls-cyan)]">Selected Card</p>
 						<div class="mt-2 flex items-start justify-between gap-3">
 							<div class="min-w-0">
@@ -485,6 +508,7 @@
 								</p>
 							</div>
 							<span class="shrink-0 border-2 border-[rgba(47,230,212,0.55)] bg-[rgba(47,230,212,0.12)] px-2 py-1 text-xs font-black text-[var(--bls-cyan)]">已确认</span>
+						</div>
 						</div>
 					</div>
 				{:else}
@@ -534,8 +558,8 @@
 			</section>
 
 			<section class="bls-panel p-5">
-				<div>
-					<h2 class="text-base font-black text-white">循环提醒日期</h2>
+				<div class="add-card-section-heading">
+					<h2 class="text-base font-black text-white">账单与还款</h2>
 					<p class="mt-1 text-xs leading-5 text-[var(--bls-muted)]">
 						账单日和还款日按每个自然月循环；账单日当天提醒，还款日按上面的提前天数提醒。月末日期按当月日历处理。
 					</p>
@@ -585,7 +609,7 @@
 			</section>
 
 			<section class="bls-panel p-5">
-				<div class="flex items-center justify-between">
+				<div class="add-card-section-heading flex items-center justify-between">
 					<div>
 						<h2 class="text-base font-black text-white">年费提醒（可选）</h2>
 						<p class="mt-1 text-xs text-[var(--bls-muted)]">年费通常一年一次，填写月份和日期后，每年提醒一次；不需要就留空。</p>
@@ -618,8 +642,8 @@
 				</div>
 			</section>
 
-			<button class="bls-btn w-full px-4 py-4 text-base disabled:cursor-wait disabled:opacity-75" disabled={isSaving}>
-				{isSaving ? '正在保存提醒...' : '保存提醒'}
+			<button class="mobile-save-button bls-btn w-full px-4 py-4 text-base disabled:cursor-wait disabled:opacity-75" disabled={isSaving}>
+				{isSaving ? '正在保存...' : '保存卡片'}
 			</button>
 			<a
 				href="https://wx.zsxq.com/group/15555858118552"
@@ -753,4 +777,5 @@
 			</form>
 		</details>
 	</div>
+	<MobileBottomNav active="cards" />
 </main>

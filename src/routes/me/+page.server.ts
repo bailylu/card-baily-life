@@ -8,31 +8,27 @@ import {
 	getNotificationSettings,
 	type NotificationSettings
 } from '$lib/notifications/settings';
+import { sendBark, sendDingTalk, sendFeishu, sendPushPlus, sendTelegram } from '$lib/notifications/senders';
+import { notificationChannelsFromClerkMetadata } from '$lib/notifications/clerk-sync';
 
 const TEST_TITLE = '贝利卡管家测试通知';
 const TEST_CONTENT = '这是一条即时测试通知，点击测试后会立即发送。正式的账单日、还款日和年费日提醒默认会在当天中午 12:00 发送。';
 
 type UnifiedNotificationSettings = NotificationSettings & {
-	feishuWebhook: string;
-	dingtalkWebhook: string;
 	source: 'clerk' | 'local';
 };
 
 const emptyUnifiedNotificationSettings: UnifiedNotificationSettings = {
 	...emptyNotificationSettings,
-	feishuWebhook: '',
-	dingtalkWebhook: '',
 	source: 'local'
 };
 
 function withUnifiedDefaults(
 	settings: NotificationSettings,
-	extra: Partial<Pick<UnifiedNotificationSettings, 'feishuWebhook' | 'dingtalkWebhook' | 'source'>> = {}
+	extra: Partial<Pick<UnifiedNotificationSettings, 'source'>> = {}
 ): UnifiedNotificationSettings {
 	return {
 		...settings,
-		feishuWebhook: extra.feishuWebhook ?? '',
-		dingtalkWebhook: extra.dingtalkWebhook ?? '',
 		source: extra.source ?? 'local'
 	};
 }
@@ -44,15 +40,6 @@ function getClerkUserId(locals: App.Locals) {
 
 function asObject(value: unknown) {
 	return value && typeof value === 'object' ? (value as Record<string, unknown>) : {};
-}
-
-function asText(value: unknown) {
-	return typeof value === 'string' ? value.trim() : '';
-}
-
-function channelIsEnabled(channel: Record<string, unknown>, requiredSecret: boolean) {
-	if (!requiredSecret) return false;
-	return channel.on !== false;
 }
 
 async function readClerkPrivateMetadata(env: App.Platform['env'], clerkUserId: string) {
@@ -77,31 +64,12 @@ async function getUnifiedNotificationSettings(
 	if (!clerkUserId) return withUnifiedDefaults(localSettings);
 
 	const privateMetadata = await readClerkPrivateMetadata(env, clerkUserId);
-	const notify = asObject(privateMetadata?.notify);
-	if (Object.keys(notify).length === 0) return withUnifiedDefaults(localSettings);
-
-	const bark = asObject(notify.bark);
-	const pushplus = asObject(notify.pushplus);
-	const telegram = asObject(notify.telegram);
-	const feishu = asObject(notify.feishu);
-	const dingtalk = asObject(notify.dingtalk);
-
-	const barkKey = asText(bark.key);
-	const pushPlusToken = asText(pushplus.token);
-	const telegramBotToken = asText(telegram.botToken);
-	const telegramChatId = asText(telegram.chatId);
-	const feishuWebhook = asText(feishu.webhook);
-	const dingtalkWebhook = asText(dingtalk.webhook);
-	const telegramReady = Boolean(telegramBotToken && telegramChatId);
+	const channels = notificationChannelsFromClerkMetadata(privateMetadata);
+	if (!channels) return withUnifiedDefaults(localSettings);
 
 	return {
 		...localSettings,
-		barkKey: channelIsEnabled(bark, Boolean(barkKey)) ? barkKey : '',
-		pushPlusToken: channelIsEnabled(pushplus, Boolean(pushPlusToken)) ? pushPlusToken : '',
-		telegramBotToken: channelIsEnabled(telegram, telegramReady) ? telegramBotToken : '',
-		telegramChatId: channelIsEnabled(telegram, telegramReady) ? telegramChatId : '',
-		feishuWebhook: channelIsEnabled(feishu, Boolean(feishuWebhook)) ? feishuWebhook : '',
-		dingtalkWebhook: channelIsEnabled(dingtalk, Boolean(dingtalkWebhook)) ? dingtalkWebhook : '',
+		...channels,
 		source: 'clerk'
 	};
 }
@@ -186,108 +154,22 @@ async function saveNotificationPreferences(
 		});
 }
 
-function normalizeBarkKey(input: string) {
-	const value = input.trim();
-	if (!value) return '';
-	if (!/^https?:\/\//i.test(value)) return value;
-
-	try {
-		const url = new URL(value);
-		return url.pathname.split('/').filter(Boolean)[0] ?? value;
-	} catch {
-		return value;
-	}
-}
-
-async function sendBarkTest(key: string) {
-	const barkKey = normalizeBarkKey(key);
-	const url = `https://api.day.app/${encodeURIComponent(barkKey)}/${encodeURIComponent(TEST_TITLE)}/${encodeURIComponent(TEST_CONTENT)}`;
-	const response = await fetch(url);
-	if (!response.ok) throw new Error('Bark 推送失败，请检查 Key');
-}
-
-async function sendPushPlusTest(token: string) {
-	const response = await fetch('https://www.pushplus.plus/send', {
-		method: 'POST',
-		headers: { 'content-type': 'application/json' },
-		body: JSON.stringify({
-			token,
-			title: TEST_TITLE,
-			content: TEST_CONTENT,
-			template: 'txt'
-		})
-	});
-
-	const result = await response.json().catch(() => null) as { code?: number; msg?: string } | null;
-	if (!response.ok || result?.code !== 200) {
-		throw new Error(result?.msg ? `PushPlus 推送失败：${result.msg}` : 'PushPlus 推送失败，请检查 Token');
-	}
-}
-
-async function sendTelegramTest(botToken: string, chatId: string) {
-	const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-		method: 'POST',
-		headers: { 'content-type': 'application/json' },
-		body: JSON.stringify({
-			chat_id: chatId,
-			text: `${TEST_TITLE}\n\n${TEST_CONTENT}`
-		})
-	});
-
-	const result = await response.json().catch(() => null) as { ok?: boolean; description?: string } | null;
-	if (!response.ok || !result?.ok) {
-		throw new Error(result?.description ? `Telegram 推送失败：${result.description}` : 'Telegram 推送失败，请检查 Token 和 Chat ID');
-	}
-}
-
-async function sendFeishuTest(webhook: string) {
-	const response = await fetch(webhook, {
-		method: 'POST',
-		headers: { 'content-type': 'application/json' },
-		body: JSON.stringify({
-			msg_type: 'text',
-			content: { text: `${TEST_TITLE}\n\n${TEST_CONTENT}` }
-		})
-	});
-
-	const result = (await response.json().catch(() => null)) as {
-		code?: number;
-		msg?: string;
-		StatusCode?: number;
-		StatusMessage?: string;
-	} | null;
-	const codeFailed = typeof result?.code === 'number' && result.code !== 0;
-	const statusFailed = typeof result?.StatusCode === 'number' && result.StatusCode !== 0;
-	if (!response.ok || codeFailed || statusFailed) {
-		throw new Error(result?.msg || result?.StatusMessage || '飞书推送失败，请检查 Webhook');
-	}
-}
-
-async function sendDingTalkTest(webhook: string) {
-	const response = await fetch(webhook, {
-		method: 'POST',
-		headers: { 'content-type': 'application/json' },
-		body: JSON.stringify({
-			msgtype: 'text',
-			text: { content: `${TEST_TITLE}\n\n${TEST_CONTENT}` }
-		})
-	});
-
-	const result = (await response.json().catch(() => null)) as { errcode?: number; errmsg?: string } | null;
-	if (!response.ok || (typeof result?.errcode === 'number' && result.errcode !== 0)) {
-		throw new Error(result?.errmsg ? `钉钉推送失败：${result.errmsg}` : '钉钉推送失败，请检查 Webhook');
-	}
-}
-
 async function sendTestNotification(settings: UnifiedNotificationSettings) {
 	const tasks: Array<[string, () => Promise<void>]> = [];
-	if (settings.barkKey) tasks.push(['Bark', () => sendBarkTest(settings.barkKey)]);
-	if (settings.pushPlusToken) tasks.push(['PushPlus', () => sendPushPlusTest(settings.pushPlusToken)]);
-	if (settings.telegramBotToken && settings.telegramChatId) {
-		tasks.push(['Telegram', () => sendTelegramTest(settings.telegramBotToken, settings.telegramChatId)]);
+	if (settings.barkKey) tasks.push(['Bark', () => sendBark(fetch, settings.barkKey, TEST_TITLE, TEST_CONTENT)]);
+	if (settings.pushPlusToken) {
+		tasks.push(['PushPlus', () => sendPushPlus(fetch, settings.pushPlusToken, TEST_TITLE, TEST_CONTENT)]);
 	}
-	if (settings.feishuWebhook) tasks.push(['飞书', () => sendFeishuTest(settings.feishuWebhook)]);
-	if (settings.dingtalkWebhook) tasks.push(['钉钉', () => sendDingTalkTest(settings.dingtalkWebhook)]);
+	if (settings.telegramBotToken && settings.telegramChatId) {
+		tasks.push([
+			'Telegram',
+			() => sendTelegram(fetch, settings.telegramBotToken, settings.telegramChatId, TEST_TITLE, TEST_CONTENT)
+		]);
+	}
+	if (settings.feishuWebhook) tasks.push(['飞书', () => sendFeishu(fetch, settings.feishuWebhook, TEST_TITLE, TEST_CONTENT)]);
+	if (settings.dingtalkWebhook) {
+		tasks.push(['钉钉', () => sendDingTalk(fetch, settings.dingtalkWebhook, TEST_TITLE, TEST_CONTENT)]);
+	}
 
 	if (tasks.length === 0) return { sent: [], errors: ['请先填写至少一种即时通知配置'] };
 

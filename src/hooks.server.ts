@@ -1,7 +1,8 @@
 import type { Handle } from '@sveltejs/kit';
 import { createClerkClient } from '@clerk/backend';
 import { withClerkHandler } from 'svelte-clerk/server';
-import { resolveLocalUserFromClerkUser } from '$lib/auth/local-user-d1';
+import { createD1LocalUserStore, resolveLocalUserFromClerkUser } from '$lib/auth/local-user-d1';
+import { createLocalUser, resolveLocalUserFromEmail } from '$lib/auth/local-user';
 import { getSessionCookie, getUserFromSession } from '$lib/auth/session';
 
 const securityHeaders = {
@@ -12,23 +13,108 @@ const securityHeaders = {
 	'Cross-Origin-Opener-Policy': 'same-origin-allow-popups'
 };
 
+const LOCAL_MOCK_EMAIL_COOKIE = 'local_mock_email';
+
+function getLocalMockEmail(event: Parameters<Handle>[0]['event']) {
+	if (!['127.0.0.1', 'localhost'].includes(event.url.hostname)) return null;
+
+	const requestedEmail = event.url.searchParams.get('mock_email')?.trim().toLowerCase();
+	const email = requestedEmail ?? event.cookies.get(LOCAL_MOCK_EMAIL_COOKIE)?.trim().toLowerCase();
+	if (!email || !/^\S+@\S+\.\S+$/.test(email)) return null;
+
+	if (requestedEmail) {
+		event.cookies.set(LOCAL_MOCK_EMAIL_COOKIE, email, {
+			path: '/',
+			httpOnly: true,
+			secure: false,
+			sameSite: 'lax',
+			maxAge: 60 * 60 * 8
+		});
+	}
+
+	return email;
+}
+
+function emailFromSessionClaims(auth: ReturnType<App.Locals['auth']> | null | undefined) {
+	const claims = auth && 'sessionClaims' in auth ? auth.sessionClaims : null;
+	if (!claims || typeof claims !== 'object') return null;
+
+	const record = claims as Record<string, unknown>;
+	const candidates = [
+		record.email,
+		record.email_address,
+		record.primary_email_address,
+		typeof record.email_addresses === 'string' ? record.email_addresses : null
+	];
+
+	for (const value of candidates) {
+		if (typeof value === 'string' && value.includes('@')) return value;
+	}
+	return null;
+}
+
 const loadLocalUser: Handle = async ({ event, resolve }) => {
+	const localMockEmail = getLocalMockEmail(event);
+	if (localMockEmail) {
+		event.locals.user = event.platform?.env.DB
+			? await resolveLocalUserFromEmail(createD1LocalUserStore(event.platform.env.DB), localMockEmail)
+			: createLocalUser(localMockEmail, Math.floor(Date.now() / 1000));
+		const response = await resolve(event);
+		for (const [name, value] of Object.entries(securityHeaders)) {
+			response.headers.set(name, value);
+		}
+		return response;
+	}
+
 	const sessionId = getSessionCookie(event.cookies);
 	const auth = event.locals.auth?.();
 	const clerkUserId = auth && 'userId' in auth ? auth.userId : null;
 
+	event.locals.user = null;
+
 	if (clerkUserId && event.platform?.env.DB) {
-		const clerkClient = createClerkClient({
-			secretKey: event.platform.env.CLERK_SECRET_KEY,
-			publishableKey: event.platform.env.PUBLIC_CLERK_PUBLISHABLE_KEY
-		});
-		const clerkUser = await clerkClient.users.getUser(clerkUserId);
-		event.locals.user = await resolveLocalUserFromClerkUser(event.platform.env.DB, clerkUser);
+		try {
+			const secretKey = event.platform.env.CLERK_SECRET_KEY;
+			const publishableKey = event.platform.env.PUBLIC_CLERK_PUBLISHABLE_KEY;
+			let clerkUser: {
+				id?: string | null;
+				primaryEmailAddressId?: string | null;
+				emailAddresses?: Array<{ id?: string | null; emailAddress?: string | null }> | null;
+				privateMetadata?: unknown;
+			} | null = null;
+
+			if (secretKey) {
+				const clerkClient = createClerkClient({ secretKey, publishableKey });
+				clerkUser = await clerkClient.users.getUser(clerkUserId);
+			}
+
+			if (!clerkUser) {
+				const claimEmail = emailFromSessionClaims(auth);
+				if (claimEmail) {
+					clerkUser = {
+						id: clerkUserId,
+						emailAddresses: [{ id: 'claim', emailAddress: claimEmail }],
+						primaryEmailAddressId: 'claim'
+					};
+				}
+			}
+
+			if (clerkUser) {
+				event.locals.user = await resolveLocalUserFromClerkUser(event.platform.env.DB, clerkUser);
+			}
+		} catch (error) {
+			console.error('[auth] failed to resolve local user from Clerk', error);
+			event.locals.user = null;
+		}
 	} else if (sessionId && event.platform?.env.DB) {
-		event.locals.user = await getUserFromSession(event.platform.env.DB, sessionId);
-	} else {
-		event.locals.user = null;
+		try {
+			event.locals.user = await getUserFromSession(event.platform.env.DB, sessionId);
+		} catch (error) {
+			console.error('[auth] failed to resolve local user from session', error);
+			event.locals.user = null;
+		}
 	}
+
 	const response = await resolve(event);
 	for (const [name, value] of Object.entries(securityHeaders)) {
 		response.headers.set(name, value);

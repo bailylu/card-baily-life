@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { SignOutButton } from 'svelte-clerk';
+	import MobileBottomNav from '$lib/components/MobileBottomNav.svelte';
 	import type { ActionData, PageData } from './$types';
 
 	let { data, form }: { data: PageData; form: ActionData } = $props();
@@ -42,21 +44,84 @@
 	<title>我的信息 — 贝利卡管家</title>
 </svelte:head>
 
-<main class="bls-page">
+<main class="bls-page app-shell me-page">
+	<header class="app-shell-topbar">
+		<div class="app-shell-title min-w-0">
+			<p class="truncate">我的</p>
+			<p class="truncate">{data.user?.email ?? '通知与账号'}</p>
+		</div>
+		{#if data.localMock}
+			<a href="/dashboard" class="bls-btn-ghost shrink-0 px-3 py-2 text-xs">卡片</a>
+		{:else}
+		<SignOutButton redirectUrl="/">
+			{#snippet children({ signOut })}
+				<button
+					type="button"
+					class="bls-btn-ghost shrink-0 px-3 py-2 text-xs"
+					onclick={async () => {
+						try {
+							await fetch('/logout', {
+								method: 'POST',
+								headers: { accept: 'application/json' }
+							});
+						} catch {
+							// ignore network errors; still sign out of Clerk
+						}
+						signOut();
+					}}
+				>
+					退出
+				</button>
+			{/snippet}
+		</SignOutButton>
+		{/if}
+	</header>
+
 	<header class="bls-nav">
 		<div class="mx-auto flex max-w-4xl items-center justify-between px-4 py-5">
 			<div>
 				<a href="/dashboard" class="text-sm font-semibold text-[var(--bls-cyan)] hover:text-[var(--bls-gold-bright)]">← 返回我的卡片</a>
 				<h1 class="mt-2 text-2xl font-black text-white">我的信息</h1>
 			</div>
-			<form method="POST" action="/logout">
-				<button class="bls-btn-ghost px-4 py-2 text-sm">退出</button>
-			</form>
+			{#if data.localMock}
+				<a href="/dashboard" class="bls-btn-ghost px-4 py-2 text-sm">返回卡片</a>
+			{:else}
+			<SignOutButton redirectUrl="/">
+				{#snippet children({ signOut })}
+					<button
+						type="button"
+						class="bls-btn-ghost px-4 py-2 text-sm"
+						onclick={async () => {
+							try {
+								await fetch('/logout', {
+									method: 'POST',
+									headers: { accept: 'application/json' }
+								});
+							} catch {
+								// ignore network errors; still sign out of Clerk
+							}
+							signOut();
+						}}
+					>
+						退出
+					</button>
+				{/snippet}
+			</SignOutButton>
+			{/if}
 		</div>
 	</header>
 
-	<div class="relative mx-auto max-w-4xl space-y-6 px-4 py-8">
-		<section class="bls-panel p-5">
+	<div class="app-shell-main relative mx-auto max-w-4xl space-y-6 px-4 py-8">
+		<section class="mobile-account-card">
+			<div class="mobile-account-avatar">{data.user?.email?.slice(0, 1).toUpperCase() ?? 'B'}</div>
+			<div class="min-w-0">
+				<h1>我的账户</h1>
+				<p>{data.user?.email ?? '未登录'}</p>
+			</div>
+			<span>{data.localMock ? '本地预览' : '已登录'}</span>
+		</section>
+
+		<section class="me-preferences-panel bls-panel p-5">
 			<div class="flex items-start justify-between gap-4">
 				<div>
 					<p class="bls-label text-[var(--bls-cyan)]">Preference</p>
@@ -74,10 +139,10 @@
 				<div class="mt-4 border-2 border-[var(--bls-green)] bg-[rgba(77,240,138,0.13)] p-3 text-sm text-emerald-100">通知分类已保存。</div>
 			{/if}
 
-			<form method="POST" action="?/savePreferences" class="mt-5">
+			<form method="POST" action="?/savePreferences" class="me-preference-form mt-5">
 				<div class="grid gap-3 sm:grid-cols-2">
 					{#each categories as category}
-						<label class="flex cursor-pointer items-center justify-between gap-4 border-2 border-white/10 bg-white/[0.04] p-4 hover:border-[var(--bls-cyan)]">
+						<label class="me-setting-row flex cursor-pointer items-center justify-between gap-4 border-2 border-white/10 bg-white/[0.04] p-4 hover:border-[var(--bls-cyan)]">
 							<span>
 								<span class="block font-semibold text-white">{category.title}</span>
 								<span class="mt-1 block text-sm text-[var(--bls-muted)]">{category.description}</span>
@@ -100,7 +165,7 @@
 			</form>
 		</section>
 
-		<section class="bls-panel p-5">
+		<section class="me-notification-panel bls-panel p-5">
 			<div class="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
 				<div>
 					<p class="bls-label text-[var(--bls-cyan)]">Notification</p>
@@ -180,5 +245,21 @@
 				</div>
 			</div>
 		</section>
+
+		<a
+			href="https://wx.zsxq.com/group/15555858118552"
+			target="_blank"
+			rel="noreferrer"
+			class="dashboard-ad-card dashboard-ad-card-planet me-planet-ad"
+		>
+			<span class="min-w-0">
+				<span class="bls-label text-[var(--bls-gold-bright)]">Knowledge Planet</span>
+				<span class="mt-1 block text-base font-black text-white">加入贝利知识星球</span>
+				<span class="mt-1 block text-xs leading-5 text-[var(--bls-muted)]">和 1500 位小伙伴一起玩卡，掌握信用卡、积分和权益玩法。</span>
+			</span>
+			<span class="dashboard-ad-cta">立即加入</span>
+		</a>
 	</div>
+
+	<MobileBottomNav active="me" />
 </main>

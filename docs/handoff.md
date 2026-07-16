@@ -2,87 +2,74 @@
 
 ## 这个项目是做什么的
 
-这是一个信用卡提醒网站。
+这是一个信用卡提醒网站（贝利卡管家，https://card.baily.life）。
 
 用途：
 - 记录每张信用卡的账单日、还款日、年费日
-- 之后按时间给用户发提醒
+- 到期前通过 Bark / PushPlus 推送提醒
+- 附带卡片推荐落地页、机场休息室查询、管理员卡库后台
 
 当前技术栈：
-- SvelteKit
-- TypeScript
+- SvelteKit（Svelte 5）+ TypeScript
 - Cloudflare Pages
-- Cloudflare D1
-- Drizzle ORM
+- Cloudflare D1 + Drizzle ORM
+- Clerk（登录）
+- 独立 Worker `workers/reminder-cron`（Cron 定时触发提醒）
 
 ## 现在做到哪里了
 
-当前阶段是 `M2`。
+`M1`（脚手架 + 登录 + D1 接通）、`M2`（卡片 CRUD + 提醒预览）、`M3`（提醒调度与发送）都已完成。
 
-`M1` 包含：
-- 项目脚手架
-- Cloudflare Pages + D1 基础接通
-- 白名单登录
-- 魔法链接登录
-- session 登录态
-- 空的 `/dashboard`
+当前已有的能力：
+- 卡片库（含 Cardentify 导入的 361 张卡面）、添加 / 编辑 / 删除卡片、可视化卡面选择
+- Dashboard（含 mobile-dashboard）展示卡片列表和未来 30 天提醒预览；无 D1 时回退演示卡片
+- 手机端伪 App 壳：底栏导航（卡片 / 提醒 / 贵宾厅 / 我的）、安全区与移动顶栏；设计说明见 `docs/design/`
+- 提醒调度：`workers/reminder-cron` 定时 POST `/api/reminders/run`（Bearer `REMINDER_RUN_TOKEN`），经 Bark / PushPlus / Telegram / 飞书 / 钉钉 发送（共享 `src/lib/notifications/senders.ts`），`reminder_sent` 表去重
+- Clerk 私有元数据 `notify` 里的通知配置会在登录时同步进本地 D1（`src/lib/notifications/clerk-sync.ts`，`users.notify_synced_at` 节流 5 分钟），cron 推送读的是本地表
+- 统一账单日银行（建行、交行、广发等）同日提醒自动合并为一条
+- 通知偏好（账单 / 还款 / 年费 / 活动分开开关）+ 每张卡独立提醒开关
+- 登录：Clerk（`/sign-in`、`/sign-up`）为主，兼容旧密码 + session cookie 登录；`/me` 个人设置、修改密码
+- 管理后台：`/admin/catalog`（卡库维护）、`/admin/featured`（精选活动），带 MiniMax AI 自动填充
+- 推荐办卡落地页 `/refer/*`、机场休息室 `/lounges`（含评论）
+- 帮助页：Bark / PushPlus / Telegram 配置教程
+- 安全加固与 D1 备份（见 `docs/security-runbook.md`，本地 LaunchAgent 每 7 天备份到 iCloud）
 
-当前状态：
-- `DB` binding 已配置
-- `APP_URL` 已配置
-- D1 初始化 migration 已执行
-- 本地登录链路已验证通过
-- 当前为开放测试模式，无需登录即可进入
-- 卡片 CRUD 页面已完成
-- 添加 / 编辑页已支持可视化卡片种类选择
-- Dashboard 已展示卡片列表和未来 30 天提醒预览
-- 首批卡片库种子数据已写入 `migrations/0002_seed_card_catalog.sql`
-- 演示用户卡片数据已写入 `migrations/0003_seed_demo_user_cards.sql`
-- 无 D1 绑定或 D1 临时不可用时，Dashboard 会显示演示卡片
-
-和 `M1` 相关的最新修复已经在这个分支里：
-- 分支：`codex/m1-auth-cookie-fix`
-- PR：`#1`
-
-如果正式站要用到这次修复，需要把这个 PR 合并到 `main`。
-
-## Cloudflare 上已经需要的配置
-
-这个项目现在至少需要这两个配置：
+## Cloudflare 上需要的配置
 
 - D1 binding：`DB`
-- 环境变量：`APP_URL=https://card.baily.life`
+- 环境变量 / secrets（Pages）：
+  - `APP_URL=https://card.baily.life`
+  - `CRM_API_BASE`、`CRM_API_KEY`
+  - `MINIMAX_API_BASE_URL`、MiniMax key
+  - `PUBLIC_CLERK_PUBLISHABLE_KEY`、`CLERK_SECRET_KEY`
+  - `REMINDER_RUN_TOKEN`（与 reminder-cron Worker 共用）
+- reminder-cron Worker（`workers/reminder-cron/wrangler.toml`）：`REMINDER_ENDPOINT`、`REMINDER_RUN_TOKEN`
 
 配置文件在：
-- [wrangler.toml](/Users/baily/card-baily-life/wrangler.toml)
+- [wrangler.toml](../wrangler.toml)
 
-数据库初始化 SQL 在：
-- [migrations/0001_init.sql](/Users/baily/card-baily-life/migrations/0001_init.sql)
+## 数据库 migration 注意事项（重要）
 
-如果以后换新电脑，需要重新登录 Wrangler，但不需要重新手写这些配置。
+远程 D1 用 `wrangler d1 migrations apply` 管理，**按文件名**记录在 `d1_migrations` 表里。因此：
+
+- **已应用的 migration 文件不能重命名、不能修改内容**——重命名会被当成新文件重新执行，直接报错或损坏数据。
+- 历史遗留：`0009_add_featured_promotions.sql` 和 `0009_add_variants.sql` 编号重复，但都已应用到生产库，**保持原名，不要动**。
+- 曾存在的 `0007_update_card_images 2.sql`（Finder 复制产生）已应用后被删除，`d1_migrations` 里仍有记录，属正常。
+- 新 migration 从 `0015` 开始编号，确保编号唯一（`0014_add_clerk_user_sync.sql` 已于 2026-07-10 应用到远程）。
+- 改表结构前先跑 `npm run backup:d1`。
 
 ## 当前登录方式
 
-当前不做邮箱验证，也不强制登录。
-
-现在的产品行为是：
-- 用户可以直接进入使用
-- 首页可以直接进入 dashboard
-- `/login` 只保留兼容跳转，不再承担真实登录流程
-
-后续如果要做正式用户系统，再决定回到邮箱验证或别的登录方式。
+- 主要登录：Clerk（`/sign-in`、`/sign-up`），首次登录会在 D1 `users` 表建立本地映射
+- 兼容：旧的密码登录 + session cookie（`src/lib/auth/`）
+- `/login` 只保留兼容跳转
 
 ## 新电脑最简单的接手方法
 
-如果你换到另一台电脑，最简单就做这几步：
-
 1. 从 GitHub 拉这个仓库
-2. 进入项目目录
-3. 跑 `npm install`
-4. 跑 `wrangler login`
-5. 让 AI 先读这个文件
-
-最小命令：
+2. `npm install`
+3. `wrangler login`
+4. 让 AI 先读这个文件
 
 ```bash
 git clone https://github.com/bailylu/card-baily-life.git
@@ -91,14 +78,15 @@ npm install
 wrangler login
 ```
 
-然后可以这样检查项目是不是正常：
+检查项目是否正常：
 
 ```bash
 npm run check
+npm test
 npm run build
 ```
 
-如果要本地模拟 Cloudflare Pages：
+本地模拟 Cloudflare Pages：
 
 ```bash
 npx wrangler pages dev .svelte-kit/cloudflare
@@ -106,51 +94,26 @@ npx wrangler pages dev .svelte-kit/cloudflare
 
 ## 如果让 AI 接手，直接这样说
 
-在新电脑上把项目连到 GitHub 或本地仓库后，直接对 AI 说：
-
 ```text
 继续 card-baily-life 项目。先读 docs/handoff.md、wrangler.toml、package.json，再告诉我当前进度和下一步怎么做。
 ```
 
-如果要它继续开发，也可以直接说：
-
-```text
-继续 card-baily-life 项目，先读 docs/handoff.md，再继续做 M2。
-```
-
-这样比让 AI 从整个仓库乱猜要稳定很多。
-
 ## 这个项目里最重要的几个文件
 
-- [docs/handoff.md](/Users/baily/card-baily-life/docs/handoff.md)：接手说明
-- [docs/v1-plan.md](/Users/baily/card-baily-life/docs/v1-plan.md)：产品和技术方案
-- [wrangler.toml](/Users/baily/card-baily-life/wrangler.toml)：Cloudflare 配置
-- [package.json](/Users/baily/card-baily-life/package.json)：运行命令
-- [migrations/0001_init.sql](/Users/baily/card-baily-life/migrations/0001_init.sql)：数据库初始化
-
-## 下一阶段是什么
-
-当前 `M2` 已完成：
-
-- 卡片库录入
-- 添加卡片
-- 编辑卡片
-- 删除卡片
-- Dashboard 展示近 30 天提醒预览
-- Dashboard 演示卡片回退
-- 表单解析和提醒预览单元测试
-
-下一阶段是 `M3`：
-
-- CF Email Service 配置 & 域名验证
-- Cron Trigger + 调度逻辑
-- 发送测试
+- [docs/handoff.md](handoff.md)：接手说明（本文件）
+- [docs/v1-plan.md](v1-plan.md)：产品和技术方案
+- [docs/security-runbook.md](security-runbook.md)：安全与备份流程
+- [wrangler.toml](../wrangler.toml)：Cloudflare 配置
+- [package.json](../package.json)：运行命令
+- [src/lib/cards/reminders.ts](../src/lib/cards/reminders.ts)：提醒计算核心逻辑
+- [src/lib/notifications/reminder-dispatch.ts](../src/lib/notifications/reminder-dispatch.ts)：提醒发送与去重
+- [migrations/](../migrations/)：数据库 migration（见上面的注意事项）
 
 ## 注意
 
-- GitHub 主要同步的是代码
-- Cloudflare 后台资源配置不靠 GitHub 自动同步
-- D1 表结构改动要写 migration，并执行到远程数据库
-- 正式站是否更新，取决于 Cloudflare Pages 监听的是哪个分支
+- GitHub 主要同步的是代码；Cloudflare 后台资源配置不靠 GitHub 自动同步
+- D1 表结构改动要写 migration，并执行到远程数据库（先备份）
+- 正式站是否更新，取决于 Cloudflare Pages 监听的是哪个分支（当前 `main`）
+- reminder-cron Worker 是独立部署的，改了 `workers/reminder-cron/` 要单独 `wrangler deploy`
 
 如果不确定，优先让接手的人或 AI 先读这个文件，不要直接开始改代码。

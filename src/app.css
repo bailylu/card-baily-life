@@ -22,6 +22,11 @@
 	--bls-shadow-active: 0 0 0 1px rgba(150, 170, 210, 0.22), 6px 6px 0 rgba(0, 0, 0, 0.56);
 	--bls-ring-gold: 0 0 0 1px var(--bls-gold), 0 0 14px rgba(232, 181, 61, 0.42);
 	--bls-ring-cyan: 0 0 0 1px var(--bls-cyan), 0 0 14px rgba(47, 230, 212, 0.38);
+	--app-tabbar-h: 64px;
+	--app-topbar-h: 56px;
+	--app-safe-top: env(safe-area-inset-top, 0px);
+	--app-safe-bottom: env(safe-area-inset-bottom, 0px);
+	--app-touch-min: 44px;
 }
 
 html {
@@ -547,6 +552,11 @@ textarea {
 		var(--bls-panel);
 }
 
+.dashboard-card-list-planet {
+	display: none;
+	margin-top: 1rem;
+}
+
 .dashboard-ad-cta {
 	display: inline-flex;
 	flex-shrink: 0;
@@ -949,5 +959,760 @@ textarea {
 	.dashboard-ad-cta {
 		font-size: 0.68rem;
 		padding: 0.4rem 0.55rem;
+	}
+}
+
+/* —— Mobile pseudo-app shell (phone only) —— */
+
+.app-tabbar {
+	display: none;
+}
+
+.app-shell-topbar {
+	display: none;
+}
+
+.mobile-add-progress {
+	display: none;
+}
+
+.add-card-back-mobile {
+	display: none;
+}
+
+.app-reminder-chip {
+	position: relative;
+	color: inherit;
+	text-decoration: none;
+}
+
+.app-reminder-chip > b {
+	position: absolute;
+	top: 50%;
+	right: 0.8rem;
+	transform: translateY(-50%);
+	font-size: 1.25rem;
+	font-weight: 500;
+	color: var(--bls-cyan);
+}
+
+.reminders-page {
+	min-height: 100dvh;
+	padding-bottom: calc(var(--app-tabbar-h) + var(--app-safe-bottom) + 1rem);
+}
+
+.reminders-page-header {
+	position: sticky;
+	z-index: 40;
+	top: 0;
+	display: grid;
+	grid-template-columns: 2.5rem minmax(0, 1fr) 2.5rem;
+	align-items: center;
+	min-height: 5.4rem;
+	padding: max(2.2rem, calc(0.75rem + var(--app-safe-top))) 0.9rem 0.65rem;
+	border-bottom: 1px solid rgba(150, 170, 210, 0.16);
+	background: rgba(8, 15, 29, 0.94);
+	backdrop-filter: blur(16px);
+}
+
+.reminders-page-header > a {
+	display: grid;
+	width: 2.25rem;
+	height: 2.25rem;
+	place-items: center;
+	border: 1px solid rgba(150, 170, 210, 0.18);
+	border-radius: 50%;
+	color: var(--bls-cyan);
+	font-size: 1.5rem;
+	text-decoration: none;
+}
+
+.reminders-page-header > div {
+	grid-column: 2;
+	text-align: center;
+}
+
+.reminders-page-header h1 {
+	font-size: 1rem;
+	font-weight: 900;
+	line-height: 1.2;
+}
+
+.reminders-page-header p {
+	margin-top: 0.15rem;
+	font-size: 0.66rem;
+	color: var(--bls-muted);
+}
+
+.reminders-page-main {
+	width: 100%;
+	max-width: 48rem;
+	margin: 0 auto;
+	padding: 0.85rem 0.9rem 1.25rem;
+}
+
+.reminders-page-list {
+	display: grid;
+	gap: 0.65rem;
+}
+
+.reminders-page-list article {
+	display: grid;
+	grid-template-columns: 3.1rem minmax(0, 1fr);
+	align-items: center;
+	gap: 0.8rem;
+	padding: 0.8rem;
+	border: 1px solid rgba(150, 170, 210, 0.2);
+	border-radius: 12px;
+	background: rgba(18, 24, 41, 0.92);
+	box-shadow: var(--bls-shadow-card);
+}
+
+.reminder-date-badge {
+	display: grid;
+	min-height: 3.1rem;
+	place-content: center;
+	border-radius: 10px;
+	background: rgba(47, 230, 212, 0.1);
+	text-align: center;
+}
+
+.reminder-date-badge strong {
+	color: var(--bls-gold-bright);
+	font-size: 1rem;
+	line-height: 1;
+}
+
+.reminder-date-badge span {
+	margin-top: 0.2rem;
+	color: var(--bls-muted);
+	font-size: 0.58rem;
+}
+
+.reminders-page-list h2 {
+	overflow: hidden;
+	color: #fff;
+	font-size: 0.78rem;
+	font-weight: 800;
+	line-height: 1.3;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.reminders-page-list p {
+	margin-top: 0.25rem;
+	color: var(--bls-muted);
+	font-size: 0.64rem;
+}
+
+.reminders-page-list time {
+	display: block;
+	margin-top: 0.35rem;
+	color: var(--bls-gold-bright);
+	font-size: 0.7rem;
+	font-weight: 800;
+}
+
+.reminders-empty {
+	padding: 3rem 1rem;
+	color: var(--bls-muted);
+	font-size: 0.8rem;
+	text-align: center;
+}
+
+.mobile-account-card {
+	display: none;
+}
+
+@media (max-width: 767px) {
+	/* 手机 App 的“卡片”标签只展示用户已添加的信用卡。 */
+	.dashboard-reminders-aside {
+		display: none !important;
+	}
+
+	.dashboard-card-list-planet {
+		display: flex;
+	}
+
+	.me-planet-ad {
+		margin-top: 0;
+	}
+
+	.app-reminder-mobile-only .app-reminder-strip {
+		display: grid;
+		gap: 0.65rem;
+		overflow: visible;
+	}
+
+	.app-reminder-mobile-only .app-reminder-chip {
+		width: 100%;
+		max-width: none;
+		min-width: 0;
+		padding-right: 2.4rem;
+	}
+
+	.mobile-saved-cards-empty {
+		display: block;
+	}
+
+	.me-page > .app-shell-topbar {
+		display: none;
+	}
+
+	.me-page .app-shell-main {
+		display: grid;
+		gap: 1rem;
+		padding: 1rem 0.9rem 1.25rem;
+	}
+
+	.mobile-account-card {
+		display: grid;
+		grid-template-columns: 3rem minmax(0, 1fr) auto;
+		align-items: center;
+		gap: 0.8rem;
+		padding: 0.95rem;
+		border: 1px solid rgba(150, 170, 210, 0.18);
+		border-radius: 14px;
+		background: linear-gradient(135deg, rgba(47, 230, 212, 0.12), rgba(18, 24, 41, 0.9));
+	}
+
+	.mobile-account-avatar {
+		display: grid;
+		place-items: center;
+		width: 3rem;
+		height: 3rem;
+		border-radius: 999px;
+		background: var(--bls-cyan);
+		color: #06131a;
+		font-size: 1.15rem;
+		font-weight: 950;
+	}
+
+	.mobile-account-card h1 {
+		font-size: 1rem;
+		font-weight: 900;
+		color: #fff;
+	}
+
+	.mobile-account-card p {
+		margin-top: 0.2rem;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		font-size: 0.72rem;
+		color: var(--bls-muted);
+	}
+
+	.mobile-account-card > span {
+		border-radius: 999px;
+		background: rgba(47, 230, 212, 0.12);
+		padding: 0.35rem 0.5rem;
+		font-size: 0.62rem;
+		font-weight: 800;
+		color: var(--bls-cyan);
+	}
+
+	.me-page .me-preferences-panel,
+	.me-page .me-notification-panel {
+		border: 0;
+		background: transparent;
+		padding: 0;
+		box-shadow: none;
+	}
+
+	.me-page .me-preferences-panel > div:first-child,
+	.me-page .me-notification-panel > div:first-child {
+		align-items: center;
+	}
+
+	.me-page .me-preferences-panel .bls-label,
+	.me-page .me-notification-panel .bls-label,
+	.me-page .me-preferences-panel > div:first-child p,
+	.me-page .me-notification-panel > div:first-child p,
+	.me-page .me-preferences-panel > div:first-child > span {
+		display: none;
+	}
+
+	.me-page .me-preferences-panel h2,
+	.me-page .me-notification-panel h2 {
+		margin: 0 0 0.45rem;
+		font-size: 0.76rem;
+		font-weight: 800;
+		color: var(--bls-muted);
+	}
+
+	.me-preference-form {
+		margin-top: 0;
+	}
+
+	.me-preference-form > .grid {
+		display: block;
+		overflow: hidden;
+		border: 1px solid rgba(150, 170, 210, 0.18);
+		border-radius: 12px;
+		background: rgba(18, 24, 41, 0.86);
+	}
+
+	.me-setting-row {
+		border: 0;
+		border-bottom: 1px solid rgba(150, 170, 210, 0.12);
+		background: transparent;
+		padding: 0.9rem;
+	}
+
+	.me-setting-row:last-child {
+		border-bottom: 0;
+	}
+
+	.me-setting-row span.block.font-semibold {
+		font-size: 0.88rem;
+	}
+
+	.me-setting-row span.block.text-sm {
+		margin-top: 0.18rem;
+		font-size: 0.68rem;
+	}
+
+	.me-setting-row input[type='checkbox'] {
+		appearance: none;
+		position: relative;
+		width: 2.65rem;
+		height: 1.5rem;
+		border-radius: 999px;
+		background: rgba(150, 170, 210, 0.28);
+		transition: background 150ms ease;
+	}
+
+	.me-setting-row input[type='checkbox']::before {
+		content: '';
+		position: absolute;
+		top: 0.18rem;
+		left: 0.18rem;
+		width: 1.14rem;
+		height: 1.14rem;
+		border-radius: 999px;
+		background: #fff;
+		transition: transform 150ms ease;
+	}
+
+	.me-setting-row input[type='checkbox']:checked {
+		background: var(--bls-cyan);
+	}
+
+	.me-setting-row input[type='checkbox']:checked::before {
+		transform: translateX(1.15rem);
+	}
+
+	.me-preference-form > .mt-4 {
+		margin-top: 0.7rem;
+	}
+
+	.me-preference-form .bls-btn {
+		width: 100%;
+		border-radius: 10px;
+	}
+
+	.me-notification-panel > .mt-6 {
+		margin-top: 0;
+		gap: 0.7rem;
+	}
+
+	.me-notification-panel > .mt-6 > div {
+		border-width: 1px;
+		border-radius: 12px;
+		padding: 0.9rem;
+	}
+
+	.me-notification-panel .text-2xl {
+		font-size: 1rem;
+	}
+
+	.add-card-page {
+		padding-top: 0;
+	}
+
+	.add-card-page .add-card-hero {
+		display: grid;
+		position: sticky;
+		z-index: 35;
+		top: 0;
+		grid-template-columns: 4rem 1fr 4rem;
+		align-items: center;
+		min-height: 4.35rem;
+		margin: 0 -0.9rem;
+		padding: 1.65rem 1rem 0.6rem;
+		border-bottom: 1px solid rgba(150, 170, 210, 0.16);
+		background: rgba(8, 12, 22, 0.96);
+		backdrop-filter: blur(18px);
+	}
+
+	.add-card-page .add-card-hero p {
+		display: none;
+	}
+
+	.add-card-page .add-card-hero h1 {
+		grid-column: 2;
+		grid-row: 1;
+		margin: 0;
+		text-align: center;
+		font-size: 1rem;
+		line-height: 1.2;
+	}
+
+	.add-card-page .add-card-hero > a {
+		grid-column: 1;
+		grid-row: 1;
+		font-size: 0.8rem;
+	}
+
+	.add-card-back-desktop {
+		display: none;
+	}
+
+	.add-card-back-mobile {
+		display: inline;
+	}
+
+	.mobile-add-progress {
+		display: grid;
+		position: relative;
+		z-index: 20;
+		grid-template-columns: 1fr 2rem 1fr;
+		align-items: center;
+		min-height: 3.25rem;
+		margin: 0 -0.9rem;
+		padding: 0.75rem 1rem;
+		border-bottom: 1px solid rgba(150, 170, 210, 0.14);
+		background: rgba(12, 17, 30, 0.88);
+	}
+
+	.mobile-add-progress > div {
+		height: 1px;
+		background: rgba(150, 170, 210, 0.28);
+	}
+
+	.mobile-add-progress button {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.4rem;
+		border: 0;
+		background: transparent;
+		color: var(--bls-muted);
+		font-size: 0.72rem;
+		font-weight: 800;
+	}
+
+	.mobile-add-progress button span {
+		display: grid;
+		place-items: center;
+		width: 1.35rem;
+		height: 1.35rem;
+		border-radius: 999px;
+		background: rgba(150, 170, 210, 0.16);
+	}
+
+	.mobile-add-progress button.active {
+		color: var(--bls-cyan);
+	}
+
+	.mobile-add-progress button.active span {
+		background: var(--bls-cyan);
+		color: #05121a;
+	}
+
+	.mobile-add-step-1 .add-card-panel-aside,
+	.mobile-add-step-2 .add-card-library {
+		display: none;
+	}
+
+	.mobile-add-step-2 .add-card-floating-panel {
+		gap: 0.65rem;
+		padding-bottom: 0.75rem;
+	}
+
+	.mobile-add-step-2 .add-card-floating-panel > .bls-panel {
+		border-width: 1px;
+		border-radius: 12px;
+		background: rgba(18, 24, 41, 0.82);
+		box-shadow: none;
+	}
+
+	.mobile-add-step-2 .add-card-section-heading > p {
+		display: none;
+	}
+
+	.mobile-add-step-2 .add-card-section-heading h2 {
+		font-size: 0.95rem;
+	}
+
+	.selected-card-summary {
+		display: grid;
+		grid-template-columns: 6.5rem minmax(0, 1fr);
+		align-items: center;
+		gap: 0.75rem;
+		border-width: 1px;
+		border-radius: 10px;
+	}
+
+	.selected-card-summary-face {
+		width: 100%;
+	}
+
+	.selected-card-summary-copy {
+		min-width: 0;
+	}
+
+	.selected-card-summary-copy > .bls-label,
+	.selected-card-summary-copy span.shrink-0 {
+		display: none;
+	}
+
+	.selected-card-summary-copy > div {
+		margin-top: 0;
+	}
+
+	.add-card-page .mobile-secondary-filter,
+	.add-card-page .add-card-promo-card,
+	.add-card-page .add-card-request-tile,
+	.add-card-page .add-card-planet-ad,
+	.add-card-page #request-card {
+		display: none;
+	}
+
+	.add-card-page .add-card-filter-grid {
+		grid-template-columns: 1fr 1fr;
+	}
+
+	.add-card-page .add-card-filter-grid select:nth-child(3) {
+		grid-column: auto;
+	}
+
+	.mobile-add-step-2 .mobile-save-button {
+		position: static;
+		width: 100%;
+		min-height: 3rem;
+		border-radius: 10px;
+		box-shadow: none;
+	}
+
+	.app-shell-topbar.dashboard-card-topbar {
+		display: none;
+	}
+
+	.app-shell {
+		min-height: 100dvh;
+		padding-bottom: calc(var(--app-tabbar-h) + var(--app-safe-bottom) + 0.5rem);
+	}
+
+	.app-shell .dashboard-nav-shell,
+	.app-shell > header.bls-nav:not(.app-shell-topbar) {
+		display: none;
+	}
+
+	.app-shell-topbar {
+		display: flex;
+		position: sticky;
+		top: 0;
+		z-index: 40;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.75rem;
+		min-height: calc(var(--app-topbar-h) + var(--app-safe-top));
+		padding: calc(0.55rem + var(--app-safe-top)) 1rem 0.55rem;
+		border-bottom: 1px solid rgba(232, 181, 61, 0.28);
+		background: rgba(10, 14, 24, 0.92);
+		backdrop-filter: blur(16px);
+	}
+
+	.app-shell-topbar .app-shell-title {
+		min-width: 0;
+	}
+
+	.app-shell-topbar .app-shell-title p:first-child {
+		font-size: 1rem;
+		font-weight: 900;
+		color: #fff;
+		line-height: 1.2;
+	}
+
+	.app-shell-topbar .app-shell-title p:last-child {
+		margin-top: 0.1rem;
+		font-size: 0.68rem;
+		color: var(--bls-muted);
+		line-height: 1.2;
+	}
+
+	.app-shell-main {
+		padding-top: 0.85rem !important;
+		padding-bottom: 0.5rem;
+	}
+
+	.app-tabbar {
+		display: grid;
+		position: fixed;
+		z-index: 60;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		height: calc(var(--app-tabbar-h) + var(--app-safe-bottom));
+		padding: 0.35rem 0.35rem calc(0.35rem + var(--app-safe-bottom));
+		border-top: 1px solid rgba(150, 170, 210, 0.18);
+		background: rgba(8, 12, 22, 0.96);
+		backdrop-filter: blur(18px);
+		box-shadow: 0 -8px 28px rgba(0, 0, 0, 0.35);
+	}
+
+	.app-tab {
+		display: flex;
+		min-height: var(--app-touch-min);
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 0.18rem;
+		border-radius: 8px;
+		color: var(--bls-muted);
+		text-decoration: none;
+		transition:
+			color 120ms ease,
+			background 120ms ease;
+		-webkit-tap-highlight-color: transparent;
+	}
+
+	.app-tab:active {
+		background: rgba(255, 255, 255, 0.04);
+	}
+
+	.app-tab.is-active {
+		color: var(--bls-cyan);
+	}
+
+	.app-tab-icon {
+		display: grid;
+		place-items: center;
+		width: 1.45rem;
+		height: 1.45rem;
+	}
+
+	.app-tab-icon svg {
+		width: 100%;
+		height: 100%;
+	}
+
+	.app-tab-label {
+		font-size: 0.62rem;
+		font-weight: 800;
+		letter-spacing: 0.04em;
+		line-height: 1;
+	}
+
+	.app-tab.is-active .app-tab-label {
+		color: var(--bls-cyan);
+	}
+
+	.app-reminder-strip {
+		display: flex;
+		gap: 0.65rem;
+		overflow-x: auto;
+		padding-bottom: 0.15rem;
+		scroll-snap-type: x mandatory;
+		-webkit-overflow-scrolling: touch;
+		scrollbar-width: none;
+	}
+
+	.app-reminder-strip::-webkit-scrollbar {
+		display: none;
+	}
+
+	.app-reminder-chip {
+		flex: 0 0 auto;
+		min-width: 9.5rem;
+		max-width: 12rem;
+		scroll-snap-align: start;
+		border: 2px solid rgba(150, 170, 210, 0.18);
+		border-radius: 8px;
+		background: rgba(18, 24, 41, 0.92);
+		padding: 0.7rem 0.8rem;
+		box-shadow: var(--bls-shadow-card);
+	}
+
+	.app-reminder-chip strong {
+		display: block;
+		font-size: 0.78rem;
+		font-weight: 800;
+		color: #fff;
+		line-height: 1.25;
+	}
+
+	.app-reminder-chip span {
+		display: block;
+		margin-top: 0.25rem;
+		font-size: 0.68rem;
+		color: var(--bls-muted);
+	}
+
+	.app-reminder-chip em {
+		display: block;
+		margin-top: 0.45rem;
+		font-style: normal;
+		font-size: 0.78rem;
+		font-weight: 900;
+		color: var(--bls-gold-bright);
+	}
+
+	#reminders {
+		scroll-margin-top: calc(var(--app-topbar-h) + var(--app-safe-top) + 0.5rem);
+	}
+
+	.home-mobile-cta-bar {
+		display: flex;
+		position: fixed;
+		z-index: 50;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		align-items: center;
+		justify-content: center;
+		gap: 0.65rem;
+		padding: 0.7rem 1rem calc(0.7rem + var(--app-safe-bottom));
+		border-top: 1px solid rgba(150, 170, 210, 0.16);
+		background: rgba(8, 12, 22, 0.94);
+		backdrop-filter: blur(16px);
+	}
+
+	.home-mobile-cta-bar .bls-btn {
+		flex: 1;
+		min-height: var(--app-touch-min);
+		max-width: 22rem;
+	}
+
+	.bls-page.home-has-mobile-cta {
+		padding-bottom: calc(4.5rem + var(--app-safe-bottom));
+	}
+
+	.lounge-page.app-shell {
+		padding-top: 0.5rem;
+		padding-bottom: calc(var(--app-tabbar-h) + var(--app-safe-bottom) + 1.25rem);
+	}
+
+	.lounge-page.app-shell .lounge-nav {
+		display: none;
+	}
+}
+
+@media (min-width: 768px) {
+	.mobile-saved-cards-empty {
+		display: none;
+	}
+}
+
+@media (min-width: 768px) {
+	.home-mobile-cta-bar {
+		display: none !important;
+	}
+
+	.app-reminder-mobile-only {
+		display: none !important;
 	}
 }
