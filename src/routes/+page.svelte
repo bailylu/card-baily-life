@@ -77,12 +77,12 @@
 	<title>贝利卡管家</title>
 </svelte:head>
 
-<main class="bls-page home-has-mobile-cta px-4 text-white">
+<main class="bls-page px-4 text-white" class:home-has-mobile-cta={!data.user}>
 	<div class="absolute inset-0 bg-[radial-gradient(circle_at_10%_10%,_rgba(91,157,255,0.26),_transparent_30%),radial-gradient(circle_at_90%_20%,_rgba(47,230,212,0.13),_transparent_28%),linear-gradient(135deg,_#06090f_0%,_#0a0e18_52%,_#0b1826_100%)]"></div>
 	<div class="absolute left-1/2 top-16 h-72 w-72 -translate-x-1/2 rounded-full bg-blue-500/15 blur-3xl"></div>
 	<div class="absolute -bottom-16 right-0 h-96 w-96 rounded-full bg-cyan-500/10 blur-3xl"></div>
 
-	<div class="relative mx-auto flex min-h-screen max-w-6xl flex-col justify-center py-12">
+	<div class="home-shell relative mx-auto flex min-h-screen max-w-6xl flex-col justify-center py-12">
 		<!-- Background floating credit cards -->
 		<div class="pointer-events-none absolute inset-x-[-12rem] bottom-16 top-36 z-0 overflow-hidden opacity-35 blur-[0.2px] [mask-image:radial-gradient(ellipse_at_center,black_42%,transparent_78%)]">
 			<div class="flex h-full flex-col justify-center gap-8">
@@ -118,30 +118,22 @@
 					<p class="hidden text-sm font-normal text-slate-400 sm:block">你的信用卡专属小管家</p>
 				</div>
 			</div>
-			{#if data.user}
-				<a
-					href="/dashboard"
-					class="bls-btn-ghost shrink-0 px-3 py-1.5 text-xs sm:px-4 sm:py-2 sm:text-sm"
-				>
-					进入我的卡片
-				</a>
-			{/if}
 		</nav>
 
-		<div class="relative z-10 mt-12 grid items-center gap-4 sm:mt-0 sm:gap-10 lg:grid-cols-[1.05fr_0.95fr]">
-			<section class="bls-panel relative overflow-hidden p-5 pt-8 backdrop-blur-sm sm:p-8 sm:pt-10 lg:pt-8">
-				<div class="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/10 via-slate-950/35 to-slate-950/65"></div>
-				<div class="relative">
-					<p class="bls-chip inline-flex px-2.5 py-1 text-xs sm:px-3 sm:text-sm">
+		<div class="home-hero-grid relative z-10 mt-12 grid items-center gap-4 sm:mt-0 sm:gap-10 lg:grid-cols-[1.05fr_0.95fr]">
+			<section class="home-hero-panel bls-panel relative overflow-hidden p-5 pt-8 backdrop-blur-sm sm:p-8 sm:pt-10 lg:pt-8">
+				<div class="home-hero-overlay pointer-events-none absolute inset-0 bg-gradient-to-br from-white/10 via-slate-950/35 to-slate-950/65"></div>
+				<div class="home-hero-content relative">
+					<p class="home-hero-eyebrow bls-chip inline-flex px-2.5 py-1 text-xs sm:px-3 sm:text-sm">
 						信用卡提醒，简单一点
 					</p>
-					<h1 class="mt-4 max-w-3xl text-3xl font-extrabold leading-[1.15] text-white sm:mt-6 sm:text-5xl sm:leading-[1.08] lg:text-[3.5rem]">
+					<h1 class="home-hero-title mt-4 max-w-3xl text-3xl font-extrabold leading-[1.15] text-white sm:mt-6 sm:text-5xl sm:leading-[1.08] lg:text-[3.5rem]">
 						别再错过账单日<br />还款日和年费日
 					</h1>
-					<p class="mt-3 max-w-xl text-sm leading-6 text-slate-300 sm:mt-6 sm:text-lg sm:leading-9">
+					<p class="home-hero-description mt-3 max-w-xl text-sm leading-6 text-slate-300 sm:mt-6 sm:text-lg sm:leading-9">
 						把账单、还款、年费这些容易忘的日子统一记好。提前看见，按时处理，不用再靠备忘录和临时想起。
 					</p>
-					<div class="mt-5 flex sm:mt-8">
+					<div class="home-hero-action mt-5 flex sm:mt-8">
 						{#if data.user}
 							<a
 								href="/dashboard"
@@ -176,7 +168,7 @@
 				</div>
 			</section>
 
-			<section class="relative">
+			<section class="home-card-preview relative">
 				<div class="absolute -inset-4 rounded-[2rem] bg-gradient-to-br from-blue-500/25 to-cyan-500/10 blur-2xl"></div>
 				<div class="relative mx-auto overflow-hidden border-2 border-white/15 bg-white/10 p-3 shadow-2xl backdrop-blur sm:p-5">
 					<img
@@ -224,12 +216,6 @@
 			<button type="button" onclick={openSignIn} class="bls-btn">
 				开始使用
 			</button>
-		</div>
-	{:else}
-		<div class="home-mobile-cta-bar md:hidden">
-			<a href="/dashboard" class="bls-btn">
-				进入我的卡片
-			</a>
 		</div>
 	{/if}
 
@@ -333,6 +319,72 @@
 		.background-card-row,
 		.background-card {
 			animation: none;
+		}
+	}
+
+	@media (max-width: 767px) {
+		.bls-page {
+			height: 100dvh;
+			overflow: hidden;
+			overscroll-behavior: none;
+		}
+
+		.home-shell {
+			height: 100dvh;
+			min-height: 0;
+			justify-content: center;
+			overflow: hidden;
+			padding-top: 3.6rem;
+			padding-bottom: 0.55rem;
+		}
+
+		.home-hero-grid {
+			display: grid;
+			min-height: 0;
+			margin-top: 0;
+			gap: 0.55rem;
+		}
+
+		.home-hero-panel {
+			order: 2;
+			border: 0;
+			background: transparent;
+			box-shadow: none;
+			padding: 0;
+		}
+
+		.home-hero-overlay,
+		.home-hero-eyebrow,
+		.home-hero-title,
+		.home-hero-description {
+			display: none;
+		}
+
+		.home-hero-action {
+			margin-top: 0;
+		}
+
+		.home-hero-action :global(.bls-btn) {
+			width: 100%;
+			min-height: 3rem;
+		}
+
+		.home-card-preview {
+			order: 1;
+			min-height: 0;
+		}
+
+		.home-card-preview > div:last-child {
+			padding: 0.6rem;
+		}
+
+		.home-card-preview img {
+			max-height: 27dvh;
+			object-fit: cover;
+		}
+
+		.home-card-preview .mt-2\.5 {
+			margin-top: 0.45rem;
 		}
 	}
 </style>

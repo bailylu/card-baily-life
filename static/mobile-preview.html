@@ -104,11 +104,18 @@
       </div>
       <section class="phone" aria-label="手机端预览">
         <iframe
+		  id="mobile-app-frame"
           name="mobile-app-frame"
-          src="/dashboard?mock_email=451248901%40qq.com"
+          src="/"
           title="贝利卡管家手机端预览"
         ></iframe>
       </section>
     </main>
+	<script>
+	  const requestedPath = new URLSearchParams(window.location.search).get('path');
+	  if (requestedPath?.startsWith('/')) {
+		document.querySelector('#mobile-app-frame').src = requestedPath;
+	  }
+	</script>
   </body>
 </html>
