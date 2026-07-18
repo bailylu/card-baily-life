@@ -11,7 +11,8 @@
 		"backup:d1": "node scripts/backup-d1.mjs",
 		"backup:d1:install": "node scripts/install-d1-backup-launch-agent.mjs",
 		"cards:images": "node scripts/generate-card-image-migration.mjs",
-		"prepare": "svelte-kit sync || echo ''",
+		"optimize-images": "node scripts/optimize-images.mjs --all",
+		"prepare": "svelte-kit sync || echo ''; node scripts/setup-git-hooks.mjs",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
 	},
@@ -23,6 +24,7 @@
 		"@sveltejs/vite-plugin-svelte": "^7.0.0",
 		"@tailwindcss/vite": "^4.2.4",
 		"drizzle-kit": "^0.31.10",
+		"sharp": "^0.34.5",
 		"svelte": "^5.55.2",
 		"svelte-check": "^4.4.6",
 		"tailwindcss": "^4.2.4",

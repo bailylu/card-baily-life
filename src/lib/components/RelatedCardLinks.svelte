@@ -47,7 +47,7 @@
 	<div class="mt-5 grid gap-4 md:grid-cols-2">
 		{#each relatedCards as card}
 			<a href={card.href} class="group grid gap-4 rounded-2xl bg-slate-50 p-4 ring-1 ring-slate-200 transition hover:-translate-y-0.5 hover:bg-white hover:shadow-lg hover:shadow-slate-200 sm:grid-cols-[180px_minmax(0,1fr)]">
-				<img src={card.image} alt={card.name} class="aspect-[1.586] w-full rounded-xl bg-white object-contain ring-1 ring-slate-200" />
+				<img src={card.image} alt={card.name} class="aspect-[1.586] w-full rounded-xl bg-white object-contain ring-1 ring-slate-200" loading="lazy" />
 				<div class="min-w-0">
 					<h3 class="text-lg font-black text-slate-950">{card.name}</h3>
 					<p class="mt-2 text-sm leading-6 text-slate-500">{card.description}</p>

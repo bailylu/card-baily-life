@@ -1,0 +1,15 @@
+#!/usr/bin/env node
+import { execFileSync } from 'node:child_process';
+
+const output = execFileSync('git', ['diff', '--cached', '--name-only', '--diff-filter=ACM'], {
+	encoding: 'utf8'
+});
+const files = output.split('\n').filter((file) => /^static\/images\/.*\.(png|jpe?g|webp|svg)$/i.test(file));
+
+if (files.length === 0) {
+	process.exit(0);
+}
+
+console.log(`[pre-commit] Optimizing ${files.length} image(s)...`);
+execFileSync('node', ['scripts/optimize-images.mjs', ...files], { stdio: 'inherit' });
+execFileSync('git', ['add', ...files], { stdio: 'inherit' });

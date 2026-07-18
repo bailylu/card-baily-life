@@ -351,6 +351,7 @@
 												src={item.card.image}
 												alt={item.card.alt}
 												class="aspect-[1.586] w-full object-cover"
+												loading="lazy"
 											/>
 											<span class="bls-rec-badge bls-rec-badge-compact">推荐</span>
 										</div>
@@ -372,6 +373,7 @@
 													src={item.card.image}
 													alt={item.card.alt}
 													class="aspect-[1.586] w-full object-cover"
+													loading="lazy"
 												/>
 												<span class="bls-rec-badge">推荐</span>
 											</div>
