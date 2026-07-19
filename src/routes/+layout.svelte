@@ -38,6 +38,22 @@
 		}
 	};
 
+	// 与 app.css 的 --bls-* 设计变量保持一致，让 Clerk 组件融入全站深色风格
+	const clerkAppearance = {
+		variables: {
+			colorPrimary: '#e8b53d',
+			colorBackground: '#121829',
+			colorInputBackground: '#0c111e',
+			colorText: '#ecf1fb',
+			colorTextSecondary: '#828fab',
+			colorInputText: '#ecf1fb',
+			colorNeutral: '#c2cce0',
+			colorDanger: '#ff5a5a',
+			colorSuccess: '#4df08a',
+			borderRadius: '8px'
+		}
+	};
+
 	onMount(() => {
 		registerServiceWorker();
 	});
@@ -65,6 +81,7 @@
 		signInForceRedirectUrl="/dashboard"
 		signUpForceRedirectUrl="/dashboard"
 		localization={clerkLocalization as never}
+		appearance={clerkAppearance}
 	>
 		{@render appContent()}
 	</ClerkProvider>

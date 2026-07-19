@@ -6,13 +6,13 @@
 	<title>登录 — 贝利卡管家</title>
 </svelte:head>
 
-<main class="min-h-screen bg-slate-50 px-4 py-10 text-slate-950">
+<main class="bls-page min-h-screen px-4 py-10 text-white">
 	<div class="mx-auto flex min-h-[calc(100vh-5rem)] max-w-5xl items-center justify-center">
-		<section class="w-full max-w-md rounded-3xl border border-slate-200 bg-white p-6 shadow-xl shadow-slate-200/70">
+		<section class="bls-panel w-full max-w-md p-6">
 			<div class="mb-6">
-				<a href="/" class="text-sm font-semibold text-blue-600 hover:text-blue-700">← 返回首页</a>
-				<h1 class="mt-6 text-3xl font-black">登录 / 注册</h1>
-				<p class="mt-2 text-sm leading-6 text-slate-500">登录或注册后即可管理卡片、提醒和通知设置。没有账号可直接点组件内的「注册」。</p>
+				<a href="/" class="text-sm font-semibold text-[var(--bls-cyan)] hover:text-[var(--bls-gold-bright)]">← 返回首页</a>
+				<h1 class="mt-6 text-3xl font-black text-white">登录 / 注册</h1>
+				<p class="mt-2 text-sm leading-6 text-[var(--bls-muted)]">登录或注册后即可管理卡片、提醒和通知设置。没有账号可直接点组件内的「注册」。</p>
 			</div>
 			<SignIn
 				withSignUp={true}

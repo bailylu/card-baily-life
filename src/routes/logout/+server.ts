@@ -18,7 +18,7 @@ function clearClerkCookies(cookies: Parameters<RequestHandler>[0]['cookies'], se
 	}
 }
 
-export const POST: RequestHandler = async ({ cookies, platform, url, request }) => {
+async function performLogout({ cookies, platform, url }: Pick<Parameters<RequestHandler>[0], 'cookies' | 'platform' | 'url'>) {
 	const sessionId = getSessionCookie(cookies);
 	const secureCookie = url.protocol === 'https:';
 	if (sessionId && platform?.env.DB) {
@@ -27,10 +27,21 @@ export const POST: RequestHandler = async ({ cookies, platform, url, request }) 
 	clearSessionCookie(cookies, secureCookie);
 	// Best-effort browser cookie clear; Clerk client signOut still revokes the session.
 	clearClerkCookies(cookies, secureCookie);
+	// 本地开发的 mock 登录 cookie（仅 localhost 存在）
+	cookies.delete('local_mock_email', { path: '/', secure: secureCookie, sameSite: 'lax' });
+}
+
+export const POST: RequestHandler = async ({ cookies, platform, url, request }) => {
+	await performLogout({ cookies, platform, url });
 
 	if (request.headers.get('accept')?.includes('application/json')) {
 		return new Response(null, { status: 204 });
 	}
 
+	redirect(302, '/');
+};
+
+export const GET: RequestHandler = async ({ cookies, platform, url }) => {
+	await performLogout({ cookies, platform, url });
 	redirect(302, '/');
 };

@@ -77,7 +77,7 @@
 	<title>贝利卡管家</title>
 </svelte:head>
 
-<main class="bls-page px-4 text-white" class:home-has-mobile-cta={!data.user}>
+<main class="bls-page px-4 text-white">
 	<div class="absolute inset-0 bg-[radial-gradient(circle_at_10%_10%,_rgba(91,157,255,0.26),_transparent_30%),radial-gradient(circle_at_90%_20%,_rgba(47,230,212,0.13),_transparent_28%),linear-gradient(135deg,_#06090f_0%,_#0a0e18_52%,_#0b1826_100%)]"></div>
 	<div class="absolute left-1/2 top-16 h-72 w-72 -translate-x-1/2 rounded-full bg-blue-500/15 blur-3xl"></div>
 	<div class="absolute -bottom-16 right-0 h-96 w-96 rounded-full bg-cyan-500/10 blur-3xl"></div>
@@ -211,13 +211,6 @@
 		</div>
 	</div>
 
-	{#if !data.user}
-		<div class="home-mobile-cta-bar md:hidden">
-			<button type="button" onclick={openSignIn} class="bls-btn">
-				开始使用
-			</button>
-		</div>
-	{/if}
 
 	{#if showSignIn}
 		<div class="fixed inset-0 z-50 grid place-items-center bg-slate-950/70 px-4 py-8 backdrop-blur-sm" role="dialog" aria-modal="true">
@@ -232,22 +225,22 @@
 				aria-modal="true"
 				aria-label="登录或注册"
 				tabindex="-1"
-				class="relative w-full max-w-md rounded-[2rem] border border-white/15 bg-white p-5 pt-12 text-slate-950 shadow-2xl shadow-slate-950/35"
+				class="relative w-full max-w-md rounded-2xl border-2 border-[var(--bls-line-strong)] bg-[var(--bls-panel)] p-5 pt-12 text-white shadow-2xl shadow-black/60"
 				onclick={handleSignInInteraction}
 				onkeydown={handleSignInInteraction}
 				oninput={handleSignInInput}
 			>
 				<button
 					type="button"
-					class="absolute right-4 top-4 grid h-9 w-9 place-items-center rounded-full bg-slate-100 text-xl leading-none text-slate-500 hover:bg-slate-200"
+					class="absolute right-4 top-4 grid h-9 w-9 place-items-center rounded-full bg-white/10 text-xl leading-none text-[var(--bls-muted)] hover:bg-white/20 hover:text-white"
 					aria-label="关闭登录弹窗"
 					onclick={closeSignIn}
 				>
 					×
 				</button>
 				{#if isSignInPending}
-					<div class="mb-4 flex items-center gap-3 rounded-2xl bg-blue-50 px-4 py-3 text-sm font-semibold text-blue-700 ring-1 ring-blue-100">
-						<span class="h-4 w-4 animate-spin rounded-full border-2 border-blue-200 border-t-blue-600"></span>
+					<div class="mb-4 flex items-center gap-3 rounded-xl border border-[rgba(47,230,212,0.35)] bg-[rgba(47,230,212,0.08)] px-4 py-3 text-sm font-semibold text-[var(--bls-cyan)]">
+						<span class="h-4 w-4 animate-spin rounded-full border-2 border-[rgba(47,230,212,0.3)] border-t-[var(--bls-cyan)]"></span>
 						<span>正在登录，请稍候...</span>
 					</div>
 				{/if}
@@ -323,19 +316,16 @@
 	}
 
 	@media (max-width: 767px) {
+		/* min-height + safe center：内容放得下就一屏居中，放不下允许滚动，避免矮屏上下被裁切 */
 		.bls-page {
-			height: 100dvh;
-			overflow: hidden;
-			overscroll-behavior: none;
+			min-height: 100dvh;
 		}
 
 		.home-shell {
-			height: 100dvh;
-			min-height: 0;
-			justify-content: center;
-			overflow: hidden;
+			min-height: 100dvh;
+			justify-content: safe center;
 			padding-top: 3.6rem;
-			padding-bottom: 0.55rem;
+			padding-bottom: 1rem;
 		}
 
 		.home-hero-grid {
