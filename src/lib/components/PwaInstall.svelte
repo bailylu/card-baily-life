@@ -29,6 +29,9 @@
 		isIos = /iphone|ipad|ipod/i.test(navigator.userAgent);
 		dismissed = localStorage.getItem(DISMISS_KEY) === '1';
 
+		// 桌面端不展示安装引导，只在移动端提示
+		if (window.matchMedia('(min-width: 768px)').matches) return;
+
 		if (isStandalone || dismissed) return;
 
 		const onBip = (e: Event) => {
@@ -104,9 +107,14 @@
 		position: fixed;
 		z-index: 80;
 		right: 0.75rem;
-		bottom: calc(var(--app-tabbar-h, 3.75rem) + var(--app-safe-bottom, 0px) + 0.65rem);
+		bottom: calc(var(--app-safe-bottom, 0px) + 0.75rem);
 		left: 0.75rem;
 		pointer-events: none;
+	}
+
+	/* 页面有底部导航栏时抬高，避免盖住导航 */
+	:global(body:has(.app-tabbar)) .pwa-install {
+		bottom: calc(var(--app-tabbar-h, 3.75rem) + var(--app-safe-bottom, 0px) + 0.65rem);
 	}
 
 	.pwa-install-inner {
@@ -171,12 +179,10 @@
 		cursor: pointer;
 	}
 
+	/* 桌面端不展示（JS 也有同样的判断，这里兜底） */
 	@media (min-width: 768px) {
 		.pwa-install {
-			right: 1.25rem;
-			bottom: 1.25rem;
-			left: auto;
-			width: min(22rem, calc(100vw - 2rem));
+			display: none;
 		}
 	}
 </style>
