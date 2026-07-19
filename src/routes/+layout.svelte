@@ -38,7 +38,8 @@
 		}
 	};
 
-	// 与 app.css 的 --bls-* 设计变量保持一致，让 Clerk 组件融入全站深色风格
+	// 与 app.css 的 --bls-* 设计变量保持一致，让 Clerk 组件融入全站深色风格。
+	// elements 里把 Clerk 自带的卡片壳去掉（避免「卡中卡」），按钮与输入框按全站设计重绘。
 	const clerkAppearance = {
 		variables: {
 			colorPrimary: '#e8b53d',
@@ -51,6 +52,43 @@
 			colorDanger: '#ff5a5a',
 			colorSuccess: '#4df08a',
 			borderRadius: '8px'
+		},
+		elements: {
+			rootBox: { width: '100%' },
+			cardBox: { width: '100%', background: 'transparent', border: '0', boxShadow: 'none' },
+			card: { background: 'transparent', border: '0', boxShadow: 'none', padding: '0' },
+			headerTitle: { fontWeight: '900', fontSize: '1.3rem', letterSpacing: '0.01em' },
+			headerSubtitle: { color: '#828fab', fontSize: '0.85rem' },
+			socialButtonsBlockButton: {
+				background: 'rgba(255, 255, 255, 0.05)',
+				border: '2px solid rgba(150, 170, 210, 0.22)',
+				borderRadius: '8px',
+				minHeight: '2.8rem',
+				fontWeight: '700'
+			},
+			dividerLine: { background: 'rgba(150, 170, 210, 0.22)' },
+			dividerText: { color: '#828fab' },
+			formFieldLabel: { fontWeight: '700', color: '#c2cce0' },
+			formFieldInput: {
+				background: '#0c111e',
+				border: '2px solid rgba(150, 170, 210, 0.22)',
+				borderRadius: '8px',
+				minHeight: '2.75rem',
+				color: '#ecf1fb'
+			},
+			formButtonPrimary: {
+				background: 'linear-gradient(180deg, #ffda7b, #e8b53d)',
+				color: '#0a0e18',
+				fontWeight: '900',
+				fontSize: '0.95rem',
+				minHeight: '2.9rem',
+				borderRadius: '8px',
+				border: '0',
+				boxShadow: '0 0 0 1px #e8b53d, 0 0 14px rgba(232, 181, 61, 0.35)',
+				textTransform: 'none'
+			},
+			footer: { background: 'transparent' },
+			footerActionLink: { color: '#2fe6d4', fontWeight: '700' }
 		}
 	};
 

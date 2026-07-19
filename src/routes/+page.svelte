@@ -225,19 +225,29 @@
 				aria-modal="true"
 				aria-label="登录或注册"
 				tabindex="-1"
-				class="relative w-full max-w-md rounded-2xl border-2 border-[var(--bls-line-strong)] bg-[var(--bls-panel)] p-5 pt-12 text-white shadow-2xl shadow-black/60"
+				class="relative w-full max-w-md overflow-hidden rounded-2xl border-2 border-[var(--bls-line-strong)] bg-[var(--bls-panel)] p-5 text-white shadow-2xl shadow-black/60"
 				onclick={handleSignInInteraction}
 				onkeydown={handleSignInInteraction}
 				oninput={handleSignInInput}
 			>
-				<button
-					type="button"
-					class="absolute right-4 top-4 grid h-9 w-9 place-items-center rounded-full bg-white/10 text-xl leading-none text-[var(--bls-muted)] hover:bg-white/20 hover:text-white"
-					aria-label="关闭登录弹窗"
-					onclick={closeSignIn}
-				>
-					×
-				</button>
+				<div class="pointer-events-none absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-transparent via-[var(--bls-gold)] to-transparent"></div>
+				<div class="mb-2 flex items-center justify-between gap-3">
+					<div class="flex items-center gap-2.5">
+						<img src="/images/brand/logo-mark.svg" alt="" class="h-9 w-9" />
+						<div>
+							<p class="text-sm font-black leading-tight text-white">贝利卡管家</p>
+							<p class="bls-label mt-0.5 text-[10px] text-[var(--bls-cyan)]">Card Desk</p>
+						</div>
+					</div>
+					<button
+						type="button"
+						class="grid h-9 w-9 place-items-center rounded-lg border-2 border-white/10 bg-white/5 text-lg leading-none text-[var(--bls-muted)] transition hover:border-[var(--bls-cyan)] hover:text-[var(--bls-cyan)]"
+						aria-label="关闭登录弹窗"
+						onclick={closeSignIn}
+					>
+						×
+					</button>
+				</div>
 				{#if isSignInPending}
 					<div class="mb-4 flex items-center gap-3 rounded-xl border border-[rgba(47,230,212,0.35)] bg-[rgba(47,230,212,0.08)] px-4 py-3 text-sm font-semibold text-[var(--bls-cyan)]">
 						<span class="h-4 w-4 animate-spin rounded-full border-2 border-[rgba(47,230,212,0.3)] border-t-[var(--bls-cyan)]"></span>
