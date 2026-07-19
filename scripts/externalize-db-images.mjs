@@ -88,9 +88,13 @@ for (const row of variantRows) {
 		const file = await dataUriToWebpFile(variant.imageUrl, `catalog-${row.id}-v${index}.webp`);
 		if (!file) continue;
 		totalSaved += variant.imageUrl.length - file.publicPath.length;
-		// 用户卡面若选中的是这张变体图，改指到新文件（比对内容而非快照 id，换库执行也成立）。
+		// 用户卡面若选中的是这张变体图，改指到新文件。
+		// 用「长度 + 前缀」指纹匹配而不是整段 data URI 字面量，避免语句超出 D1 的 SQLITE_TOOBIG 上限。
 		statements.push(
-			`UPDATE user_cards SET selected_image_url = ${sqlText(file.publicPath)} WHERE selected_image_url = ${sqlText(variant.imageUrl)};`
+			`UPDATE user_cards SET selected_image_url = ${sqlText(file.publicPath)}
+WHERE selected_image_url LIKE 'data:%'
+  AND length(selected_image_url) = ${variant.imageUrl.length}
+  AND substr(selected_image_url, 1, 300) = ${sqlText(variant.imageUrl.slice(0, 300))};`
 		);
 		variant.imageUrl = file.publicPath;
 		changed = true;
