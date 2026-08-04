@@ -20,7 +20,13 @@ export const GET: RequestHandler = async ({ url, platform, setHeaders }) => {
 	const network = detectNetwork(raw);
 	const result = await lookupBin(platform?.env.DB, raw);
 
-	setHeaders({ 'cache-control': 'public, max-age=3600' });
+	// 只缓存查到了发卡行信息的成功结果。失败或降级的结果一律不缓存——
+	// 否则数据源故障期间的「未收录」会被边缘缓存住，修好之后用户还要再看一小时。
+	// debug 查询用于排查上游状态，永远不能走缓存。
+	const cacheable = !result.unavailable && result.source !== 'stale' && url.searchParams.get('debug') !== '1';
+	setHeaders({
+		'cache-control': cacheable ? 'public, max-age=3600' : 'no-store'
+	});
 
 	return json({
 		bin: raw,
