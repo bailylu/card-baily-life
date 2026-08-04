@@ -35,6 +35,8 @@ export type LookupResult = {
 	/** 上游限流或不可用，且没有任何缓存可用 */
 	unavailable: boolean;
 	fetchedAt: number | null;
+	/** 上游 HTTP 状态码；网络层直接失败时为 null。用于区分限流(429)和封禁(403) */
+	upstreamStatus: number | null;
 };
 
 type CacheRow = typeof bin_cache.$inferSelect;
@@ -141,19 +143,25 @@ async function writeCache(db: D1Database, detail: BinDetail, fetchedAt: number) 
 	}
 }
 
-async function fetchFromBinlist(bin: string): Promise<BinDetail | 'not-found' | 'unavailable'> {
+type FetchOutcome =
+	| { kind: 'ok'; detail: BinDetail; status: number }
+	| { kind: 'not-found'; status: number }
+	| { kind: 'unavailable'; status: number | null };
+
+async function fetchFromBinlist(bin: string): Promise<FetchOutcome> {
 	try {
 		const response = await fetch(`${BINLIST_ENDPOINT}/${bin}`, {
 			headers: { 'Accept-Version': '3' },
 			signal: AbortSignal.timeout(FETCH_TIMEOUT_MS)
 		});
 
-		if (response.status === 404) return 'not-found';
-		if (!response.ok) return 'unavailable';
+		if (response.status === 404) return { kind: 'not-found', status: 404 };
+		if (!response.ok) return { kind: 'unavailable', status: response.status };
 
-		return payloadToDetail(bin, await response.json());
+		return { kind: 'ok', detail: payloadToDetail(bin, await response.json()), status: 200 };
 	} catch {
-		return 'unavailable';
+		// 超时或网络层直接失败，拿不到状态码
+		return { kind: 'unavailable', status: null };
 	}
 }
 
@@ -170,26 +178,34 @@ export async function lookupBin(db: D1Database | undefined, bin: string): Promis
 			detail: rowToDetail(cached),
 			source: 'cache',
 			unavailable: false,
-			fetchedAt: cached.fetched_at
+			fetchedAt: cached.fetched_at,
+			upstreamStatus: null
 		};
 	}
 
 	const fetched = await fetchFromBinlist(bin);
 
-	if (fetched === 'unavailable') {
+	if (fetched.kind === 'unavailable') {
 		if (cached) {
 			return {
 				detail: rowToDetail(cached),
 				source: 'stale',
 				unavailable: false,
-				fetchedAt: cached.fetched_at
+				fetchedAt: cached.fetched_at,
+				upstreamStatus: fetched.status
 			};
 		}
-		return { detail: null, source: 'none', unavailable: true, fetchedAt: null };
+		return {
+			detail: null,
+			source: 'none',
+			unavailable: true,
+			fetchedAt: null,
+			upstreamStatus: fetched.status
+		};
 	}
 
 	const detail: BinDetail =
-		fetched === 'not-found'
+		fetched.kind === 'not-found'
 			? {
 					bin,
 					found: false,
@@ -200,9 +216,15 @@ export async function lookupBin(db: D1Database | undefined, bin: string): Promis
 					country: null,
 					bank: null
 				}
-			: fetched;
+			: fetched.detail;
 
 	if (db) await writeCache(db, detail, now);
 
-	return { detail, source: 'live', unavailable: false, fetchedAt: now };
+	return {
+		detail,
+		source: 'live',
+		unavailable: false,
+		fetchedAt: now,
+		upstreamStatus: fetched.status
+	};
 }

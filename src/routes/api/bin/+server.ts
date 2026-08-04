@@ -27,6 +27,8 @@ export const GET: RequestHandler = async ({ url, platform, setHeaders }) => {
 		network,
 		detail: result.detail,
 		source: result.source,
-		unavailable: result.unavailable
+		unavailable: result.unavailable,
+		// 排查上游可用性时用：?debug=1 会带上 binlist 返回的状态码
+		...(url.searchParams.get('debug') === '1' ? { upstreamStatus: result.upstreamStatus } : {})
 	});
 };
