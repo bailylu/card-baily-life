@@ -130,3 +130,21 @@ export const lounge_comments = sqliteTable('lounge_comments', {
 	body: text('body').notNull(),
 	created_at: integer('created_at').notNull()
 });
+
+export const bin_cache = sqliteTable('bin_cache', {
+	bin: text('bin').primaryKey(),
+	found: integer('found').notNull().default(0),
+	scheme: text('scheme'),
+	brand: text('brand'),
+	card_type: text('card_type'),
+	prepaid: integer('prepaid'),
+	country_alpha2: text('country_alpha2'),
+	country_name: text('country_name'),
+	country_emoji: text('country_emoji'),
+	country_currency: text('country_currency'),
+	bank_name: text('bank_name'),
+	bank_url: text('bank_url'),
+	bank_phone: text('bank_phone'),
+	bank_city: text('bank_city'),
+	fetched_at: integer('fetched_at').notNull()
+});

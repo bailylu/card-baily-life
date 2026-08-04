@@ -165,6 +165,7 @@
 						</div>
 						<a href="https://baily.life/" target="_blank" rel="noreferrer" class="dashboard-menu-mobile-link mt-2 border-2 border-transparent px-3 py-2 text-[var(--bls-body)] hover:border-[var(--bls-cyan)] hover:bg-white/5 hover:text-white">贝利主页</a>
 						<a href="/lounges" class="dashboard-menu-mobile-link border-2 border-transparent px-3 py-2 text-[var(--bls-body)] hover:border-[var(--bls-cyan)] hover:bg-white/5 hover:text-white">贵宾厅清单</a>
+						<a href="/bin" class="dashboard-menu-mobile-link border-2 border-transparent px-3 py-2 text-[var(--bls-body)] hover:border-[var(--bls-cyan)] hover:bg-white/5 hover:text-white">BIN 查询</a>
 						<a href="https://wx.zsxq.com/group/15555858118552" target="_blank" rel="noreferrer" class="dashboard-menu-mobile-link border-2 border-transparent px-3 py-2 text-[var(--bls-body)] hover:border-[var(--bls-cyan)] hover:bg-white/5 hover:text-white">知识星球</a>
 						<a href="/me" class="mt-2 block border-2 border-transparent px-3 py-2 text-[var(--bls-body)] hover:border-[var(--bls-cyan)] hover:bg-white/5 hover:text-white">我的信息</a>
 						{#if data.isAdmin}
@@ -215,6 +216,9 @@
 				</a>
 				<a href="/lounges" class="bls-nav-link">
 					贵宾厅
+				</a>
+				<a href="/bin" class="bls-nav-link">
+					BIN 查询
 				</a>
 				<a
 					href="https://wx.zsxq.com/group/15555858118552"

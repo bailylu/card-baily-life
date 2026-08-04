@@ -121,6 +121,35 @@
 			<span>{data.localMock ? '本地预览' : '已登录'}</span>
 		</section>
 
+		<section class="bls-panel p-5">
+			<p class="bls-label text-[var(--bls-cyan)]">Tools</p>
+			<h2 class="mt-1 text-lg font-black text-white">常用工具</h2>
+			<div class="mt-4 grid gap-3 sm:grid-cols-2">
+				<a
+					href="/bin"
+					class="flex items-center justify-between gap-3 border-2 border-white/10 bg-white/[0.04] p-4 hover:border-[var(--bls-cyan)]"
+				>
+					<span>
+						<span class="block font-semibold text-white">BIN 查询</span>
+						<span class="mt-1 block text-sm text-[var(--bls-muted)]">
+							输入卡号前 6-8 位，查发卡行、卡组织和发卡国
+						</span>
+					</span>
+					<span class="shrink-0 text-[var(--bls-cyan)]">→</span>
+				</a>
+				<a
+					href="/lounges"
+					class="flex items-center justify-between gap-3 border-2 border-white/10 bg-white/[0.04] p-4 hover:border-[var(--bls-cyan)]"
+				>
+					<span>
+						<span class="block font-semibold text-white">贵宾厅清单</span>
+						<span class="mt-1 block text-sm text-[var(--bls-muted)]">按机场查可用的贵宾厅渠道</span>
+					</span>
+					<span class="shrink-0 text-[var(--bls-cyan)]">→</span>
+				</a>
+			</div>
+		</section>
+
 		<section class="me-preferences-panel bls-panel p-5">
 			<div class="flex items-start justify-between gap-4">
 				<div>

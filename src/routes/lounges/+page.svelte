@@ -513,6 +513,7 @@
 		<nav class="lounge-nav">
 			<a href="/dashboard" class="text-sm font-bold text-[var(--bls-cyan)] hover:text-[var(--bls-gold-bright)]">← 返回我的卡片</a>
 			<div class="lounge-nav-links">
+				<a href="/bin" class="bls-nav-link">BIN 查询</a>
 				<a href="https://baily.life/" target="_blank" rel="noreferrer" class="bls-nav-link">贝利主页</a>
 				<a href="https://wx.zsxq.com/group/15555858118552" target="_blank" rel="noreferrer" class="bls-nav-link">知识星球</a>
 			</div>
