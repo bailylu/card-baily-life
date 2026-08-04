@@ -78,8 +78,8 @@
 
 	let sourceNote = $derived.by(() => {
 		if (!result) return '';
-		if (result.unavailable) return '外部数据源暂时不可用，以下只有本地识别结果';
-		if (result.source === 'stale') return '外部数据源暂时不可用，展示的是上次缓存的结果';
+		if (result.unavailable) return '发卡行数据源当前不可用，以下仅为本地识别结果';
+		if (result.source === 'stale') return '发卡行数据源当前不可用，展示的是上次缓存的结果';
 		if (result.source === 'cache') return '来自本站缓存';
 		return '来自 binlist 实时查询';
 	});
@@ -296,7 +296,9 @@
 			<h3>关于这个查询</h3>
 			<ul>
 				<li>卡组织和卡号长度由本站按公开的 IIN 规则本地判断，稳定可靠。</li>
-				<li>发卡行、发卡国家等信息来自 binlist.net 的公开数据，为社区维护，中国大陆中小银行覆盖有限，仅供参考。</li>
+				<li>
+					发卡行、发卡国家等信息依赖外部数据源，目前该数据源不可用，这几项会显示「未收录」，我们正在更换数据源。
+				</li>
 				<li>BIN 查询<strong>无法</strong>验证一张卡是否真实存在、是否有效，也查不到余额、有效期或持卡人信息。</li>
 				<li>本页面不保存你输入的任何内容，只在服务端缓存 BIN 前缀对应的公开发卡行信息。</li>
 			</ul>
